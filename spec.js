@@ -5,7 +5,8 @@ const {
   fn100,
   fn200,
   fn300,
-  fn400
+  fn400,
+  fn500
 } = require('./fns');
 
 const output3 = fn100([1, 2, 5], a => (a + 1) * 2);
