@@ -11,6 +11,7 @@ const {
   each,
   filter,
   padding,
+  intersection,
 } = require('./fns');
 
 const output3 = fn100([1, 2, 5], a => (a + 1) * 2);
@@ -98,6 +99,19 @@ test(x, false, 'everybut1.4');
 test(padding('abc', 10), '       abc', 'padding.1');
 test(padding('abcdef', 10), '    abcdef', 'padding.2');
 test(padding('abcd', 6), '  abcd', 'padding.3');
+
+x = intersection([1,2,3],[4,5,6]);
+test(x.length, 0, 'intersection');
+x = intersection([1,2,3,4,5,6], [4,5,6]);
+test(x.length, 3, 'intersection');
+test(x[0], 4, 'intersection.1');
+test(x[1], 5, 'intersection.2');
+test(x[2], 6, 'intersection.3');
+x = intersection([4,5,6],[1,2,3,4,5,6]);
+test(x.length, 3, 'intersection');
+test(x[0], 4, 'intersection.4');
+test(x[1], 5, 'intersection.5');
+test(x[2], 6, 'intersection.6');
 
 // each,
 // filter,
