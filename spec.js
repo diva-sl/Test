@@ -95,6 +95,10 @@ test(x, false, 'everybut1.3');
 var x = everybut1([1, 3], isOdd);
 test(x, false, 'everybut1.4');
 
+test(padding('abc', 10), '       abc', 'padding.1');
+test(padding('abcdef', 10), '    abcdef', 'padding.2');
+test(padding('abcd', 6), '  abcd', 'padding.3');
+
 // each,
 // filter,
 // padding,
