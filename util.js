@@ -1,7 +1,8 @@
 const test = (exp, act, msg) => {
  if(exp !== act) {
-  throw `${msg} \n Expected: ${exp}, but got: ${act}`;
+  throw `Failed:\t${msg} \n\tExpected: ${exp}, but got: ${act}`;
  }
+ console.log(`Passed:\t${msg}`);
 }
 
 module.exports = { test };
