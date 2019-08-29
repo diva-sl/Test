@@ -78,10 +78,23 @@ var y = every([1, 3, 5], isOdd);
 test(y, true, 'every');
 
 var x = atleast2([1, 2, 3, 4], isOdd);
-test(x, true, 'some');
+test(x, true, 'atleast2.1');
 var x = atleast2([1, 2, 4, 6], isOdd);
-test(x, false, 'some');
+test(x, false, 'atleast2.2');
 var x = atleast2([2, 4, 6], isOdd);
-test(x, false, 'some');
+test(x, false, 'atleast2.3');
 var x = atleast2([1, 3], isOdd);
-test(x, true, 'some');
+test(x, true, 'atleast2.4');
+
+var x = everybut1([1, 2, 3, 4], isOdd);
+test(x, false, 'everybut1.1');
+var x = everybut1([2, 1, 3, 5], isOdd);
+test(x, true, 'everybut1.2');
+var x = everybut1([2, 4, 6], isOdd);
+test(x, false, 'everybut1.3');
+var x = everybut1([1, 3], isOdd);
+test(x, false, 'everybut1.4');
+
+// each,
+// filter,
+// padding,
