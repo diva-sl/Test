@@ -5,7 +5,12 @@ const {
   fn100,
   fn200,
   some,
-  every
+  every,
+  atleast2,
+  everybut1,
+  each,
+  filter,
+  padding,
 } = require('./fns');
 
 const output3 = fn100([1, 2, 5], a => (a + 1) * 2);
@@ -71,3 +76,12 @@ var y = every([1, 2, 4, 6], isOdd);
 test(y, false, 'every');
 var y = every([1, 3, 5], isOdd);
 test(y, true, 'every');
+
+var x = atleast2([1, 2, 3, 4], isOdd);
+test(x, true, 'some');
+var x = atleast2([1, 2, 4, 6], isOdd);
+test(x, false, 'some');
+var x = atleast2([2, 4, 6], isOdd);
+test(x, false, 'some');
+var x = atleast2([1, 3], isOdd);
+test(x, true, 'some');
