@@ -4,9 +4,8 @@ const {
 const {
   fn100,
   fn200,
-  fn300,
-  fn400,
-  fn500
+  some,
+  every
 } = require('./fns');
 
 const output3 = fn100([1, 2, 5], a => (a + 1) * 2);
@@ -35,14 +34,14 @@ test(output2.length, 2, 'fn100');
 test(output2[0], 23, 'fn100');
 test(output2[1], 34, 'fn100');
 
-const asc = (a,b) => {
-  return (a<b)? -1: (b<a)? 1: 0;
+const asc = (a, b) => {
+  return (a < b) ? -1 : (b < a) ? 1 : 0;
 };
-const desc = (a,b) => {
-  return (a<b)? 1: (b<a)? -1: 0;
+const desc = (a, b) => {
+  return (a < b) ? 1 : (b < a) ? -1 : 0;
 };
 
-const output4 = fn200([1,4,5,2,3], asc);
+const output4 = fn200([1, 4, 5, 2, 3], asc);
 test(output4.length, 5, 'fn200');
 test(output4[0], 1, 'fn200');
 test(output4[1], 2, 'fn200');
@@ -50,10 +49,25 @@ test(output4[2], 3, 'fn200');
 test(output4[3], 4, 'fn200');
 test(output4[4], 5, 'fn200');
 
-const output5 = fn200([1,4,5,2,3], desc);
+const output5 = fn200([1, 4, 5, 2, 3], desc);
 test(output5.length, 5, 'fn200');
 test(output5[0], 5, 'fn200');
 test(output5[1], 4, 'fn200');
 test(output5[2], 3, 'fn200');
 test(output5[3], 2, 'fn200');
 test(output5[4], 1, 'fn200');
+
+const isOdd = n => n % 2 == 1;
+var x = some([1, 2, 3, 4], isOdd);
+test(x, true, 'some');
+var x = some([1, 2, 4, 6], isOdd);
+test(x, true, 'some');
+var x = some([2, 4, 6], isOdd);
+test(x, false, 'some');
+
+var y = every([1, 2, 3, 4], isOdd);
+test(y, false, 'every');
+var y = every([1, 2, 4, 6], isOdd);
+test(y, false, 'every');
+var y = every([1, 3, 5], isOdd);
+test(y, true, 'every');
