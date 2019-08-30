@@ -104,6 +104,13 @@ test(x[0], 4, 'intersection.4');
 test(x[1], 5, 'intersection.5');
 test(x[2], 6, 'intersection.6');
 
+x = all.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
+test(x.length, 3, 'intersection');
+test(x[0], 4, 'intersection.7');
+test(x[1], 5, 'intersection.8');
+test(x[2], 6, 'intersection.9');
+
+
 x = all.zip(['a', 'b'], [1, 2], [true, false]);
 test(x.length, 2, 'zip.1');
 test(x[0][0], 'a', 'zip.2');
