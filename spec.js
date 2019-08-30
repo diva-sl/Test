@@ -1,5 +1,6 @@
 const {
-    test
+    test,
+    testDeep
 } = require('./util');
 const all = require('./fns');
 
@@ -82,49 +83,46 @@ var x = all.everybut1([2, 1, 3, 5], isOdd);
 test(x, true, 'everybut1.2');
 var x = all.everybut1([2, 4, 6], isOdd);
 test(x, false, 'everybut1.3');
-var x = all.everybut1([1, 3], isOdd);
-test(x, false, 'everybut1.4');
+var actual = all.everybut1([1, 3], isOdd);
+test(actual, false, 'everybut1.4');
 
 test(all.padding('abc', 10), '       abc', 'padding.1');
 test(all.padding('abcdef', 10), '    abcdef', 'padding.2');
 test(all.padding('abcd', 6), '  abcd', 'padding.3');
 
-x = all.intersection([1, 2, 3], [4, 5, 6]);
-test(x.length, 0, 'intersection');
+actual = all.intersection([1, 2, 3], [4, 5, 6]);
+test(actual.length, 0, 'intersection');
 
-x = all.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
-test(x.length, 3, 'intersection');
-test(x[0], 4, 'intersection.1');
-test(x[1], 5, 'intersection.2');
-test(x[2], 6, 'intersection.3');
+actual = all.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
+test(actual.length, 3, 'intersection');
+test(actual[0], 4, 'intersection.1');
+test(actual[1], 5, 'intersection.2');
+test(actual[2], 6, 'intersection.3');
 
-x = all.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
-test(x.length, 3, 'intersection');
-test(x[0], 4, 'intersection.4');
-test(x[1], 5, 'intersection.5');
-test(x[2], 6, 'intersection.6');
+actual = all.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
+test(actual.length, 3, 'intersection');
+test(actual[0], 4, 'intersection.4');
+test(actual[1], 5, 'intersection.5');
+test(actual[2], 6, 'intersection.6');
 
-x = all.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
-test(x.length, 3, 'intersection');
-test(x[0], 4, 'intersection.7');
-test(x[1], 5, 'intersection.8');
-test(x[2], 6, 'intersection.9');
+actual = all.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
+test(actual.length, 3, 'intersection');
+test(actual[0], 4, 'intersection.7');
+test(actual[1], 5, 'intersection.8');
+test(actual[2], 6, 'intersection.9');
 
-x = all.intersection([4, 6, 3], [1, 2, 4]);
-test(x.length, 1, 'intersection');
-test(x[0], 4, 'intersection.7');
+actual = all.intersection([4, 6, 3], [1, 2, 4]);
+test(actual.length, 1, 'intersection');
+test(actual[0], 4, 'intersection.7');
 
-x = all.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
-test(x.length, 2, 'intersection');
-test(x[0], 2, 'intersection.7');
-test(x[1], 3, 'intersection.8');
+actual = all.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
+test(actual.length, 2, 'intersection');
+test(actual[0], 2, 'intersection.7');
+test(actual[1], 3, 'intersection.8');
 
-x = all.zip(['a', 'b'], [1, 2], [true, false]);
-test(x.length, 2, 'zip.1');
-test(x[0][0], 'a', 'zip.2');
-test(x[0][1], 1, 'zip.3');
-test(x[1][0], 'b', 'zip.4');
-test(x[1][1], 2, 'zip.5');
+actual = all.zip(['a', 'b'], [1, 2], [true, false]);
+var expected = [['a', 1, true], ['b', 2, false]];
+testDeep(actual, expected, 'all.zip');
 // each,
 // filter,
 // padding,
