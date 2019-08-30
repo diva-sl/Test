@@ -120,16 +120,39 @@ test(actual.length, 2, 'intersection');
 test(actual[0], 2, 'intersection.7');
 test(actual[1], 3, 'intersection.8');
 
-actual = all.zip(['a', 'b'], [1, 2], [true, false]);
-var expected = [['a', 1, true], ['b', 2, false]];
+actual = all.zip(
+    ['aa', 'bb'],
+    [1000, 2000],
+    [true, false]
+);
+var expected = [
+    ['aa', 1000, true],
+    ['bb', 2000, false]
+];
 testDeep(actual, expected, 'all.zip');
 
-actual = all.zip(['a', 'b'], [1, 2], [true, false], [1]);
-expected = [['a', 1, true, 1], ['b', 2, false, undefined]];
+actual = all.zip(
+    ['aa', 'bb'],
+    [1000, 2000],
+    [true, false],
+    [5000]
+);
+expected = [
+    ['aa', 1000, true, 5000],
+    ['bb', 2000, false, undefined]
+];
 testDeep(actual, expected, 'all.zip');
 
-actual = all.zip(['a', 'b', 'c'], [2, 3, 5], [true, false]);
-expected = [['a', 2, true], ['b', 3, false], ['c', 5, undefined]];
+actual = all.zip(
+    ['a', 'b', 'c'],
+    [2, 3, 5],
+    ['x', 'y']
+);
+expected = [
+    ['a', 2, 'x'],
+    ['b', 3, 'y'],
+    ['c', 5, undefined]
+];
 testDeep(actual, expected, 'all.zip');
 
 // each,
