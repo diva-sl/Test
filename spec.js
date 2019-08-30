@@ -1,53 +1,42 @@
 const {
-  test
+    test
 } = require('./util');
-const {
-  fn100,
-  fn200,
-  some,
-  every,
-  atleast2,
-  everybut1,
-  each,
-  filter,
-  padding,
-  intersection,
-} = require('./fns');
+const all = require('./fns');
 
-const output3 = fn100([1, 2, 5], a => (a + 1) * 2);
+const output3 = all.fn100([1, 2, 5], a => (a + 1) * 2);
 test(output3.length, 3, 'fn100');
 test(output3[0], 4, 'fn100');
 test(output3[1], 6, 'fn100');
 test(output3[2], 12, 'fn100');
 
 const input1 = [{
-  name: 'ram',
-  age: 23,
-  sex: 'M'
+    name: 'ram',
+    age: 23,
+    sex: 'M'
 }, {
-  name: 'babu',
-  age: 34,
-  sex: 'F'
+    name: 'babu',
+    age: 34,
+    sex: 'F'
 }];
 
-const output1 = fn100(input1, a => a.name);
+const output1 = all.fn100(input1, a => a.name);
 test(output1.length, 2, 'fn100');
 test(output1[0], 'ram', 'fn100');
 test(output1[1], 'babu', 'fn100');
 
-const output2 = fn100(input1, a => a.age);
+const output2 = all.fn100(input1, a => a.age);
 test(output2.length, 2, 'fn100');
 test(output2[0], 23, 'fn100');
 test(output2[1], 34, 'fn100');
 
 const asc = (a, b) => {
-  return (a < b) ? -1 : (b < a) ? 1 : 0;
+    return (a < b) ? -1 : (b < a) ? 1 : 0;
 };
 const desc = (a, b) => {
-  return (a < b) ? 1 : (b < a) ? -1 : 0;
+    return (a < b) ? 1 : (b < a) ? -1 : 0;
 };
 
-const output4 = fn200([1, 4, 5, 2, 3], asc);
+const output4 = all.fn200([1, 4, 5, 2, 3], asc);
 test(output4.length, 5, 'fn200');
 test(output4[0], 1, 'fn200');
 test(output4[1], 2, 'fn200');
@@ -55,7 +44,7 @@ test(output4[2], 3, 'fn200');
 test(output4[3], 4, 'fn200');
 test(output4[4], 5, 'fn200');
 
-const output5 = fn200([1, 4, 5, 2, 3], desc);
+const output5 = all.fn200([1, 4, 5, 2, 3], desc);
 test(output5.length, 5, 'fn200');
 test(output5[0], 5, 'fn200');
 test(output5[1], 4, 'fn200');
@@ -64,55 +53,63 @@ test(output5[3], 2, 'fn200');
 test(output5[4], 1, 'fn200');
 
 const isOdd = n => n % 2 == 1;
-var x = some([1, 2, 3, 4], isOdd);
+var x = all.some([1, 2, 3, 4], isOdd);
 test(x, true, 'some');
-var x = some([1, 2, 4, 6], isOdd);
+var x = all.some([1, 2, 4, 6], isOdd);
 test(x, true, 'some');
-var x = some([2, 4, 6], isOdd);
+var x = all.some([2, 4, 6], isOdd);
 test(x, false, 'some');
 
-var y = every([1, 2, 3, 4], isOdd);
+var y = all.every([1, 2, 3, 4], isOdd);
 test(y, false, 'every');
-var y = every([1, 2, 4, 6], isOdd);
+var y = all.every([1, 2, 4, 6], isOdd);
 test(y, false, 'every');
-var y = every([1, 3, 5], isOdd);
+var y = all.every([1, 3, 5], isOdd);
 test(y, true, 'every');
 
-var x = atleast2([1, 2, 3, 4], isOdd);
-test(x, true, 'atleast2.1');
-var x = atleast2([1, 2, 4, 6], isOdd);
-test(x, false, 'atleast2.2');
-var x = atleast2([2, 4, 6], isOdd);
-test(x, false, 'atleast2.3');
-var x = atleast2([1, 3], isOdd);
-test(x, true, 'atleast2.4');
+var x = all.atleast2([1, 2, 3, 4], isOdd);
+test(x, true, 'all.atleast2.1');
+var x = all.atleast2([1, 2, 4, 6], isOdd);
+test(x, false, 'all.atleast2.2');
+var x = all.atleast2([2, 4, 6], isOdd);
+test(x, false, 'all.atleast2.3');
+var x = all.atleast2([1, 3], isOdd);
+test(x, true, 'all.atleast2.4');
 
-var x = everybut1([1, 2, 3, 4], isOdd);
+var x = all.everybut1([1, 2, 3, 4], isOdd);
 test(x, false, 'everybut1.1');
-var x = everybut1([2, 1, 3, 5], isOdd);
+var x = all.everybut1([2, 1, 3, 5], isOdd);
 test(x, true, 'everybut1.2');
-var x = everybut1([2, 4, 6], isOdd);
+var x = all.everybut1([2, 4, 6], isOdd);
 test(x, false, 'everybut1.3');
-var x = everybut1([1, 3], isOdd);
+var x = all.everybut1([1, 3], isOdd);
 test(x, false, 'everybut1.4');
 
-test(padding('abc', 10), '       abc', 'padding.1');
-test(padding('abcdef', 10), '    abcdef', 'padding.2');
-test(padding('abcd', 6), '  abcd', 'padding.3');
+test(all.padding('abc', 10), '       abc', 'padding.1');
+test(all.padding('abcdef', 10), '    abcdef', 'padding.2');
+test(all.padding('abcd', 6), '  abcd', 'padding.3');
 
-x = intersection([1,2,3],[4,5,6]);
+x = all.intersection([1, 2, 3], [4, 5, 6]);
 test(x.length, 0, 'intersection');
-x = intersection([1,2,3,4,5,6], [4,5,6]);
+
+x = all.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
 test(x.length, 3, 'intersection');
 test(x[0], 4, 'intersection.1');
 test(x[1], 5, 'intersection.2');
 test(x[2], 6, 'intersection.3');
-x = intersection([4,5,6],[1,2,3,4,5,6]);
+
+x = all.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
 test(x.length, 3, 'intersection');
 test(x[0], 4, 'intersection.4');
 test(x[1], 5, 'intersection.5');
 test(x[2], 6, 'intersection.6');
 
+x = all.zip(['a', 'b'], [1, 2], [true, false]);
+test(x.length, 2, 'zip.1');
+test(x[0][0], 'a', 'zip.2');
+test(x[0][1], 1, 'zip.3');
+test(x[1][0], 'b', 'zip.4');
+test(x[1][1], 2, 'zip.5');
 // each,
 // filter,
 // padding,
