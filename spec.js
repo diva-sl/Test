@@ -232,4 +232,13 @@ describe('tests', () => {
 
         testDeep('2', actual, [{'user': 'karan', 'age': 16, 'active': true}]);
     });
+
+    it('merge', () => {
+        var actual = fns.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
+        testDeep('1', actual, {name: 'ram', age: 20, weight: 70, height: 165});
+
+        actual = fns.merge({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
+
+        testDeep('2', actual, {name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
+    });
 });
