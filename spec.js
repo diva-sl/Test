@@ -293,4 +293,16 @@ describe('tests', () => {
         deepEquals('2', fns.superfunction3(()=>250)(), 250);
         deepEquals('3', fns.superfunction3(()=>50)(), 50);
     });
+
+    it('superfunction4', () => {
+        var actualFn = fns.superfunction4(0);
+        deepEquals('1', actualFn(), 1);
+        deepEquals('2', actualFn(), 2);
+        deepEquals('3', actualFn(), 3);
+
+        actualFn = fns.superfunction4(50);
+        deepEquals('4', actualFn(), 51);
+        deepEquals('5', actualFn(), 52);
+        deepEquals('6', actualFn(), 53);
+    });
 });
