@@ -216,4 +216,20 @@ describe('tests', () => {
 
         testDeep('1', fns.reverse(fns.reverse([1, 'n', 'a', 5])), [1, 'n', 'a', 5]);
     });
+
+    it('filter', () => {
+        var users = [
+            {'user': 'karan', 'age': 16, 'active': true},
+            {'user': 'sundar', 'age': 20, 'active': false}
+        ];
+
+        var actual = fns.filter(users, (o) => {
+            return !o.active;
+        });
+        testDeep('1', actual, [{'user': 'sundar', 'age': 20, 'active': false}]);
+
+        actual = fns.filter(users, {'age': 16, 'active': true});
+
+        testDeep('2', actual, [{'user': 'karan', 'age': 16, 'active': true}]);
+    });
 });
