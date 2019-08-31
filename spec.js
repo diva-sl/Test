@@ -324,15 +324,20 @@ describe('tests', () => {
         deepEquals('1', fns.before(1, 2), true);
         deepEquals('2', fns.before(3, 10), true);
         deepEquals('3', fns.before(30, 3), false);
+
         deepEquals('4', fns.before('a', 'b'), true);
         deepEquals('5', fns.before('c', 'd'), true);
         deepEquals('6', fns.before('f', 'a'), false);
+
         deepEquals('7', fns.before(new Date('2017-01-01'), new Date('2018-01-01')), true);
         deepEquals('8', fns.before(new Date('2018-01-01'), new Date('2017-01-01')), false);
+
         deepEquals('9', fns.before(() => 10, () => 20), true);
         deepEquals('10', fns.before(() => 'f', () => 'a'), false);
+
         deepEquals('11', fns.before(()=> () => 10, ()=> () => 20), true);
         deepEquals('12', fns.before(()=> () => 'f', ()=> () => 'a'), false);
+
         deepEquals('13', fns.before(()=> () => () => 10, ()=> () => () => 20), true);
         deepEquals('14', fns.before(()=> () => () => 'f', ()=> () => () => 'a'), false);
     });
