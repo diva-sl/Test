@@ -1,8 +1,8 @@
 const {
     it,
     describe,
-    test,
-    testDeep
+    equals,
+    deepEquals,
 } = require('./util');
 
 const fns = require('./fns');
@@ -14,10 +14,10 @@ describe('tests', () => {
 
     it('fn100', () => {
         let o = fns.fn100([1, 2, 5], a => (a + 1) * 2);
-        test('fn100', o.length, 3);
-        test('fn100', o[0], 4);
-        test('fn100', o[1], 6);
-        test('fn100', o[2], 12);
+        equals('fn100', o.length, 3);
+        equals('fn100', o[0], 4);
+        equals('fn100', o[1], 6);
+        equals('fn100', o[2], 12);
         const input1 = [{
             name: 'ram',
             age: 23,
@@ -28,103 +28,117 @@ describe('tests', () => {
             sex: 'F'
         }];
         o = fns.fn100(input1, a => a.name);
-        test('fn100', o.length, 2);
-        test('fn100', o[0], 'ram');
-        test('fn100', o[1], 'babu');
+        equals('fn100', o.length, 2);
+        equals('fn100', o[0], 'ram');
+        equals('fn100', o[1], 'babu');
         o = fns.fn100(input1, a => a.age);
-        test('fn100', o.length, 2);
-        test('fn100', o[0], 23);
-        test('fn100', o[1], 34);
+        equals('fn100', o.length, 2);
+        equals('fn100', o[0], 23);
+        equals('fn100', o[1], 34);
     });
 
     it('fn200', () => {
         const actual = fns.fn200([1, 4, 5, 2, 3], asc);
-        test('fn200', actual.length, 5);
-        test('fn200', actual[0], 1);
-        test('fn200', actual[1], 2);
-        test('fn200', actual[2], 3);
-        test('fn200', actual[3], 4);
-        test('fn200', actual[4], 5);
+        equals('fn200', actual.length, 5);
+        equals('fn200', actual[0], 1);
+        equals('fn200', actual[1], 2);
+        equals('fn200', actual[2], 3);
+        equals('fn200', actual[3], 4);
+        equals('fn200', actual[4], 5);
         const output5 = fns.fn200([1, 4, 5, 2, 3], desc);
-        test('fn200', output5.length, 5);
-        test('fn200', output5[0], 5);
-        test('fn200', output5[1], 4);
-        test('fn200', output5[2], 3);
-        test('fn200', output5[3], 2);
-        test('fn200', output5[4], 1);
+        equals('fn200', output5.length, 5);
+        equals('fn200', output5[0], 5);
+        equals('fn200', output5[1], 4);
+        equals('fn200', output5[2], 3);
+        equals('fn200', output5[3], 2);
+        equals('fn200', output5[4], 1);
     });
 
     it('some', () => {
         var actual = fns.some([1, 2, 3, 4], isOdd);
-        test('some', actual, true);
+        equals('some', actual, true);
         actual = fns.some([1, 2, 4, 6], isOdd);
-        test('some', actual, true);
+        equals('some', actual, true);
         actual = fns.some([2, 4, 6], isOdd);
-        test('some', actual, false);
+        equals('some', actual, false);
+    });
+
+    it('keys', () => {
+        var actual = fns.keys({'name': 'ram', 'age': 20});
+        deepEquals('1', actual, ['name', 'age']);
+
+        actual = fns.keys({name: 'ram', age: 20, sex: 'M'});
+        deepEquals('1', actual, ['name', 'age', 'sex']);
+
+        actual = fns.keys({a: 1, b: 2, c: 3, d: 100});
+        deepEquals('1', actual, ['a', 'b', 'c', 'd']);
+
+        actual = fns.keys([5, 3, 2, 7]);
+        deepEquals('1', actual, ['0', '1', '2', '3']);
     });
 
     it('every', () => {
         var actual = fns.every([1, 2, 3, 4], isOdd);
-        test('every', actual, false);
+        equals('every', actual, false);
         actual = fns.every([1, 2, 4, 6], isOdd);
-        test('every', actual, false);
+        equals('every', actual, false);
         actual = fns.every([1, 3, 5], isOdd);
-        test('every', actual, true);
+        equals('every', actual, true);
     });
 
     it('atleast2', () => {
         var actual = fns.atleast2([1, 2, 3, 4], isOdd);
-        test('1', actual, true);
+        equals('1', actual, true);
         actual = fns.atleast2([1, 2, 4, 6], isOdd);
-        test('2', actual, false);
+        equals('2', actual, false);
         actual = fns.atleast2([2, 4, 6], isOdd);
-        test('3', actual, false);
+        equals('3', actual, false);
         actual = fns.atleast2([1, 3], isOdd);
-        test('4', actual, true);
+        equals('4', actual, true);
     });
 
     it('everybut1', () => {
         var actual = fns.everybut1([1, 2, 3, 4], isOdd);
-        test('1', actual, false);
+        equals('1', actual, false);
         actual = fns.everybut1([2, 1, 3, 5], isOdd);
-        test('2', actual, true);
+        equals('2', actual, true);
         actual = fns.everybut1([2, 4, 6], isOdd);
-        test('3', actual, false);
+        equals('3', actual, false);
         vactual = fns.everybut1([1, 3], isOdd);
-        test('4', actual, false);
+        equals('4', actual, false);
     });
 
     it('padding', () => {
-        test('1', fns.padding('abc', 10), '       abc');
-        test('2', fns.padding('abcdef', 10), '    abcdef');
-        test('3', fns.padding('abcd', 6), '  abcd');
+        equals('1', fns.padding('abc', 10), '       abc');
+        equals('2', fns.padding('abcdef', 10), '    abcdef');
+        equals('3', fns.padding('abcd', 6), '  abcd');
     });
 
     it('intersection', () => {
         var actual = fns.intersection([1, 2, 3], [4, 5, 6]);
-        test('1', actual.length, 0);
+        equals('1', actual.length, 0);
         actual = fns.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
-        test('2', actual.length, 3);
-        test('3', actual[0], 4);
-        test('4', actual[1], 5);
-        test('5', actual[2], 6);
+        equals('2', actual.length, 3);
+        equals('3', actual[0], 4);
+        equals('4', actual[1], 5);
+        equals('5', actual[2], 6);
         actual = fns.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
-        test('6', actual.length, 3);
-        test('7', actual[0], 4);
-        test('8', actual[1], 5);
-        test('9', actual[2], 6);
+        equals('6', actual.length, 3);
+        equals('7', actual[0], 4);
+        equals('8', actual[1], 5);
+        equals('9', actual[2], 6);
         actual = fns.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
-        test('10', actual.length, 3);
-        test('11', actual[0], 4);
-        test('12', actual[1], 5);
-        test('13', actual[2], 6);
+        equals('10', actual.length, 3);
+        equals('11', actual[0], 4);
+        equals('12', actual[1], 5);
+        equals('13', actual[2], 6);
         actual = fns.intersection([4, 6, 3], [1, 2, 4]);
-        test('14', actual.length, 1);
-        test('15', actual[0], 4);
+        equals('14', actual.length, 1);
+        equals('15', actual[0], 4);
         actual = fns.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
-        test('16', actual.length, 2);
-        test('17', actual[0], 2);
-        test('18', actual[1], 3);
+        equals('16', actual.length, 2);
+        equals('17', actual[0], 2);
+        equals('18', actual[1], 3);
     });
 
     it('Zip', () => {
@@ -137,7 +151,7 @@ describe('tests', () => {
             ['aa', 1000, true],
             ['bb', 2000, false]
         ];
-        testDeep('1', actual, expected);
+        deepEquals('1', actual, expected);
         actual = fns.zip(
             ['aa', 'bb'],
             [1000, 2000],
@@ -148,7 +162,7 @@ describe('tests', () => {
             ['aa', 1000, true, 5000],
             ['bb', 2000, false, undefined]
         ];
-        testDeep('2', actual, expected);
+        deepEquals('2', actual, expected);
         actual = fns.zip(
             ['a', 'b', 'c'],
             [2, 3, 5],
@@ -159,7 +173,7 @@ describe('tests', () => {
             ['b', 3, 'y'],
             ['c', 5, undefined]
         ];
-        testDeep('3', actual, expected);
+        deepEquals('3', actual, expected);
         actual = fns.zip(
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
             [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
@@ -204,17 +218,17 @@ describe('tests', () => {
             [19, 39, 59, 79, 99, 119, 139, 159, 179, 199, 219, 239, 259, 279, 299, 319, 339, 359, 379, 399],
             [20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400],
         ];
-        testDeep('4', actual, expected);
+        deepEquals('4', actual, expected);
     });
 
     it('reverse', () => {
         var actual = fns.reverse([1, 3, 2, 'n', 'a', 5]);
-        testDeep('1', actual, [5, "a", "n", 2, 3, 1]);
+        deepEquals('1', actual, [5, "a", "n", 2, 3, 1]);
 
         actual = fns.reverse([1, 2, 3, 4, 5]);
-        testDeep('1', actual, [5, 4, 3, 2, 1]);
+        deepEquals('1', actual, [5, 4, 3, 2, 1]);
 
-        testDeep('1', fns.reverse(fns.reverse([1, 'n', 'a', 5])), [1, 'n', 'a', 5]);
+        deepEquals('1', fns.reverse(fns.reverse([1, 'n', 'a', 5])), [1, 'n', 'a', 5]);
     });
 
     it('filter', () => {
@@ -226,19 +240,19 @@ describe('tests', () => {
         var actual = fns.filter(users, (o) => {
             return !o.active;
         });
-        testDeep('1', actual, [{'user': 'sundar', 'age': 20, 'active': false}]);
+        deepEquals('1', actual, [{'user': 'sundar', 'age': 20, 'active': false}]);
 
         actual = fns.filter(users, {'age': 16, 'active': true});
 
-        testDeep('2', actual, [{'user': 'karan', 'age': 16, 'active': true}]);
+        deepEquals('2', actual, [{'user': 'karan', 'age': 16, 'active': true}]);
     });
 
     it('merge', () => {
         var actual = fns.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
-        testDeep('1', actual, {name: 'ram', age: 20, weight: 70, height: 165});
+        deepEquals('1', actual, {name: 'ram', age: 20, weight: 70, height: 165});
 
         actual = fns.merge({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
 
-        testDeep('2', actual, {name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
+        deepEquals('2', actual, {name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
     });
 });

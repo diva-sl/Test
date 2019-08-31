@@ -25,7 +25,7 @@ const describe = (name, fn) => {
             return;
         }
         console.log(` Failed:   ${output.name}`);
-        console.log(`   ${output.e.id? `At ${output.e.id}, `: ''}error: ${output.e.message}`);
+        console.log(`   ${output.e.id ? `At ${output.e.id}, ` : ''}error: ${output.e.message}`);
         console.log(`   ${output.e}`);
     });
     console.log();
@@ -33,7 +33,7 @@ const describe = (name, fn) => {
     console.log(`Total Failed:\t${output.filter(x => !x.passed).length}`);
 };
 
-const test = (id, actual, expected) => {
+const equals = (id, actual, expected) => {
     try {
         assert.strictEqual(actual, expected);
     } catch (e) {
@@ -41,7 +41,7 @@ const test = (id, actual, expected) => {
         throw e;
     }
 };
-const testDeep = (id, actual, expected) => {
+const deepEquals = (id, actual, expected) => {
     try {
         assert.deepStrictEqual(actual, expected);
     } catch (e) {
@@ -49,4 +49,4 @@ const testDeep = (id, actual, expected) => {
         throw e;
     }
 };
-module.exports = {test, testDeep, describe, it};
+module.exports = {equals, deepEquals, describe, it};
