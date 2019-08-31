@@ -287,4 +287,10 @@ describe('tests', () => {
         deepEquals('2', fns.superfunction2(250)(), 250);
         deepEquals('3', fns.superfunction2(50)(), 50);
     });
+
+    it('superfunction3', () => {
+        deepEquals('1', fns.superfunction3(()=>100)(), 100);
+        deepEquals('2', fns.superfunction3(()=>250)(), 250);
+        deepEquals('3', fns.superfunction3(()=>50)(), 50);
+    });
 });
