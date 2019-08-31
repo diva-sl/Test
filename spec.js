@@ -289,9 +289,9 @@ describe('tests', () => {
     });
 
     it('superfunction3', () => {
-        deepEquals('1', fns.superfunction3(()=>100)(), 100);
-        deepEquals('2', fns.superfunction3(()=>250)(), 250);
-        deepEquals('3', fns.superfunction3(()=>50)(), 50);
+        deepEquals('1', fns.superfunction3(() => 100)(), 100);
+        deepEquals('2', fns.superfunction3(() => 250)(), 250);
+        deepEquals('3', fns.superfunction3(() => 50)(), 50);
     });
 
     it('superfunction4', () => {
@@ -304,5 +304,19 @@ describe('tests', () => {
         deepEquals('4', actualFn(), 51);
         deepEquals('5', actualFn(), 52);
         deepEquals('6', actualFn(), 53);
+    });
+
+    it('split', () => {
+        var actual = fns.split('ab-cd-ef-gf', '-');
+        deepEquals('1', actual, ['ab', 'cd', 'ef', 'gf']);
+
+        actual = fns.split('ab-ad-af-af', '-a');
+        deepEquals('2', actual, ['ab', 'd', 'f', 'f']);
+
+        actual = fns.split('ab-ad-af-af', '-af');
+        deepEquals('3', actual, ['ab-ad', '', '']);
+
+        actual = fns.split('hello world', 'ello worl');
+        deepEquals('4', actual, ['h', 'd']);
     });
 });
