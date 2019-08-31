@@ -114,6 +114,26 @@ describe('tests', () => {
         equals('3', fns.padding('abcd', 6), '  abcd');
     });
 
+    it('choose2', () => {
+        var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
+
+        deepEquals('1', fns.choose2(person, ['sex']),
+            {'sex': 'M'});
+        deepEquals('2', fns.choose2(person, ['age']),
+            {'age': 23});
+        deepEquals('3', fns.choose2(person, ['age', 'name.first']),
+            {'name': {'first': 'John'}, 'age': 23});
+    });
+
+    it('choose1', () => {
+        var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
+
+        deepEquals('1', fns.choose1(person, 'sex'), 'M');
+        deepEquals('2', fns.choose1(person, 'age'), 23);
+        deepEquals('3', fns.choose1(person, 'name.first'), 'John');
+        deepEquals('4', fns.choose1(person, 'name.last'), 'Cena');
+    });
+
     it('intersection', () => {
         var actual = fns.intersection([1, 2, 3], [4, 5, 6]);
         equals('1', actual.length, 0);
