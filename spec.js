@@ -341,4 +341,38 @@ describe('tests', () => {
         deepEquals('13', fns.before(()=> () => () => 10, ()=> () => () => 20), true);
         deepEquals('14', fns.before(()=> () => () => 'f', ()=> () => () => 'a'), false);
     });
+
+    it('object1', ()=> {
+        deepEquals('1', fns.object1('Ram Babu', 23), {name: 'Ram Babu', age: 23});
+        deepEquals('2', fns.object1('Ram Babu', 25), {name: 'Ram Babu', age: 25});
+        deepEquals('3', fns.object1('John Cena', 23), {name: 'John Cena', age: 23});
+    });
+
+    it('object2', ()=> {
+        var actual = fns.object2('Ram Babu', 23);
+        deepEquals('3', actual.getName(), 'Ram Babu');
+        deepEquals('4', actual.getAge(), 23);
+
+        actual = fns.object2('Sita Ram', 35);
+        deepEquals('5', {name: actual.getName(), age: actual.getAge()}, {name: 'Sita Ram', age: 35});
+    });
+
+    it('Person | object3', ()=> {
+        const person1 = new fns.Person('Sita Ram', 35);
+        deepEquals('1', person1.getName(), 'Sita Ram');
+        deepEquals('1', person1.getAge(), 35);
+        const person2 = new fns.Person('Ram', 70);
+        deepEquals('2', person2.getName(), 'Ram');
+        deepEquals('2', person2.getAge(), 70);
+
+        deepEquals('3', person1.getName, person2.getName);
+    });
+
+    it('Person | object4', ()=> {
+        const person1 = new fns.Person('Sita Ram', 35);
+        deepEquals('1', person1.name, undefined);
+        deepEquals('2', person1.age, undefined);
+        deepEquals('3', person1.getName(), 'Sita Ram');
+        deepEquals('4', person1.getAge(), 35);
+    });
 });
