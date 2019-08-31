@@ -1,18 +1,52 @@
 const assert = require('assert');
 
-const test = (exp, act, msg) => {
-    if (exp !== act) {
-        throw `Failed:\t${msg} \n\tExpected: ${exp}, but got: ${act}`;
+const descStack = [];
+
+const it = (name, block) => {
+    const specs = descStack[descStack.length - 1];
+    try {
+        block();
+    } catch (e) {
+        specs.push({passed: false, name, e});
+        return;
     }
-    console.log(`Passed:\t${msg}`);
+    specs.push({passed: true, name});
 };
-const testDeep = (actual, expected, name) => {
+
+const describe = (name, fn) => {
+    descStack.push([]);
+    fn();
+    const output = descStack.pop();
+    console.log(`Suite ${name}:`);
+    console.log();
+    output.forEach(output => {
+        if (output.passed) {
+            console.log(` Passed:   ${output.name}`);
+            return;
+        }
+        console.log(` Failed:   ${output.name}`);
+        console.log(`   ${output.e.id? `At ${output.e.id}, `: ''}error: ${output.e.message}`);
+        console.log(`   ${output.e}`);
+    });
+    console.log();
+    console.log(`Total Passed:\t${output.filter(x => x.passed).length}`);
+    console.log(`Total Failed:\t${output.filter(x => !x.passed).length}`);
+};
+
+const test = (id, actual, expected) => {
+    try {
+        assert.strictEqual(actual, expected);
+    } catch (e) {
+        e.id = id;
+        throw e;
+    }
+};
+const testDeep = (id, actual, expected) => {
     try {
         assert.deepStrictEqual(actual, expected);
     } catch (e) {
-        console.log(`Failed:\t${name}\n Expected ---> ${e.message} <--- Actual`);
+        e.id = id;
         throw e;
     }
-    console.log(`Passed:\t${name}`);
 };
-module.exports = {test, testDeep};
+module.exports = {test, testDeep, describe, it};
