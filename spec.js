@@ -275,4 +275,16 @@ describe('tests', () => {
 
         deepEquals('2', actual, {name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
     });
+
+    it('superfunction1', () => {
+        var actualFn = fns.superfunction1();
+        var actual = actualFn();
+        deepEquals('1', actual, 100);
+    });
+
+    it('superfunction2', () => {
+        deepEquals('1', fns.superfunction2(100)(), 100);
+        deepEquals('2', fns.superfunction2(250)(), 250);
+        deepEquals('3', fns.superfunction2(50)(), 50);
+    });
 });
