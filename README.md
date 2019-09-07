@@ -2,7 +2,7 @@
 
 # pull from original repo
 
-git pull -r upstream master
+git merge upstream master
 
 # push to forked repo
 
