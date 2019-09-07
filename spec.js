@@ -397,6 +397,11 @@ describe('tests', () => {
 
     it('reuse 1', ()=> {
         deepEquals('1', fns.reuse1([{n:1},{n:2},{n:3},{n:10},{n:100}], isOdd), [1,3]);
-        deepEquals('1', fns.reuse1([{n:1},{n:2},{n:3},{n:5},{n:7}], isOdd), [1,3,5,7]);
+        deepEquals('2', fns.reuse1([{n:1},{n:2},{n:3},{n:5},{n:7}], isOdd), [1,3,5,7]);
+    });
+
+    it('reuse 2', ()=> {
+        deepEquals('1', fns.reuse2([{n:1},{n:2},{n:3},{n:10},{n:100}], 'n', isOdd), [1,3]);
+        deepEquals('2', fns.reuse2([{a:1},{a:2},{a:3},{a:5},{a:7}], 'a', isOdd), [1,3,5,7]);
     });
 });
