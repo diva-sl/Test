@@ -1,6 +1,9 @@
 # jtrain
 
-# get new tests
+# pull from original repo
 
-git pull -r
+git pull -r upstream master
 
+# push to forked repo
+
+git push origin master
