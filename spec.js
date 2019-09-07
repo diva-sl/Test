@@ -394,4 +394,9 @@ describe('tests', () => {
         deepEquals('2', fns.last(input), input[2]);
         deepEquals('3', fns.last([1, 3, 5, 6, 2, 9]), 9);
     });
+
+    it('reuse 1', ()=> {
+        deepEquals('1', fns.reuse1([{n:1},{n:2},{n:3},{n:10},{n:100}], isOdd), [1,3]);
+        deepEquals('1', fns.reuse1([{n:1},{n:2},{n:3},{n:5},{n:7}], isOdd), [1,3,5,7]);
+    });
 });
