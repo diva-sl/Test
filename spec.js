@@ -367,7 +367,7 @@ describe('tests', () => {
         expect(person2.getName()).to.eql('Ram');
         expect(person2.getAge()).to.eql(70);
 
-        expect(person1.getName).to.eql(person2.getName);
+        expect(person1.getName,'condition failed person1.getName === person2.getName').to.equal(person2.getName);
     });
 
     it('Person works. object4', () => {
