@@ -382,18 +382,25 @@ describe('tests', () => {
 
     it('first,last', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
-        expect(fns.first(input)).to.eql(input[0]);
-        expect(fns.last(input)).to.eql(input[2]);
-        expect(fns.last([1, 3, 5, 6, 2, 9])).to.eql(9);
+        let actual = fns.first(input);
+        expect(actual).to.eql(input[0]);
+        actual = fns.last(input);
+        expect(actual).to.eql(input[2]);
+        actual = fns.last([1, 3, 5, 6, 2, 9]);
+        expect(actual).to.eql(9);
     });
 
     it('reuse 1', () => {
-        expect(fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd)).to.eql([1, 3]);
-        expect(fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd)).to.eql([1, 3, 5, 7]);
+        let actual = fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
+        expect(actual).to.eql([1, 3]);
+        actual = fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd);
+        expect(actual).to.eql([1, 3, 5, 7]);
     });
 
     it('reuse 2', () => {
-        expect(fns.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd)).to.eql([1, 3]);
-        expect(fns.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd)).to.eql([1, 3, 5, 7]);
+        let actual = fns.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd);
+        expect(actual).to.eql([1, 3]);
+        actual = fns.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
+        expect(actual).to.eql([1, 3, 5, 7]);
     });
 });
