@@ -359,7 +359,7 @@ describe('tests', () => {
         expect({name: actual.getName(), age: actual.getAge()}).to.eql({name: 'Sita Ram', age: 35});
     });
 
-    it('Person | object3 test', () => {
+    it('Person works. object3', () => {
         const person1 = new fns.Person('Sita Ram', 35);
         expect(person1.getName()).to.eql('Sita Ram');
         expect(person1.getAge()).to.eql(35);
@@ -370,7 +370,7 @@ describe('tests', () => {
         expect(person1.getName).to.eql(person2.getName);
     });
 
-    it('Person | object4 test', () => {
+    it('Person works. object4', () => {
         const person1 = new fns.Person('Sita Ram', 35);
         expect(person1.name).to.eql(undefined);
         expect(person1.age).to.eql(undefined);
@@ -412,5 +412,10 @@ describe('tests', () => {
         expect(actual).to.eql([1, 3]);
         actual = fns.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
+    });
+
+    it('i want array', () => {
+        expect(fns.anarray).to.be.an('array');
+        expect(fns.anarray.length).to.be.a('number');
     });
 });
