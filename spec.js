@@ -1,3 +1,13 @@
+if(module === require.main) {
+    console.log('direct execution not allowed. try running the following command\n');
+    try {
+        require('chai');
+        console.log('\tnpm test');
+    } catch (e) {
+        console.log('\tnpm install');
+    }
+    process.exit(1);
+}
 const expect = require('chai').expect;
 
 const fns = require('./fns');
