@@ -1,11 +1,14 @@
 # jtrain
 
-# pull from original repo
-# get new tests
+## dependencies
+npm install
 
+## new tests
 git fetch upstream
 git merge upstream/master
 
-# submit code
-# push to forked repo
+## run tests
+npm test
+
+## submit tests
 git push

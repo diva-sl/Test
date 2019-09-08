@@ -1,9 +1,4 @@
-const {
-    it,
-    describe,
-    equals,
-    deepEquals,
-} = require('./util');
+const expect = require('chai').expect;
 
 const fns = require('./fns');
 
@@ -14,10 +9,10 @@ describe('tests', () => {
 
     it('fn100', () => {
         let o = fns.fn100([1, 2, 5], a => (a + 1) * 2);
-        equals('fn100', o.length, 3);
-        equals('fn100', o[0], 4);
-        equals('fn100', o[1], 6);
-        equals('fn100', o[2], 12);
+        expect(o.length).to.equal(3);
+        expect(o[0]).to.equal(4);
+        expect(o[1]).to.equal(6);
+        expect(o[2]).to.equal(12);
         const input1 = [{
             name: 'ram',
             age: 23,
@@ -28,137 +23,134 @@ describe('tests', () => {
             sex: 'F'
         }];
         o = fns.fn100(input1, a => a.name);
-        equals('fn100', o.length, 2);
-        equals('fn100', o[0], 'ram');
-        equals('fn100', o[1], 'babu');
+        expect(o.length).to.equal(2);
+        expect(o[0]).to.equal('ram');
+        expect(o[1]).to.equal('babu');
         o = fns.fn100(input1, a => a.age);
-        equals('fn100', o.length, 2);
-        equals('fn100', o[0], 23);
-        equals('fn100', o[1], 34);
+        expect(o.length).to.equal(2);
+        expect(o[0]).to.equal(23);
+        expect(o[1]).to.equal(34);
     });
 
     it('fn200', () => {
         const actual = fns.fn200([1, 4, 5, 2, 3], asc);
-        equals('fn200', actual.length, 5);
-        equals('fn200', actual[0], 1);
-        equals('fn200', actual[1], 2);
-        equals('fn200', actual[2], 3);
-        equals('fn200', actual[3], 4);
-        equals('fn200', actual[4], 5);
+        expect(actual.length).to.equal(5);
+        expect(actual[0]).to.equal(1);
+        expect(actual[1]).to.equal(2);
+        expect(actual[2]).to.equal(3);
+        expect(actual[3]).to.equal(4);
+        expect(actual[4]).to.equal(5);
         const output5 = fns.fn200([1, 4, 5, 2, 3], desc);
-        equals('fn200', output5.length, 5);
-        equals('fn200', output5[0], 5);
-        equals('fn200', output5[1], 4);
-        equals('fn200', output5[2], 3);
-        equals('fn200', output5[3], 2);
-        equals('fn200', output5[4], 1);
+        expect(output5.length).to.equal(5);
+        expect(output5[0]).to.equal(5);
+        expect(output5[1]).to.equal(4);
+        expect(output5[2]).to.equal(3);
+        expect(output5[3]).to.equal(2);
+        expect(output5[4]).to.equal(1);
     });
 
     it('some', () => {
         var actual = fns.some([1, 2, 3, 4], isOdd);
-        equals('some', actual, true);
+        expect(actual).to.equal(true);
         actual = fns.some([1, 2, 4, 6], isOdd);
-        equals('some', actual, true);
+        expect(actual).to.equal(true);
         actual = fns.some([2, 4, 6], isOdd);
-        equals('some', actual, false);
+        expect(actual).to.equal(false);
     });
 
     it('keys', () => {
         var actual = fns.keys({'name': 'ram', 'age': 20});
-        deepEquals('1', actual, ['name', 'age']);
+        expect(actual).to.eql(['name', 'age']);
 
         actual = fns.keys({name: 'ram', age: 20, sex: 'M'});
-        deepEquals('1', actual, ['name', 'age', 'sex']);
+        expect(actual).to.eql(['name', 'age', 'sex']);
 
         actual = fns.keys({a: 1, b: 2, c: 3, d: 100});
-        deepEquals('1', actual, ['a', 'b', 'c', 'd']);
+        expect(actual).to.eql(['a', 'b', 'c', 'd']);
 
         actual = fns.keys([5, 3, 2, 7]);
-        deepEquals('1', actual, ['0', '1', '2', '3']);
+        expect(actual).to.eql(['0', '1', '2', '3']);
     });
 
     it('every', () => {
         var actual = fns.every([1, 2, 3, 4], isOdd);
-        equals('every', actual, false);
+        expect(actual).to.equal(false);
         actual = fns.every([1, 2, 4, 6], isOdd);
-        equals('every', actual, false);
+        expect(actual).to.equal(false);
         actual = fns.every([1, 3, 5], isOdd);
-        equals('every', actual, true);
+        expect(actual).to.equal(true);
     });
 
     it('atleast2', () => {
         var actual = fns.atleast2([1, 2, 3, 4], isOdd);
-        equals('1', actual, true);
+        expect(actual).to.equal(true);
         actual = fns.atleast2([1, 2, 4, 6], isOdd);
-        equals('2', actual, false);
+        expect(actual).to.equal(false);
         actual = fns.atleast2([2, 4, 6], isOdd);
-        equals('3', actual, false);
+        expect(actual).to.equal(false);
         actual = fns.atleast2([1, 3], isOdd);
-        equals('4', actual, true);
+        expect(actual).to.equal(true);
     });
 
     it('everybut1', () => {
         var actual = fns.everybut1([1, 2, 3, 4], isOdd);
-        equals('1', actual, false);
+        expect(actual).to.equal(false);
         actual = fns.everybut1([2, 1, 3, 5], isOdd);
-        equals('2', actual, true);
+        expect(actual).to.equal(true);
         actual = fns.everybut1([2, 4, 6], isOdd);
-        equals('3', actual, false);
+        expect(actual).to.equal(false);
         vactual = fns.everybut1([1, 3], isOdd);
-        equals('4', actual, false);
+        expect(actual).to.equal(false);
     });
 
     it('padding', () => {
-        equals('1', fns.padding('abc', 10), '       abc');
-        equals('2', fns.padding('abcdef', 10), '    abcdef');
-        equals('3', fns.padding('abcd', 6), '  abcd');
+        expect(fns.padding('abc', 10)).to.equal('       abc');
+        expect(fns.padding('abcdef', 10)).to.equal('    abcdef');
+        expect(fns.padding('abcd', 6)).to.equal('  abcd');
     });
 
     it('choose2', () => {
         var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
 
-        deepEquals('1', fns.choose2(person, ['sex']),
-            {'sex': 'M'});
-        deepEquals('2', fns.choose2(person, ['age']),
-            {'age': 23});
-        deepEquals('3', fns.choose2(person, ['age', 'name.first']),
-            {'name': {'first': 'John'}, 'age': 23});
+        expect(fns.choose2(person, ['sex'])).to.eql({'sex': 'M'});
+        expect(fns.choose2(person, ['age'])).to.eql({'age': 23});
+        expect(fns.choose2(person, ['age', 'name.first'])).to.eql({'name': {'first': 'John'}, 'age': 23});
     });
 
     it('choose1', () => {
         var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
 
-        deepEquals('1', fns.choose1(person, 'sex'), 'M');
-        deepEquals('2', fns.choose1(person, 'age'), 23);
-        deepEquals('3', fns.choose1(person, 'name.first'), 'John');
-        deepEquals('4', fns.choose1(person, 'name.last'), 'Cena');
+        expect(fns.choose1(person, 'sex')).to.eql('M');
+        expect(fns.choose1(person, 'age')).to.eql(23);
+        expect(fns.choose1(person, 'name.first')).to.eql('John');
+        expect(fns.choose1(person, 'name.last')).to.eql('Cena');
     });
 
     it('intersection', () => {
         var actual = fns.intersection([1, 2, 3], [4, 5, 6]);
-        equals('1', actual.length, 0);
+        expect(actual.length).to.equal(0);
         actual = fns.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
-        equals('2', actual.length, 3);
-        equals('3', actual[0], 4);
-        equals('4', actual[1], 5);
-        equals('5', actual[2], 6);
+        expect(actual.length).to.equal(3);
+        expect(actual[0]).to.equal(4);
+        expect(actual[1]).to.equal(5);
+        expect(actual[2]).to.equal(6);
         actual = fns.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
-        equals('6', actual.length, 3);
-        equals('7', actual[0], 4);
-        equals('8', actual[1], 5);
-        equals('9', actual[2], 6);
+        expect(actual.length).to.equal(3);
+        expect(actual[0]).to.equal(4);
+        expect(actual[1]).to.equal(5);
+        expect(actual[2]).to.equal(6);
         actual = fns.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
-        equals('10', actual.length, 3);
-        equals('11', actual[0], 4);
-        equals('12', actual[1], 5);
-        equals('13', actual[2], 6);
+        expect(actual.length).to.equal(3);
+        expect(actual[0]).to.equal(4);
+        expect(actual[1]).to.equal(5);
+        expect(actual[2]).to.equal(6);
         actual = fns.intersection([4, 6, 3], [1, 2, 4]);
-        equals('14', actual.length, 1);
-        equals('15', actual[0], 4);
+        expect(actual.length).to.equal(1);
+        expect(actual[0]).to.equal(4);
         actual = fns.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
-        equals('16', actual.length, 2);
-        equals('17', actual[0], 2);
-        equals('18', actual[1], 3);
+        expect(actual.length).to.equal(2);
+        expect(actual[0]).to.equal(2);
+        expect(actual[1]).to.equal(3);
     });
 
     it('Zip', () => {
@@ -171,7 +163,7 @@ describe('tests', () => {
             ['aa', 1000, true],
             ['bb', 2000, false]
         ];
-        deepEquals('1', actual, expected);
+        expect(actual).to.eql(expected);
         actual = fns.zip(
             ['aa', 'bb'],
             [1000, 2000],
@@ -182,7 +174,7 @@ describe('tests', () => {
             ['aa', 1000, true, 5000],
             ['bb', 2000, false, undefined]
         ];
-        deepEquals('2', actual, expected);
+        expect(actual).to.eql(expected);
         actual = fns.zip(
             ['a', 'b', 'c'],
             [2, 3, 5],
@@ -193,7 +185,7 @@ describe('tests', () => {
             ['b', 3, 'y'],
             ['c', 5, undefined]
         ];
-        deepEquals('3', actual, expected);
+        expect(actual).to.eql(expected);
         actual = fns.zip(
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
             [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
@@ -238,17 +230,17 @@ describe('tests', () => {
             [19, 39, 59, 79, 99, 119, 139, 159, 179, 199, 219, 239, 259, 279, 299, 319, 339, 359, 379, 399],
             [20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400],
         ];
-        deepEquals('4', actual, expected);
+        expect(actual).to.eql(expected);
     });
 
     it('reverse', () => {
         var actual = fns.reverse([1, 3, 2, 'n', 'a', 5]);
-        deepEquals('1', actual, [5, "a", "n", 2, 3, 1]);
+        expect(actual).to.eql([5, "a", "n", 2, 3, 1]);
 
         actual = fns.reverse([1, 2, 3, 4, 5]);
-        deepEquals('1', actual, [5, 4, 3, 2, 1]);
+        expect(actual).to.eql([5, 4, 3, 2, 1]);
 
-        deepEquals('1', fns.reverse(fns.reverse([1, 'n', 'a', 5])), [1, 'n', 'a', 5]);
+        expect(fns.reverse(fns.reverse([1, 'n', 'a', 5]))).to.eql([1, 'n', 'a', 5]);
     });
 
     it('filter', () => {
@@ -260,148 +252,148 @@ describe('tests', () => {
         var actual = fns.filter(users, (o) => {
             return !o.active;
         });
-        deepEquals('1', actual, [{'user': 'sundar', 'age': 20, 'active': false}]);
+        expect(actual).to.eql([{'user': 'sundar', 'age': 20, 'active': false}]);
 
         actual = fns.filter(users, {'age': 16, 'active': true});
 
-        deepEquals('2', actual, [{'user': 'karan', 'age': 16, 'active': true}]);
+        expect(actual).to.eql([{'user': 'karan', 'age': 16, 'active': true}]);
     });
 
     it('merge', () => {
         var actual = fns.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
-        deepEquals('1', actual, {name: 'ram', age: 20, weight: 70, height: 165});
+        expect(actual).to.eql({name: 'ram', age: 20, weight: 70, height: 165});
 
         actual = fns.merge({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
 
-        deepEquals('2', actual, {name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
+        expect(actual).to.eql({name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
     });
 
     it('superfunction1', () => {
         var actualFn = fns.superfunction1();
         var actual = actualFn();
-        deepEquals('1', actual, 100);
+        expect(actual).to.eql(100);
     });
 
     it('superfunction2', () => {
-        deepEquals('1', fns.superfunction2(100)(), 100);
-        deepEquals('2', fns.superfunction2(250)(), 250);
-        deepEquals('3', fns.superfunction2(50)(), 50);
+        expect(fns.superfunction2(100)()).to.eql(100);
+        expect(fns.superfunction2(250)()).to.eql(250);
+        expect(fns.superfunction2(50)()).to.eql(50);
     });
 
     it('superfunction3', () => {
-        deepEquals('1', fns.superfunction3(() => 100)(), 100);
-        deepEquals('2', fns.superfunction3(() => 250)(), 250);
-        deepEquals('3', fns.superfunction3(() => 50)(), 50);
+        expect(fns.superfunction3(() => 100)()).to.eql(100);
+        expect(fns.superfunction3(() => 250)()).to.eql(250);
+        expect(fns.superfunction3(() => 50)()).to.eql(50);
     });
 
     it('superfunction4', () => {
         var actualFn = fns.superfunction4(0);
-        deepEquals('1', actualFn(), 1);
-        deepEquals('2', actualFn(), 2);
-        deepEquals('3', actualFn(), 3);
+        expect(actualFn()).to.eql(1);
+        expect(actualFn()).to.eql(2);
+        expect(actualFn()).to.eql(3);
 
         actualFn = fns.superfunction4(50);
-        deepEquals('4', actualFn(), 51);
-        deepEquals('5', actualFn(), 52);
-        deepEquals('6', actualFn(), 53);
+        expect(actualFn()).to.eql(51);
+        expect(actualFn()).to.eql(52);
+        expect(actualFn()).to.eql(53);
     });
 
     it('split', () => {
         var actual = fns.split('ab-cd-ef-gf', '-');
-        deepEquals('1', actual, ['ab', 'cd', 'ef', 'gf']);
+        expect(actual).to.eql(['ab', 'cd', 'ef', 'gf']);
 
         actual = fns.split('ab-ad-af-af', '-a');
-        deepEquals('2', actual, ['ab', 'd', 'f', 'f']);
+        expect(actual).to.eql(['ab', 'd', 'f', 'f']);
 
         actual = fns.split('ab-ad-af-af', '-af');
-        deepEquals('3', actual, ['ab-ad', '', '']);
+        expect(actual).to.eql(['ab-ad', '', '']);
 
         actual = fns.split('hello world', 'ello worl');
-        deepEquals('4', actual, ['h', 'd']);
+        expect(actual).to.eql(['h', 'd']);
     });
 
     it('before', () => {
-        deepEquals('1', fns.before(1, 2), true);
-        deepEquals('2', fns.before(3, 10), true);
-        deepEquals('3', fns.before(30, 3), false);
+        expect(fns.before(1, 2)).to.eql(true);
+        expect(fns.before(3, 10)).to.eql(true);
+        expect(fns.before(30, 3)).to.eql(false);
 
-        deepEquals('4', fns.before('a', 'b'), true);
-        deepEquals('5', fns.before('c', 'd'), true);
-        deepEquals('6', fns.before('f', 'a'), false);
+        expect(fns.before('a', 'b')).to.eql(true);
+        expect(fns.before('c', 'd')).to.eql(true);
+        expect(fns.before('f', 'a')).to.eql(false);
 
-        deepEquals('7', fns.before(new Date('2017-01-01'), new Date('2018-01-01')), true);
-        deepEquals('8', fns.before(new Date('2018-01-01'), new Date('2017-01-01')), false);
+        expect(fns.before(new Date('2017-01-01'), new Date('2018-01-01'))).to.eql(true);
+        expect(fns.before(new Date('2018-01-01'), new Date('2017-01-01'))).to.eql(false);
 
-        deepEquals('9', fns.before(() => 10, () => 20), true);
-        deepEquals('10', fns.before(() => 'f', () => 'a'), false);
+        expect(fns.before(() => 10, () => 20)).to.eql(true);
+        expect(fns.before(() => 'f', () => 'a')).to.eql(false);
 
-        deepEquals('11', fns.before(() => () => 10, () => () => 20), true);
-        deepEquals('12', fns.before(() => () => 'f', () => () => 'a'), false);
+        expect(fns.before(() => () => 10, () => () => 20)).to.eql(true);
+        expect(fns.before(() => () => 'f', () => () => 'a')).to.eql(false);
 
-        deepEquals('13', fns.before(() => () => () => 10, () => () => () => 20), true);
-        deepEquals('14', fns.before(() => () => () => 'f', () => () => () => 'a'), false);
+        expect(fns.before(() => () => () => 10, () => () => () => 20)).to.eql(true);
+        expect(fns.before(() => () => () => 'f', () => () => () => 'a')).to.eql(false);
     });
 
     it('object1', () => {
-        deepEquals('1', fns.object1('Ram Babu', 23), {name: 'Ram Babu', age: 23});
-        deepEquals('2', fns.object1('Ram Babu', 25), {name: 'Ram Babu', age: 25});
-        deepEquals('3', fns.object1('John Cena', 23), {name: 'John Cena', age: 23});
+        expect(fns.object1('Ram Babu', 23)).to.eql({name: 'Ram Babu', age: 23});
+        expect(fns.object1('Ram Babu', 25)).to.eql({name: 'Ram Babu', age: 25});
+        expect(fns.object1('John Cena', 23)).to.eql({name: 'John Cena', age: 23});
     });
 
     it('object2', () => {
         var actual = fns.object2('Ram Babu', 23);
-        deepEquals('1', actual.getName(), 'Ram Babu');
-        deepEquals('2', actual.getAge(), 23);
+        expect(actual.getName()).to.eql('Ram Babu');
+        expect(actual.getAge()).to.eql(23);
 
         actual = fns.object2('Sita Ram', 35);
-        deepEquals('3', {name: actual.getName(), age: actual.getAge()}, {name: 'Sita Ram', age: 35});
+        expect({name: actual.getName(), age: actual.getAge()}).to.eql({name: 'Sita Ram', age: 35});
     });
 
     it('Person | object3', () => {
         const person1 = new fns.Person('Sita Ram', 35);
-        deepEquals('1', person1.getName(), 'Sita Ram');
-        deepEquals('2', person1.getAge(), 35);
+        expect(person1.getName()).to.eql('Sita Ram');
+        expect(person1.getAge()).to.eql(35);
         const person2 = new fns.Person('Ram', 70);
-        deepEquals('3', person2.getName(), 'Ram');
-        deepEquals('4', person2.getAge(), 70);
+        expect(person2.getName()).to.eql('Ram');
+        expect(person2.getAge()).to.eql(70);
 
-        deepEquals('5', person1.getName, person2.getName);
+        expect(person1.getName).to.eql(person2.getName);
     });
 
     it('Person | object4', () => {
         const person1 = new fns.Person('Sita Ram', 35);
-        deepEquals('1', person1.name, undefined);
-        deepEquals('2', person1.age, undefined);
-        deepEquals('3', person1.getName(), 'Sita Ram');
-        deepEquals('4', person1.getAge(), 35);
+        expect(person1.name).to.eql(undefined);
+        expect(person1.age).to.eql(undefined);
+        expect(person1.getName()).to.eql('Sita Ram');
+        expect(person1.getAge()).to.eql(35);
     });
 
     it('uniquee', () => {
-        deepEquals('1', fns.uniquee([1, 3, 2, 5, 4, 3, 7, 4, 5, 3, 2, 9, 6]), [1, 3, 2, 5, 4, 7, 9, 6]);
-        deepEquals('2', fns.uniquee([4, 5, 3, 2, 9, 6, 1, 3, 2, 5, 4, 3, 7]), [4, 5, 3, 2, 9, 6, 1, 7]);
+        expect(fns.uniquee([1, 3, 2, 5, 4, 3, 7, 4, 5, 3, 2, 9, 6])).to.eql([1, 3, 2, 5, 4, 7, 9, 6]);
+        expect(fns.uniquee([4, 5, 3, 2, 9, 6, 1, 3, 2, 5, 4, 3, 7])).to.eql([4, 5, 3, 2, 9, 6, 1, 7]);
     });
 
     it('uniqueeBy', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
-        deepEquals('1', fns.uniqueeBy(input, x => x.name.toLowerCase()), [input[0], input[2]]);
-        deepEquals('2', fns.uniqueeBy(input, x => x.age), [input[0], input[1]]);
-        deepEquals('3', fns.uniqueeBy(input, x => x.id), [input[0]]);
+        expect(fns.uniqueeBy(input, x => x.name.toLowerCase())).to.eql([input[0], input[2]]);
+        expect(fns.uniqueeBy(input, x => x.age)).to.eql([input[0], input[1]]);
+        expect(fns.uniqueeBy(input, x => x.id)).to.eql([input[0]]);
     });
 
     it('first,last', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
-        deepEquals('1', fns.first(input), input[0]);
-        deepEquals('2', fns.last(input), input[2]);
-        deepEquals('3', fns.last([1, 3, 5, 6, 2, 9]), 9);
+        expect(fns.first(input)).to.eql(input[0]);
+        expect(fns.last(input)).to.eql(input[2]);
+        expect(fns.last([1, 3, 5, 6, 2, 9])).to.eql(9);
     });
 
-    it('reuse 1', ()=> {
-        deepEquals('1', fns.reuse1([{n:1},{n:2},{n:3},{n:10},{n:100}], isOdd), [1,3]);
-        deepEquals('2', fns.reuse1([{n:1},{n:2},{n:3},{n:5},{n:7}], isOdd), [1,3,5,7]);
+    it('reuse 1', () => {
+        expect(fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd)).to.eql([1, 3]);
+        expect(fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd)).to.eql([1, 3, 5, 7]);
     });
 
-    it('reuse 2', ()=> {
-        deepEquals('1', fns.reuse2([{n:1},{n:2},{n:3},{n:10},{n:100}], 'n', isOdd), [1,3]);
-        deepEquals('2', fns.reuse2([{a:1},{a:2},{a:3},{a:5},{a:7}], 'a', isOdd), [1,3,5,7]);
+    it('reuse 2', () => {
+        expect(fns.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd)).to.eql([1, 3]);
+        expect(fns.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd)).to.eql([1, 3, 5, 7]);
     });
 });

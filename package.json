@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "npx mocha spec.js"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "lodash": "^4.17.15",
+    "test": "^0.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  }
+}
