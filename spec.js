@@ -7,8 +7,8 @@ describe('tests', () => {
     const asc = (a, b) => (a < b) ? -1 : (b < a) ? 1 : 0;
     const desc = (a, b) => (a < b) ? 1 : (b < a) ? -1 : 0;
 
-    it('fn100', () => {
-        let o = fns.fn100([1, 2, 5], a => (a + 1) * 2);
+    it('map works', () => {
+        let o = fns.map([1, 2, 5], a => (a + 1) * 2);
         expect(o.length).to.equal(3);
         expect(o[0]).to.equal(4);
         expect(o[1]).to.equal(6);
@@ -22,25 +22,25 @@ describe('tests', () => {
             age: 34,
             sex: 'F'
         }];
-        o = fns.fn100(input1, a => a.name);
+        o = fns.map(input1, a => a.name);
         expect(o.length).to.equal(2);
         expect(o[0]).to.equal('ram');
         expect(o[1]).to.equal('babu');
-        o = fns.fn100(input1, a => a.age);
+        o = fns.map(input1, a => a.age);
         expect(o.length).to.equal(2);
         expect(o[0]).to.equal(23);
         expect(o[1]).to.equal(34);
     });
 
-    it('fn200', () => {
-        const actual = fns.fn200([1, 4, 5, 2, 3], asc);
+    it('sort works', () => {
+        const actual = fns.sortBy([1, 4, 5, 2, 3], asc);
         expect(actual.length).to.equal(5);
         expect(actual[0]).to.equal(1);
         expect(actual[1]).to.equal(2);
         expect(actual[2]).to.equal(3);
         expect(actual[3]).to.equal(4);
         expect(actual[4]).to.equal(5);
-        const output5 = fns.fn200([1, 4, 5, 2, 3], desc);
+        const output5 = fns.sortBy([1, 4, 5, 2, 3], desc);
         expect(output5.length).to.equal(5);
         expect(output5[0]).to.equal(5);
         expect(output5[1]).to.equal(4);
@@ -49,7 +49,7 @@ describe('tests', () => {
         expect(output5[4]).to.equal(1);
     });
 
-    it('some', () => {
+    it('some works', () => {
         var actual = fns.some([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(true);
         actual = fns.some([1, 2, 4, 6], isOdd);
@@ -58,7 +58,7 @@ describe('tests', () => {
         expect(actual).to.equal(false);
     });
 
-    it('keys', () => {
+    it('keys works', () => {
         var actual = fns.keys({'name': 'ram', 'age': 20});
         expect(actual).to.eql(['name', 'age']);
 
@@ -72,7 +72,7 @@ describe('tests', () => {
         expect(actual).to.eql(['0', '1', '2', '3']);
     });
 
-    it('every', () => {
+    it('every works', () => {
         var actual = fns.every([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(false);
         actual = fns.every([1, 2, 4, 6], isOdd);
@@ -81,7 +81,7 @@ describe('tests', () => {
         expect(actual).to.equal(true);
     });
 
-    it('atleast2', () => {
+    it('atleast2 works', () => {
         var actual = fns.atleast2([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(true);
         actual = fns.atleast2([1, 2, 4, 6], isOdd);
@@ -92,7 +92,7 @@ describe('tests', () => {
         expect(actual).to.equal(true);
     });
 
-    it('everybut1', () => {
+    it('everybut1 works', () => {
         var actual = fns.everybut1([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(false);
         actual = fns.everybut1([2, 1, 3, 5], isOdd);
@@ -103,13 +103,13 @@ describe('tests', () => {
         expect(actual).to.equal(false);
     });
 
-    it('padding', () => {
+    it('padding works', () => {
         expect(fns.padding('abc', 10)).to.equal('       abc');
         expect(fns.padding('abcdef', 10)).to.equal('    abcdef');
         expect(fns.padding('abcd', 6)).to.equal('  abcd');
     });
 
-    it('choose2', () => {
+    it('choose2 works', () => {
         var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
 
         expect(fns.choose2(person, ['sex'])).to.eql({'sex': 'M'});
@@ -117,7 +117,7 @@ describe('tests', () => {
         expect(fns.choose2(person, ['age', 'name.first'])).to.eql({'name': {'first': 'John'}, 'age': 23});
     });
 
-    it('choose1', () => {
+    it('choose1 works', () => {
         var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
 
         expect(fns.choose1(person, 'sex')).to.eql('M');
@@ -126,7 +126,7 @@ describe('tests', () => {
         expect(fns.choose1(person, 'name.last')).to.eql('Cena');
     });
 
-    it('intersection', () => {
+    it('intersection works', () => {
         var actual = fns.intersection([1, 2, 3], [4, 5, 6]);
         expect(actual.length).to.equal(0);
         actual = fns.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
@@ -153,7 +153,7 @@ describe('tests', () => {
         expect(actual[1]).to.equal(3);
     });
 
-    it('Zip', () => {
+    it('zip works', () => {
         var actual = fns.zip(
             ['aa', 'bb'],
             [1000, 2000],
@@ -233,7 +233,7 @@ describe('tests', () => {
         expect(actual).to.eql(expected);
     });
 
-    it('reverse', () => {
+    it('reverse works', () => {
         var actual = fns.reverse([1, 3, 2, 'n', 'a', 5]);
         expect(actual).to.eql([5, "a", "n", 2, 3, 1]);
 
@@ -243,7 +243,7 @@ describe('tests', () => {
         expect(fns.reverse(fns.reverse([1, 'n', 'a', 5]))).to.eql([1, 'n', 'a', 5]);
     });
 
-    it('filter', () => {
+    it('filter works', () => {
         var users = [
             {'user': 'karan', 'age': 16, 'active': true},
             {'user': 'sundar', 'age': 20, 'active': false}
@@ -259,7 +259,7 @@ describe('tests', () => {
         expect(actual).to.eql([{'user': 'karan', 'age': 16, 'active': true}]);
     });
 
-    it('merge', () => {
+    it('merges', () => {
         var actual = fns.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
         expect(actual).to.eql({name: 'ram', age: 20, weight: 70, height: 165});
 
@@ -298,7 +298,7 @@ describe('tests', () => {
         expect(actualFn()).to.eql(53);
     });
 
-    it('split', () => {
+    it('should split', () => {
         var actual = fns.split('ab-cd-ef-gf', '-');
         expect(actual).to.eql(['ab', 'cd', 'ef', 'gf']);
 
@@ -312,7 +312,7 @@ describe('tests', () => {
         expect(actual).to.eql(['h', 'd']);
     });
 
-    it('before', () => {
+    it('should check it is before', () => {
         expect(fns.before(1, 2)).to.eql(true);
         expect(fns.before(3, 10)).to.eql(true);
         expect(fns.before(30, 3)).to.eql(false);
@@ -349,7 +349,7 @@ describe('tests', () => {
         expect({name: actual.getName(), age: actual.getAge()}).to.eql({name: 'Sita Ram', age: 35});
     });
 
-    it('Person | object3', () => {
+    it('Person | object3 test', () => {
         const person1 = new fns.Person('Sita Ram', 35);
         expect(person1.getName()).to.eql('Sita Ram');
         expect(person1.getAge()).to.eql(35);
@@ -360,7 +360,7 @@ describe('tests', () => {
         expect(person1.getName).to.eql(person2.getName);
     });
 
-    it('Person | object4', () => {
+    it('Person | object4 test', () => {
         const person1 = new fns.Person('Sita Ram', 35);
         expect(person1.name).to.eql(undefined);
         expect(person1.age).to.eql(undefined);
@@ -368,19 +368,19 @@ describe('tests', () => {
         expect(person1.getAge()).to.eql(35);
     });
 
-    it('uniquee', () => {
+    it('uniquee works', () => {
         expect(fns.uniquee([1, 3, 2, 5, 4, 3, 7, 4, 5, 3, 2, 9, 6])).to.eql([1, 3, 2, 5, 4, 7, 9, 6]);
         expect(fns.uniquee([4, 5, 3, 2, 9, 6, 1, 3, 2, 5, 4, 3, 7])).to.eql([4, 5, 3, 2, 9, 6, 1, 7]);
     });
 
-    it('uniqueeBy', () => {
+    it('uniqueeBy works', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
         expect(fns.uniqueeBy(input, x => x.name.toLowerCase())).to.eql([input[0], input[2]]);
         expect(fns.uniqueeBy(input, x => x.age)).to.eql([input[0], input[1]]);
         expect(fns.uniqueeBy(input, x => x.id)).to.eql([input[0]]);
     });
 
-    it('first,last', () => {
+    it('first and last both works', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
         let actual = fns.first(input);
         expect(actual).to.eql(input[0]);
@@ -390,14 +390,14 @@ describe('tests', () => {
         expect(actual).to.eql(9);
     });
 
-    it('reuse 1', () => {
+    it('reuse test 1', () => {
         let actual = fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
         expect(actual).to.eql([1, 3]);
         actual = fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
     });
 
-    it('reuse 2', () => {
+    it('reuse test 2', () => {
         let actual = fns.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd);
         expect(actual).to.eql([1, 3]);
         actual = fns.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
