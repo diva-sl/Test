@@ -401,10 +401,10 @@ describe('tests', () => {
     });
 
     it('reuse test 0 | loops are forbidden', () => {
-        expect(Js.reuse1.toString(),'Js.reuse1 should not use loops').to.not.match(/for|while/);
-        expect(Js.reuse2.toString(),'Js.reuse2 should not use loops').to.not.match(/for|while/);
-        expect(Js.reuse3.toString(),'Js.reuse3 should not use loops').to.not.match(/for|while/);
-        expect(Js.reuse4.toString(),'Js.reuse4 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse1.toString(), 'Js.reuse1 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse2.toString(), 'Js.reuse2 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse3.toString(), 'Js.reuse3 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse4.toString(), 'Js.reuse4 should not use loops').to.not.match(/for|while/);
     });
 
     it('reuse test 1', () => {
@@ -428,7 +428,7 @@ describe('tests', () => {
         actual = Js.reuse3([{a: {n: 1}}, {a: {n: 2}}, {a: {n: 3}}, {a: {n: 10}}, {a: {n: 100}}], ['a', 'n'], isOdd);
         expect(actual).to.eql([1, 3]);
 
-        actual = Js.reuse3([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b' ,'c'], isOdd);
+        actual = Js.reuse3([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b', 'c'], isOdd);
         expect(actual).to.eql([1, 3]);
     });
 
@@ -436,7 +436,7 @@ describe('tests', () => {
         let actual = Js.reuse4([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
         expect(actual).to.eql([{a: 1}, {a: 3}, {a: 5}, {a: 7}]);
 
-        actual = Js.reuse4([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b' ,'c'], isOdd);
+        actual = Js.reuse4([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b', 'c'], isOdd);
         expect(actual).to.eql([{a: {b: {c: 1}}}, {a: {b: {c: 3}}}]);
     });
 
@@ -491,5 +491,59 @@ describe('tests', () => {
         expect(Js.XNOR(false, true)).to.eql(false);
         expect(Js.XNOR(true, false)).to.eql(false);
         expect(Js.XNOR(true, true)).to.eql(true);
+    });
+
+    it('generator 1', () => {
+        const x = function* () {
+        };
+        const GeneratorFunction = (x).constructor;
+        expect(Js.range).to.be.an.instanceof(GeneratorFunction);
+    });
+
+    it('generator 2', () => {
+        let gen = Js.range(0, 2);
+        expect(gen.next().done, 'failed location: [generator 2][100]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][101]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][102]').to.eql(true);
+
+        gen = Js.range(0, 10);
+        expect(gen.next().done, 'failed location: [generator 2][200]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][201]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][202]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][203]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][204]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][205]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][206]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][207]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][208]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][209]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 2][210]').to.eql(true);
+    });
+
+    it('generator 3', () => {
+        let gen = Js.range(0, 100);
+        let counter = 0;
+        while (!gen.next().done) counter++;
+        expect(counter).to.eql(100);
+    });
+
+    it('generator 4', () => {
+        let gen, counter;
+        gen = Js.range(0, 13, 5);
+
+        expect(gen.next().done, 'failed location: [generator 4][100]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 4][101]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 4][102]').to.eql(false);
+        expect(gen.next().done, 'failed location: [generator 4][103]').to.eql(true);
+
+        gen = Js.range(0, 100, 5);
+        counter = 0;
+        while (!gen.next().done) counter++;
+        expect(counter, 'failed location: [generator 4][104]').to.eql(20);
+
+        gen = Js.range(0, 97, 5);
+        counter = 0;
+        while (!gen.next().done) counter++;
+        expect(counter, 'failed location: [generator 4][105]').to.eql(20);
     });
 });
