@@ -269,12 +269,13 @@ describe('tests', () => {
         expect(actual).to.eql([{'user': 'karan', 'age': 16, 'active': true}]);
     });
 
-    it('merges', () => {
+    it('merges 0', () => {
         var actual = Js.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
         expect(actual).to.eql({name: 'ram', age: 20, weight: 70, height: 165});
+    });
 
-        actual = Js.merge({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
-
+    it('merge 1', () => {
+        let actual = Js.mergeDeep({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
         expect(actual).to.eql({name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
     });
 
