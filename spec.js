@@ -400,6 +400,13 @@ describe('tests', () => {
         expect(actual).to.eql(9);
     });
 
+    it('reuse test 0 | loops are forbidden', () => {
+        expect(Js.reuse1.toString(),'Js.reuse1 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse2.toString(),'Js.reuse2 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse3.toString(),'Js.reuse3 should not use loops').to.not.match(/for|while/);
+        expect(Js.reuse4.toString(),'Js.reuse4 should not use loops').to.not.match(/for|while/);
+    });
+
     it('reuse test 1', () => {
         let actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
         expect(actual).to.eql([1, 3]);
