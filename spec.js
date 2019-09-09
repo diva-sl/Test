@@ -419,6 +419,11 @@ describe('tests', () => {
         expect(Js.anarray.length).to.be.a('number');
     });
 
+    it('i want number', () => {
+        expect(Js.anumber).to.be.a('number');
+        expect(Js.anumber/Js.anumber).to.eql(1);
+    });
+
     it('gates AND', () => {
         expect(Js.AND(false,false)).to.eql(false);
         expect(Js.AND(false,true)).to.eql(false);
