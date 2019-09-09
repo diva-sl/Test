@@ -418,4 +418,45 @@ describe('tests', () => {
         expect(fns.anarray).to.be.an('array');
         expect(fns.anarray.length).to.be.a('number');
     });
+
+    it('gates AND', () => {
+        expect(fns.AND(false,false)).to.eql(false);
+        expect(fns.AND(false,true)).to.eql(false);
+        expect(fns.AND(true,false)).to.eql(false);
+        expect(fns.AND(true,true)).to.eql(true);
+    });
+    it('gates OR', () => {
+        expect(fns.OR(false,false)).to.eql(false);
+        expect(fns.OR(false,true)).to.eql(true);
+        expect(fns.OR(true,false)).to.eql(true);
+        expect(fns.OR(true,true)).to.eql(true);
+    });
+    it('gates NAND', () => {
+        expect(fns.NAND(false,false)).to.eql(true);
+        expect(fns.NAND(false,true)).to.eql(true);
+        expect(fns.NAND(true,false)).to.eql(true);
+        expect(fns.NAND(true,true)).to.eql(false);
+    });
+    it('gates NOT', () => {
+        expect(fns.NOT(false)).to.eql(true);
+        expect(fns.NOT(true)).to.eql(false);
+    });
+    it('gates NOR', () => {
+        expect(fns.NOR(false,false)).to.eql(true);
+        expect(fns.NOR(false,true)).to.eql(false);
+        expect(fns.NOR(true,false)).to.eql(false);
+        expect(fns.NOR(true,true)).to.eql(false);
+    });
+    it('gates XOR', () => {
+        expect(fns.XOR(false,false)).to.eql(false);
+        expect(fns.XOR(false,true)).to.eql(true);
+        expect(fns.XOR(true,false)).to.eql(true);
+        expect(fns.XOR(true,true)).to.eql(false);
+    });
+    it('gates XNOR', () => {
+        expect(fns.XNOR(false,false)).to.eql(true);
+        expect(fns.XNOR(false,true)).to.eql(false);
+        expect(fns.XNOR(true,false)).to.eql(false);
+        expect(fns.XNOR(true,true)).to.eql(true);
+    });
 });
