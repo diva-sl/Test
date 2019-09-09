@@ -10,7 +10,7 @@ if(module === require.main) {
 }
 const expect = require('chai').expect;
 
-const fns = require('./fns');
+const Js = require('./fns');
 
 describe('tests', () => {
     const isOdd = n => n % 2 === 1;
@@ -18,7 +18,7 @@ describe('tests', () => {
     const desc = (a, b) => (a < b) ? 1 : (b < a) ? -1 : 0;
 
     it('map works', () => {
-        let o = fns.map([1, 2, 5], a => (a + 1) * 2);
+        let o = Js.map([1, 2, 5], a => (a + 1) * 2);
         expect(o.length).to.equal(3);
         expect(o[0]).to.equal(4);
         expect(o[1]).to.equal(6);
@@ -32,25 +32,25 @@ describe('tests', () => {
             age: 34,
             sex: 'F'
         }];
-        o = fns.map(input1, a => a.name);
+        o = Js.map(input1, a => a.name);
         expect(o.length).to.equal(2);
         expect(o[0]).to.equal('ram');
         expect(o[1]).to.equal('babu');
-        o = fns.map(input1, a => a.age);
+        o = Js.map(input1, a => a.age);
         expect(o.length).to.equal(2);
         expect(o[0]).to.equal(23);
         expect(o[1]).to.equal(34);
     });
 
     it('sort works', () => {
-        const actual = fns.sortBy([1, 4, 5, 2, 3], asc);
+        const actual = Js.sortBy([1, 4, 5, 2, 3], asc);
         expect(actual.length).to.equal(5);
         expect(actual[0]).to.equal(1);
         expect(actual[1]).to.equal(2);
         expect(actual[2]).to.equal(3);
         expect(actual[3]).to.equal(4);
         expect(actual[4]).to.equal(5);
-        const output5 = fns.sortBy([1, 4, 5, 2, 3], desc);
+        const output5 = Js.sortBy([1, 4, 5, 2, 3], desc);
         expect(output5.length).to.equal(5);
         expect(output5[0]).to.equal(5);
         expect(output5[1]).to.equal(4);
@@ -60,111 +60,111 @@ describe('tests', () => {
     });
 
     it('some works', () => {
-        var actual = fns.some([1, 2, 3, 4], isOdd);
+        var actual = Js.some([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(true);
-        actual = fns.some([1, 2, 4, 6], isOdd);
+        actual = Js.some([1, 2, 4, 6], isOdd);
         expect(actual).to.equal(true);
-        actual = fns.some([2, 4, 6], isOdd);
+        actual = Js.some([2, 4, 6], isOdd);
         expect(actual).to.equal(false);
     });
 
     it('keys works', () => {
-        var actual = fns.keys({'name': 'ram', 'age': 20});
+        var actual = Js.keys({'name': 'ram', 'age': 20});
         expect(actual).to.eql(['name', 'age']);
 
-        actual = fns.keys({name: 'ram', age: 20, sex: 'M'});
+        actual = Js.keys({name: 'ram', age: 20, sex: 'M'});
         expect(actual).to.eql(['name', 'age', 'sex']);
 
-        actual = fns.keys({a: 1, b: 2, c: 3, d: 100});
+        actual = Js.keys({a: 1, b: 2, c: 3, d: 100});
         expect(actual).to.eql(['a', 'b', 'c', 'd']);
 
-        actual = fns.keys([5, 3, 2, 7]);
+        actual = Js.keys([5, 3, 2, 7]);
         expect(actual).to.eql(['0', '1', '2', '3']);
     });
 
     it('every works', () => {
-        var actual = fns.every([1, 2, 3, 4], isOdd);
+        var actual = Js.every([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(false);
-        actual = fns.every([1, 2, 4, 6], isOdd);
+        actual = Js.every([1, 2, 4, 6], isOdd);
         expect(actual).to.equal(false);
-        actual = fns.every([1, 3, 5], isOdd);
+        actual = Js.every([1, 3, 5], isOdd);
         expect(actual).to.equal(true);
     });
 
     it('atleast2 works', () => {
-        var actual = fns.atleast2([1, 2, 3, 4], isOdd);
+        var actual = Js.atleast2([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(true);
-        actual = fns.atleast2([1, 2, 4, 6], isOdd);
+        actual = Js.atleast2([1, 2, 4, 6], isOdd);
         expect(actual).to.equal(false);
-        actual = fns.atleast2([2, 4, 6], isOdd);
+        actual = Js.atleast2([2, 4, 6], isOdd);
         expect(actual).to.equal(false);
-        actual = fns.atleast2([1, 3], isOdd);
+        actual = Js.atleast2([1, 3], isOdd);
         expect(actual).to.equal(true);
     });
 
     it('everybut1 works', () => {
-        var actual = fns.everybut1([1, 2, 3, 4], isOdd);
+        var actual = Js.everybut1([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(false);
-        actual = fns.everybut1([2, 1, 3, 5], isOdd);
+        actual = Js.everybut1([2, 1, 3, 5], isOdd);
         expect(actual).to.equal(true);
-        actual = fns.everybut1([2, 4, 6], isOdd);
+        actual = Js.everybut1([2, 4, 6], isOdd);
         expect(actual).to.equal(false);
-        vactual = fns.everybut1([1, 3], isOdd);
+        vactual = Js.everybut1([1, 3], isOdd);
         expect(actual).to.equal(false);
     });
 
     it('padding works', () => {
-        expect(fns.padding('abc', 10)).to.equal('       abc');
-        expect(fns.padding('abcdef', 10)).to.equal('    abcdef');
-        expect(fns.padding('abcd', 6)).to.equal('  abcd');
+        expect(Js.padding('abc', 10)).to.equal('       abc');
+        expect(Js.padding('abcdef', 10)).to.equal('    abcdef');
+        expect(Js.padding('abcd', 6)).to.equal('  abcd');
     });
 
     it('choose2 works', () => {
         var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
 
-        expect(fns.choose2(person, ['sex'])).to.eql({'sex': 'M'});
-        expect(fns.choose2(person, ['age'])).to.eql({'age': 23});
-        expect(fns.choose2(person, ['age', 'name.first'])).to.eql({'name': {'first': 'John'}, 'age': 23});
+        expect(Js.choose2(person, ['sex'])).to.eql({'sex': 'M'});
+        expect(Js.choose2(person, ['age'])).to.eql({'age': 23});
+        expect(Js.choose2(person, ['age', 'name.first'])).to.eql({'name': {'first': 'John'}, 'age': 23});
     });
 
     it('choose1 works', () => {
         var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
 
-        expect(fns.choose1(person, 'sex')).to.eql('M');
-        expect(fns.choose1(person, 'age')).to.eql(23);
-        expect(fns.choose1(person, 'name.first')).to.eql('John');
-        expect(fns.choose1(person, 'name.last')).to.eql('Cena');
+        expect(Js.choose1(person, 'sex')).to.eql('M');
+        expect(Js.choose1(person, 'age')).to.eql(23);
+        expect(Js.choose1(person, 'name.first')).to.eql('John');
+        expect(Js.choose1(person, 'name.last')).to.eql('Cena');
     });
 
     it('intersection works', () => {
-        var actual = fns.intersection([1, 2, 3], [4, 5, 6]);
+        var actual = Js.intersection([1, 2, 3], [4, 5, 6]);
         expect(actual.length).to.equal(0);
-        actual = fns.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
+        actual = Js.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
         expect(actual.length).to.equal(3);
         expect(actual[0]).to.equal(4);
         expect(actual[1]).to.equal(5);
         expect(actual[2]).to.equal(6);
-        actual = fns.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
+        actual = Js.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
         expect(actual.length).to.equal(3);
         expect(actual[0]).to.equal(4);
         expect(actual[1]).to.equal(5);
         expect(actual[2]).to.equal(6);
-        actual = fns.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
+        actual = Js.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
         expect(actual.length).to.equal(3);
         expect(actual[0]).to.equal(4);
         expect(actual[1]).to.equal(5);
         expect(actual[2]).to.equal(6);
-        actual = fns.intersection([4, 6, 3], [1, 2, 4]);
+        actual = Js.intersection([4, 6, 3], [1, 2, 4]);
         expect(actual.length).to.equal(1);
         expect(actual[0]).to.equal(4);
-        actual = fns.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
+        actual = Js.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
         expect(actual.length).to.equal(2);
         expect(actual[0]).to.equal(2);
         expect(actual[1]).to.equal(3);
     });
 
     it('zip works', () => {
-        var actual = fns.zip(
+        var actual = Js.zip(
             ['aa', 'bb'],
             [1000, 2000],
             [true, false]
@@ -174,7 +174,7 @@ describe('tests', () => {
             ['bb', 2000, false]
         ];
         expect(actual).to.eql(expected);
-        actual = fns.zip(
+        actual = Js.zip(
             ['aa', 'bb'],
             [1000, 2000],
             [true, false],
@@ -185,7 +185,7 @@ describe('tests', () => {
             ['bb', 2000, false, undefined]
         ];
         expect(actual).to.eql(expected);
-        actual = fns.zip(
+        actual = Js.zip(
             ['a', 'b', 'c'],
             [2, 3, 5],
             ['x', 'y']
@@ -196,7 +196,7 @@ describe('tests', () => {
             ['c', 5, undefined]
         ];
         expect(actual).to.eql(expected);
-        actual = fns.zip(
+        actual = Js.zip(
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
             [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
             [41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
@@ -244,13 +244,13 @@ describe('tests', () => {
     });
 
     it('reverse works', () => {
-        var actual = fns.reverse([1, 3, 2, 'n', 'a', 5]);
+        var actual = Js.reverse([1, 3, 2, 'n', 'a', 5]);
         expect(actual).to.eql([5, "a", "n", 2, 3, 1]);
 
-        actual = fns.reverse([1, 2, 3, 4, 5]);
+        actual = Js.reverse([1, 2, 3, 4, 5]);
         expect(actual).to.eql([5, 4, 3, 2, 1]);
 
-        expect(fns.reverse(fns.reverse([1, 'n', 'a', 5]))).to.eql([1, 'n', 'a', 5]);
+        expect(Js.reverse(Js.reverse([1, 'n', 'a', 5]))).to.eql([1, 'n', 'a', 5]);
     });
 
     it('filter works', () => {
@@ -259,111 +259,111 @@ describe('tests', () => {
             {'user': 'sundar', 'age': 20, 'active': false}
         ];
 
-        var actual = fns.filter(users, (o) => {
+        var actual = Js.filter(users, (o) => {
             return !o.active;
         });
         expect(actual).to.eql([{'user': 'sundar', 'age': 20, 'active': false}]);
 
-        actual = fns.filter(users, {'age': 16, 'active': true});
+        actual = Js.filter(users, {'age': 16, 'active': true});
 
         expect(actual).to.eql([{'user': 'karan', 'age': 16, 'active': true}]);
     });
 
     it('merges', () => {
-        var actual = fns.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
+        var actual = Js.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
         expect(actual).to.eql({name: 'ram', age: 20, weight: 70, height: 165});
 
-        actual = fns.merge({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
+        actual = Js.merge({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
 
         expect(actual).to.eql({name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
     });
 
     it('superfunction1', () => {
-        var actualFn = fns.superfunction1();
+        var actualFn = Js.superfunction1();
         var actual = actualFn();
         expect(actual).to.eql(100);
     });
 
     it('superfunction2', () => {
-        expect(fns.superfunction2(100)()).to.eql(100);
-        expect(fns.superfunction2(250)()).to.eql(250);
-        expect(fns.superfunction2(50)()).to.eql(50);
+        expect(Js.superfunction2(100)()).to.eql(100);
+        expect(Js.superfunction2(250)()).to.eql(250);
+        expect(Js.superfunction2(50)()).to.eql(50);
     });
 
     it('superfunction3', () => {
-        expect(fns.superfunction3(() => 100)()).to.eql(100);
-        expect(fns.superfunction3(() => 250)()).to.eql(250);
-        expect(fns.superfunction3(() => 50)()).to.eql(50);
+        expect(Js.superfunction3(() => 100)()).to.eql(100);
+        expect(Js.superfunction3(() => 250)()).to.eql(250);
+        expect(Js.superfunction3(() => 50)()).to.eql(50);
     });
 
     it('superfunction4', () => {
-        var actualFn = fns.superfunction4(0);
+        var actualFn = Js.superfunction4(0);
         expect(actualFn()).to.eql(1);
         expect(actualFn()).to.eql(2);
         expect(actualFn()).to.eql(3);
 
-        actualFn = fns.superfunction4(50);
+        actualFn = Js.superfunction4(50);
         expect(actualFn()).to.eql(51);
         expect(actualFn()).to.eql(52);
         expect(actualFn()).to.eql(53);
     });
 
     it('should split', () => {
-        var actual = fns.split('ab-cd-ef-gf', '-');
+        var actual = Js.split('ab-cd-ef-gf', '-');
         expect(actual).to.eql(['ab', 'cd', 'ef', 'gf']);
 
-        actual = fns.split('ab-ad-af-af', '-a');
+        actual = Js.split('ab-ad-af-af', '-a');
         expect(actual).to.eql(['ab', 'd', 'f', 'f']);
 
-        actual = fns.split('ab-ad-af-af', '-af');
+        actual = Js.split('ab-ad-af-af', '-af');
         expect(actual).to.eql(['ab-ad', '', '']);
 
-        actual = fns.split('hello world', 'ello worl');
+        actual = Js.split('hello world', 'ello worl');
         expect(actual).to.eql(['h', 'd']);
     });
 
     it('should check it is before', () => {
-        expect(fns.before(1, 2)).to.eql(true);
-        expect(fns.before(3, 10)).to.eql(true);
-        expect(fns.before(30, 3)).to.eql(false);
+        expect(Js.before(1, 2)).to.eql(true);
+        expect(Js.before(3, 10)).to.eql(true);
+        expect(Js.before(30, 3)).to.eql(false);
 
-        expect(fns.before('a', 'b')).to.eql(true);
-        expect(fns.before('c', 'd')).to.eql(true);
-        expect(fns.before('f', 'a')).to.eql(false);
+        expect(Js.before('a', 'b')).to.eql(true);
+        expect(Js.before('c', 'd')).to.eql(true);
+        expect(Js.before('f', 'a')).to.eql(false);
 
-        expect(fns.before(new Date('2017-01-01'), new Date('2018-01-01'))).to.eql(true);
-        expect(fns.before(new Date('2018-01-01'), new Date('2017-01-01'))).to.eql(false);
+        expect(Js.before(new Date('2017-01-01'), new Date('2018-01-01'))).to.eql(true);
+        expect(Js.before(new Date('2018-01-01'), new Date('2017-01-01'))).to.eql(false);
 
-        expect(fns.before(() => 10, () => 20)).to.eql(true);
-        expect(fns.before(() => 'f', () => 'a')).to.eql(false);
+        expect(Js.before(() => 10, () => 20)).to.eql(true);
+        expect(Js.before(() => 'f', () => 'a')).to.eql(false);
 
-        expect(fns.before(() => () => 10, () => () => 20)).to.eql(true);
-        expect(fns.before(() => () => 'f', () => () => 'a')).to.eql(false);
+        expect(Js.before(() => () => 10, () => () => 20)).to.eql(true);
+        expect(Js.before(() => () => 'f', () => () => 'a')).to.eql(false);
 
-        expect(fns.before(() => () => () => 10, () => () => () => 20)).to.eql(true);
-        expect(fns.before(() => () => () => 'f', () => () => () => 'a')).to.eql(false);
+        expect(Js.before(() => () => () => 10, () => () => () => 20)).to.eql(true);
+        expect(Js.before(() => () => () => 'f', () => () => () => 'a')).to.eql(false);
     });
 
     it('object1', () => {
-        expect(fns.object1('Ram Babu', 23)).to.eql({name: 'Ram Babu', age: 23});
-        expect(fns.object1('Ram Babu', 25)).to.eql({name: 'Ram Babu', age: 25});
-        expect(fns.object1('John Cena', 23)).to.eql({name: 'John Cena', age: 23});
+        expect(Js.object1('Ram Babu', 23)).to.eql({name: 'Ram Babu', age: 23});
+        expect(Js.object1('Ram Babu', 25)).to.eql({name: 'Ram Babu', age: 25});
+        expect(Js.object1('John Cena', 23)).to.eql({name: 'John Cena', age: 23});
     });
 
     it('object2', () => {
-        var actual = fns.object2('Ram Babu', 23);
+        var actual = Js.object2('Ram Babu', 23);
         expect(actual.getName()).to.eql('Ram Babu');
         expect(actual.getAge()).to.eql(23);
 
-        actual = fns.object2('Sita Ram', 35);
+        actual = Js.object2('Sita Ram', 35);
         expect({name: actual.getName(), age: actual.getAge()}).to.eql({name: 'Sita Ram', age: 35});
     });
 
     it('Person works. object3', () => {
-        const person1 = new fns.Person('Sita Ram', 35);
+        const person1 = new Js.Person('Sita Ram', 35);
         expect(person1.getName()).to.eql('Sita Ram');
         expect(person1.getAge()).to.eql(35);
-        const person2 = new fns.Person('Ram', 70);
+        const person2 = new Js.Person('Ram', 70);
         expect(person2.getName()).to.eql('Ram');
         expect(person2.getAge()).to.eql(70);
 
@@ -371,7 +371,7 @@ describe('tests', () => {
     });
 
     it('Person works. object4', () => {
-        const person1 = new fns.Person('Sita Ram', 35);
+        const person1 = new Js.Person('Sita Ram', 35);
         expect(person1.name).to.eql(undefined);
         expect(person1.age).to.eql(undefined);
         expect(person1.getName()).to.eql('Sita Ram');
@@ -379,84 +379,84 @@ describe('tests', () => {
     });
 
     it('uniquee works', () => {
-        expect(fns.uniquee([1, 3, 2, 5, 4, 3, 7, 4, 5, 3, 2, 9, 6])).to.eql([1, 3, 2, 5, 4, 7, 9, 6]);
-        expect(fns.uniquee([4, 5, 3, 2, 9, 6, 1, 3, 2, 5, 4, 3, 7])).to.eql([4, 5, 3, 2, 9, 6, 1, 7]);
+        expect(Js.uniquee([1, 3, 2, 5, 4, 3, 7, 4, 5, 3, 2, 9, 6])).to.eql([1, 3, 2, 5, 4, 7, 9, 6]);
+        expect(Js.uniquee([4, 5, 3, 2, 9, 6, 1, 3, 2, 5, 4, 3, 7])).to.eql([4, 5, 3, 2, 9, 6, 1, 7]);
     });
 
     it('uniqueeBy works', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
-        expect(fns.uniqueeBy(input, x => x.name.toLowerCase())).to.eql([input[0], input[2]]);
-        expect(fns.uniqueeBy(input, x => x.age)).to.eql([input[0], input[1]]);
-        expect(fns.uniqueeBy(input, x => x.id)).to.eql([input[0]]);
+        expect(Js.uniqueeBy(input, x => x.name.toLowerCase())).to.eql([input[0], input[2]]);
+        expect(Js.uniqueeBy(input, x => x.age)).to.eql([input[0], input[1]]);
+        expect(Js.uniqueeBy(input, x => x.id)).to.eql([input[0]]);
     });
 
     it('first and last both works', () => {
         const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
-        let actual = fns.first(input);
+        let actual = Js.first(input);
         expect(actual).to.eql(input[0]);
-        actual = fns.last(input);
+        actual = Js.last(input);
         expect(actual).to.eql(input[2]);
-        actual = fns.last([1, 3, 5, 6, 2, 9]);
+        actual = Js.last([1, 3, 5, 6, 2, 9]);
         expect(actual).to.eql(9);
     });
 
     it('reuse test 1', () => {
-        let actual = fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
+        let actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
         expect(actual).to.eql([1, 3]);
-        actual = fns.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd);
+        actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
     });
 
     it('reuse test 2', () => {
-        let actual = fns.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd);
+        let actual = Js.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd);
         expect(actual).to.eql([1, 3]);
-        actual = fns.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
+        actual = Js.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
     });
 
     it('i want array', () => {
-        expect(fns.anarray).to.be.an('array');
-        expect(fns.anarray.length).to.be.a('number');
+        expect(Js.anarray).to.be.an('array');
+        expect(Js.anarray.length).to.be.a('number');
     });
 
     it('gates AND', () => {
-        expect(fns.AND(false,false)).to.eql(false);
-        expect(fns.AND(false,true)).to.eql(false);
-        expect(fns.AND(true,false)).to.eql(false);
-        expect(fns.AND(true,true)).to.eql(true);
+        expect(Js.AND(false,false)).to.eql(false);
+        expect(Js.AND(false,true)).to.eql(false);
+        expect(Js.AND(true,false)).to.eql(false);
+        expect(Js.AND(true,true)).to.eql(true);
     });
     it('gates OR', () => {
-        expect(fns.OR(false,false)).to.eql(false);
-        expect(fns.OR(false,true)).to.eql(true);
-        expect(fns.OR(true,false)).to.eql(true);
-        expect(fns.OR(true,true)).to.eql(true);
+        expect(Js.OR(false,false)).to.eql(false);
+        expect(Js.OR(false,true)).to.eql(true);
+        expect(Js.OR(true,false)).to.eql(true);
+        expect(Js.OR(true,true)).to.eql(true);
     });
     it('gates NAND', () => {
-        expect(fns.NAND(false,false)).to.eql(true);
-        expect(fns.NAND(false,true)).to.eql(true);
-        expect(fns.NAND(true,false)).to.eql(true);
-        expect(fns.NAND(true,true)).to.eql(false);
+        expect(Js.NAND(false,false)).to.eql(true);
+        expect(Js.NAND(false,true)).to.eql(true);
+        expect(Js.NAND(true,false)).to.eql(true);
+        expect(Js.NAND(true,true)).to.eql(false);
     });
     it('gates NOT', () => {
-        expect(fns.NOT(false)).to.eql(true);
-        expect(fns.NOT(true)).to.eql(false);
+        expect(Js.NOT(false)).to.eql(true);
+        expect(Js.NOT(true)).to.eql(false);
     });
     it('gates NOR', () => {
-        expect(fns.NOR(false,false)).to.eql(true);
-        expect(fns.NOR(false,true)).to.eql(false);
-        expect(fns.NOR(true,false)).to.eql(false);
-        expect(fns.NOR(true,true)).to.eql(false);
+        expect(Js.NOR(false,false)).to.eql(true);
+        expect(Js.NOR(false,true)).to.eql(false);
+        expect(Js.NOR(true,false)).to.eql(false);
+        expect(Js.NOR(true,true)).to.eql(false);
     });
     it('gates XOR', () => {
-        expect(fns.XOR(false,false)).to.eql(false);
-        expect(fns.XOR(false,true)).to.eql(true);
-        expect(fns.XOR(true,false)).to.eql(true);
-        expect(fns.XOR(true,true)).to.eql(false);
+        expect(Js.XOR(false,false)).to.eql(false);
+        expect(Js.XOR(false,true)).to.eql(true);
+        expect(Js.XOR(true,false)).to.eql(true);
+        expect(Js.XOR(true,true)).to.eql(false);
     });
     it('gates XNOR', () => {
-        expect(fns.XNOR(false,false)).to.eql(true);
-        expect(fns.XNOR(false,true)).to.eql(false);
-        expect(fns.XNOR(true,false)).to.eql(false);
-        expect(fns.XNOR(true,true)).to.eql(true);
+        expect(Js.XNOR(false,false)).to.eql(true);
+        expect(Js.XNOR(false,true)).to.eql(false);
+        expect(Js.XNOR(true,false)).to.eql(false);
+        expect(Js.XNOR(true,true)).to.eql(true);
     });
 });
