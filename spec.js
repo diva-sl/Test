@@ -420,14 +420,27 @@ describe('tests', () => {
 
         actual = Js.reuse3([{a: {n: 1}}, {a: {n: 2}}, {a: {n: 3}}, {a: {n: 10}}, {a: {n: 100}}], ['a', 'n'], isOdd);
         expect(actual).to.eql([1, 3]);
+
+        actual = Js.reuse3([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b' ,'c'], isOdd);
+        expect(actual).to.eql([1, 3]);
+    });
+
+    it('reuse test 4', () => {
+        let actual = Js.reuse4([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
+        expect(actual).to.eql([{a: 1}, {a: 3}, {a: 5}, {a: 7}]);
+
+        actual = Js.reuse4([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b' ,'c'], isOdd);
+        expect(actual).to.eql([{a: {b: {c: 1}}}, {a: {b: {c: 3}}}]);
     });
 
     it('i want array', () => {
+        expect([]).to.be.an('array');
         expect(Js.anarray).to.be.an('array');
         expect(Js.anarray.length).to.be.a('number');
     });
 
     it('i want number', () => {
+        expect(100).to.be.a('number');
         expect(Js.anumber).to.be.a('number');
         expect(Js.anumber / Js.anumber).to.eql(1);
     });
