@@ -1,4 +1,4 @@
-if(module === require.main) {
+if (module === require.main) {
     console.log('direct execution not allowed. try running the following command\n');
     try {
         require('chai');
@@ -367,7 +367,7 @@ describe('tests', () => {
         expect(person2.getName()).to.eql('Ram');
         expect(person2.getAge()).to.eql(70);
 
-        expect(person1.getName,'condition failed person1.getName === person2.getName').to.equal(person2.getName);
+        expect(person1.getName, 'condition failed person1.getName === person2.getName').to.equal(person2.getName);
     });
 
     it('Person works. object4', () => {
@@ -414,6 +414,14 @@ describe('tests', () => {
         expect(actual).to.eql([1, 3, 5, 7]);
     });
 
+    it('reuse test 3', () => {
+        let actual = Js.reuse3([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
+        expect(actual).to.eql([1, 3, 5, 7]);
+
+        actual = Js.reuse3([{a: {n: 1}}, {a: {n: 2}}, {a: {n: 3}}, {a: {n: 10}}, {a: {n: 100}}], ['a', 'n'], isOdd);
+        expect(actual).to.eql([1, 3]);
+    });
+
     it('i want array', () => {
         expect(Js.anarray).to.be.an('array');
         expect(Js.anarray.length).to.be.a('number');
@@ -421,47 +429,47 @@ describe('tests', () => {
 
     it('i want number', () => {
         expect(Js.anumber).to.be.a('number');
-        expect(Js.anumber/Js.anumber).to.eql(1);
+        expect(Js.anumber / Js.anumber).to.eql(1);
     });
 
     it('gates AND', () => {
-        expect(Js.AND(false,false)).to.eql(false);
-        expect(Js.AND(false,true)).to.eql(false);
-        expect(Js.AND(true,false)).to.eql(false);
-        expect(Js.AND(true,true)).to.eql(true);
+        expect(Js.AND(false, false)).to.eql(false);
+        expect(Js.AND(false, true)).to.eql(false);
+        expect(Js.AND(true, false)).to.eql(false);
+        expect(Js.AND(true, true)).to.eql(true);
     });
     it('gates OR', () => {
-        expect(Js.OR(false,false)).to.eql(false);
-        expect(Js.OR(false,true)).to.eql(true);
-        expect(Js.OR(true,false)).to.eql(true);
-        expect(Js.OR(true,true)).to.eql(true);
+        expect(Js.OR(false, false)).to.eql(false);
+        expect(Js.OR(false, true)).to.eql(true);
+        expect(Js.OR(true, false)).to.eql(true);
+        expect(Js.OR(true, true)).to.eql(true);
     });
     it('gates NAND', () => {
-        expect(Js.NAND(false,false)).to.eql(true);
-        expect(Js.NAND(false,true)).to.eql(true);
-        expect(Js.NAND(true,false)).to.eql(true);
-        expect(Js.NAND(true,true)).to.eql(false);
+        expect(Js.NAND(false, false)).to.eql(true);
+        expect(Js.NAND(false, true)).to.eql(true);
+        expect(Js.NAND(true, false)).to.eql(true);
+        expect(Js.NAND(true, true)).to.eql(false);
     });
     it('gates NOT', () => {
         expect(Js.NOT(false)).to.eql(true);
         expect(Js.NOT(true)).to.eql(false);
     });
     it('gates NOR', () => {
-        expect(Js.NOR(false,false)).to.eql(true);
-        expect(Js.NOR(false,true)).to.eql(false);
-        expect(Js.NOR(true,false)).to.eql(false);
-        expect(Js.NOR(true,true)).to.eql(false);
+        expect(Js.NOR(false, false)).to.eql(true);
+        expect(Js.NOR(false, true)).to.eql(false);
+        expect(Js.NOR(true, false)).to.eql(false);
+        expect(Js.NOR(true, true)).to.eql(false);
     });
     it('gates XOR', () => {
-        expect(Js.XOR(false,false)).to.eql(false);
-        expect(Js.XOR(false,true)).to.eql(true);
-        expect(Js.XOR(true,false)).to.eql(true);
-        expect(Js.XOR(true,true)).to.eql(false);
+        expect(Js.XOR(false, false)).to.eql(false);
+        expect(Js.XOR(false, true)).to.eql(true);
+        expect(Js.XOR(true, false)).to.eql(true);
+        expect(Js.XOR(true, true)).to.eql(false);
     });
     it('gates XNOR', () => {
-        expect(Js.XNOR(false,false)).to.eql(true);
-        expect(Js.XNOR(false,true)).to.eql(false);
-        expect(Js.XNOR(true,false)).to.eql(false);
-        expect(Js.XNOR(true,true)).to.eql(true);
+        expect(Js.XNOR(false, false)).to.eql(true);
+        expect(Js.XNOR(false, true)).to.eql(false);
+        expect(Js.XNOR(true, false)).to.eql(false);
+        expect(Js.XNOR(true, true)).to.eql(true);
     });
 });
