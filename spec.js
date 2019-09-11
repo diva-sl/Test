@@ -275,7 +275,10 @@ describe('tests', () => {
     });
 
     it('merge 1', () => {
-        let actual = Js.mergeDeep({name: 'ram', likes: {movie: 'Robot'}}, {name: 'ram', likes: {song: 'Cheap Thrills'}});
+        let actual = Js.mergeDeep({name: 'ram', likes: {movie: 'Robot'}}, {
+            name: 'ram',
+            likes: {song: 'Cheap Thrills'}
+        });
         expect(actual).to.eql({name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
     });
 
@@ -401,14 +404,8 @@ describe('tests', () => {
         expect(actual).to.eql(9);
     });
 
-    it('reuse test 0 | loops are forbidden', () => {
-        expect(Js.reuse1.toString(), 'Js.reuse1 should not use loops').to.not.match(/for|while/);
-        expect(Js.reuse2.toString(), 'Js.reuse2 should not use loops').to.not.match(/for|while/);
-        expect(Js.reuse3.toString(), 'Js.reuse3 should not use loops').to.not.match(/for|while/);
-        expect(Js.reuse4.toString(), 'Js.reuse4 should not use loops').to.not.match(/for|while/);
-    });
-
     it('reuse test 1', () => {
+        expect(Js.reuse1.toString(), 'Js.reuse1 should not use loops').to.not.match(/for|while/);
         let actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
         expect(actual).to.eql([1, 3]);
         actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd);
@@ -416,6 +413,7 @@ describe('tests', () => {
     });
 
     it('reuse test 2', () => {
+        expect(Js.reuse2.toString(), 'Js.reuse2 should not use loops').to.not.match(/for|while/);
         let actual = Js.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd);
         expect(actual).to.eql([1, 3]);
         actual = Js.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
@@ -423,6 +421,7 @@ describe('tests', () => {
     });
 
     it('reuse test 3', () => {
+        expect(Js.reuse3.toString(), 'Js.reuse3 should not use loops').to.not.match(/for|while/);
         let actual = Js.reuse3([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
 
@@ -434,11 +433,37 @@ describe('tests', () => {
     });
 
     it('reuse test 4', () => {
+        expect(Js.reuse4.toString(), 'Js.reuse4 should not use loops').to.not.match(/for|while/);
         let actual = Js.reuse4([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
         expect(actual).to.eql([{a: 1}, {a: 3}, {a: 5}, {a: 7}]);
 
         actual = Js.reuse4([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b', 'c'], isOdd);
         expect(actual).to.eql([{a: {b: {c: 1}}}, {a: {b: {c: 3}}}]);
+    });
+
+    it('reuse test 5 | chain 1', () => {
+        expect(Js.chain([1,2,3,4,5], [
+            [Js.filter, isOdd]
+        ])).to.eql([1,3,5]);
+        expect(Js.chain([1,2,3,4,5], [
+            [Js.filter, isOdd],
+            [Js.reduce, (a, b) => a + b]
+        ])).to.eql(9);
+
+        const input = [{J: {K: {L: 1}}}, {J: {K: {L: 2}}}, {J: {K: {L: 3}}}, {J: {K: {L: 4}}}, {J: {K: {L: 5}}}];
+        let actual = Js.chain(input, [
+            [Js.map, (x) => x.J.K.L],
+            [Js.filter, isOdd],
+            [Js.reduce, (a, b) => a + b],
+        ]);
+        expect(actual).to.eql(9);
+    });
+
+    it('reduce ', () => {
+        expect(Js.reduce([1, 2, 3, 4], (a, b) => a + b)).to.eql(10);
+        expect(Js.reduce([1, 3, 5, 7], (a, b) => a + b)).to.eql(16);
+        expect(Js.reduce([1, 2, 3, 4], (a, b) => a > b ? a : b)).to.eql(4);
+        expect(Js.reduce([7, 1, 4, 2], (a, b) => a < b ? a : b)).to.eql(1);
     });
 
     it('i want array', () => {
