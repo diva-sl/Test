@@ -382,6 +382,28 @@ describe('tests', () => {
         expect(person1.getAge()).to.eql(35);
     });
 
+    it('Man and Woman. object5', () => {
+        const person1 = new Js.Person('Sita', 40, 'F');
+        expect(person1).to.be.an.instanceof(Js.Person);
+        expect(person1.getName()).to.eql('Sita');
+        expect(person1.getAge()).to.eql(40);
+        expect(person1.getSex()).to.eql('F');
+
+        const person2 = new Js.Woman('Lila', 30);
+        expect(person2).to.be.an.instanceof(Js.Woman);
+        expect(person2.getName()).to.eql('Lila');
+        expect(person2.getAge()).to.eql(30);
+        expect(person2.getSex()).to.eql('F');
+        expect(person2).to.be.an.instanceof(Js.Person);
+
+        const person3 = new Js.Man('Raja', 25);
+        expect(person3).to.be.an.instanceof(Js.Man);
+        expect(person3.getName()).to.eql('Raja');
+        expect(person3.getAge()).to.eql(25);
+        expect(person3.getSex()).to.eql('M');
+        expect(person3).to.be.an.instanceof(Js.Person);
+    });
+
     it('uniquee works', () => {
         expect(Js.uniquee([1, 3, 2, 5, 4, 3, 7, 4, 5, 3, 2, 9, 6])).to.eql([1, 3, 2, 5, 4, 7, 9, 6]);
         expect(Js.uniquee([4, 5, 3, 2, 9, 6, 1, 3, 2, 5, 4, 3, 7])).to.eql([4, 5, 3, 2, 9, 6, 1, 7]);
