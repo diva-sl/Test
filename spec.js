@@ -594,4 +594,13 @@ describe('tests', () => {
         while (!gen.next().done) counter++;
         expect(counter, 'failed location: [generator 4][105]').to.eql(20);
     });
+
+    it('myself', ()=> {
+        expect(Js).to.equal(Js);
+        expect(Js.me).to.equal(Js);
+        expect(Js.me.me).to.equal(Js);
+        expect(Js.me.me.me).to.equal(Js);
+        expect(Js.me.me.me.me).to.equal(Js);
+        expect(Js.me.me.me.me.me).to.equal(Js);
+    });
 });
