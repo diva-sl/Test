@@ -312,6 +312,29 @@ describe('tests', () => {
         expect(actualFn()).to.eql(53);
     });
 
+    it('god functions 1', () => {
+        var actualFn = Js.godFunction(['a', 'b'], 'a+b');
+        expect(actualFn(1,2)).to.eql(3);
+        expect(actualFn(3,1)).to.eql(4);
+        expect(actualFn('a','b')).to.eql('ab');
+
+        var actualFn = Js.godFunction(['a', 'b'], 'a*b');
+        expect(actualFn(1,2)).to.eql(2);
+        expect(actualFn(3,1)).to.eql(3);
+        expect(actualFn(1,0)).to.eql(0);
+
+        var actualFn = Js.godFunction(['a', 'b'], 'a/b');
+        expect(actualFn(1,2)).to.eql(0.5);
+        expect(actualFn(3,1)).to.eql(3);
+        expect(actualFn(1,0)).to.eql(Infinity);
+    });
+
+    it('god functions 2', () => {
+        var actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
+        expect(actualFn(1, 2)).to.eql(3);
+        expect(actualFn.name).to.eql('add');
+    });
+
     it('should split', () => {
         var actual = Js.split('ab-cd-ef-gf', '-');
         expect(actual).to.eql(['ab', 'cd', 'ef', 'gf']);
