@@ -338,14 +338,16 @@ describe('tests', () => {
         expect(Js.before(new Date('2017-01-01'), new Date('2018-01-01'))).to.eql(true);
         expect(Js.before(new Date('2018-01-01'), new Date('2017-01-01'))).to.eql(false);
 
-        expect(Js.before(() => 10, () => 20)).to.eql(true);
-        expect(Js.before(() => 'f', () => 'a')).to.eql(false);
+        const a=10,b=20,c='f',d='a';
 
-        expect(Js.before(() => () => 10, () => () => 20)).to.eql(true);
-        expect(Js.before(() => () => 'f', () => () => 'a')).to.eql(false);
+        expect(Js.before(() => a, () => b)).to.eql(true);
+        expect(Js.before(() => c, () => d)).to.eql(false);
 
-        expect(Js.before(() => () => () => 10, () => () => () => 20)).to.eql(true);
-        expect(Js.before(() => () => () => 'f', () => () => () => 'a')).to.eql(false);
+        expect(Js.before(() => () => a, () => () => b)).to.eql(true);
+        expect(Js.before(() => () => c, () => () => d)).to.eql(false);
+
+        expect(Js.before(() => () => () => a, () => () => () => b)).to.eql(true);
+        expect(Js.before(() => () => () => c, () => () => () => d)).to.eql(false);
     });
 
     it('object1', () => {
