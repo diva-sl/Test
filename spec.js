@@ -314,19 +314,19 @@ describe('tests', () => {
 
     it('god functions 1', () => {
         var actualFn = Js.godFunction(['a', 'b'], 'a+b');
-        expect(actualFn(1,2)).to.eql(3);
-        expect(actualFn(3,1)).to.eql(4);
-        expect(actualFn('a','b')).to.eql('ab');
+        expect(actualFn(1, 2)).to.eql(3);
+        expect(actualFn(3, 1)).to.eql(4);
+        expect(actualFn('a', 'b')).to.eql('ab');
 
         var actualFn = Js.godFunction(['a', 'b'], 'a*b');
-        expect(actualFn(1,2)).to.eql(2);
-        expect(actualFn(3,1)).to.eql(3);
-        expect(actualFn(1,0)).to.eql(0);
+        expect(actualFn(1, 2)).to.eql(2);
+        expect(actualFn(3, 1)).to.eql(3);
+        expect(actualFn(1, 0)).to.eql(0);
 
         var actualFn = Js.godFunction(['a', 'b'], 'a/b');
-        expect(actualFn(1,2)).to.eql(0.5);
-        expect(actualFn(3,1)).to.eql(3);
-        expect(actualFn(1,0)).to.eql(Infinity);
+        expect(actualFn(1, 2)).to.eql(0.5);
+        expect(actualFn(3, 1)).to.eql(3);
+        expect(actualFn(1, 0)).to.eql(Infinity);
     });
 
     it('god functions 2', () => {
@@ -361,7 +361,7 @@ describe('tests', () => {
         expect(Js.before(new Date('2017-01-01'), new Date('2018-01-01'))).to.eql(true);
         expect(Js.before(new Date('2018-01-01'), new Date('2017-01-01'))).to.eql(false);
 
-        const a=10,b=20,c='f',d='a';
+        const a = 10, b = 20, c = 'f', d = 'a';
 
         expect(Js.before(() => a, () => b)).to.eql(true);
         expect(Js.before(() => c, () => d)).to.eql(false);
@@ -489,10 +489,10 @@ describe('tests', () => {
     });
 
     it('reuse test 5 | chain 1', () => {
-        expect(Js.chain([1,2,3,4,5], [
+        expect(Js.chain([1, 2, 3, 4, 5], [
             [Js.filter, isOdd]
-        ])).to.eql([1,3,5]);
-        expect(Js.chain([1,2,3,4,5], [
+        ])).to.eql([1, 3, 5]);
+        expect(Js.chain([1, 2, 3, 4, 5], [
             [Js.filter, isOdd],
             [Js.reduce, (a, b) => a + b]
         ])).to.eql(9);
@@ -526,7 +526,7 @@ describe('tests', () => {
     });
 
     it('i want function', () => {
-        expect(()=>{}).to.be.a('function');
+        expect(x => x).to.be.a('function');
         expect(Js.afunction).to.be.a('function');
         expect(Js.afunction.name).to.eql('afunction');
     });
@@ -626,12 +626,57 @@ describe('tests', () => {
         expect(counter, 'failed location: [generator 4][105]').to.eql(20);
     });
 
-    it('myself', ()=> {
+    it('myself', () => {
         expect(Js).to.equal(Js);
         expect(Js.me).to.equal(Js);
         expect(Js.me.me).to.equal(Js);
         expect(Js.me.me.me).to.equal(Js);
         expect(Js.me.me.me.me).to.equal(Js);
         expect(Js.me.me.me.me.me).to.equal(Js);
+    });
+
+    it('hide and seek', () => {
+        expect(Js.seek(
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------P-----------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------')).to.equal('P');
+        expect(Js.seek(
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '-----------------------APPLE----' +
+            '--------------------------------')).to.equal('A');
+        expect(Js.seek(
+            '--------------------------------' +
+            '--------------------------------' +
+            '------ORANGE--------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '----BANANA----------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '--------------------------------' +
+            '-----------------------APPLE----' +
+            '--------------------------------')).to.equal('O');
     });
 });
