@@ -502,6 +502,12 @@ describe('tests', () => {
         expect(Js.anumber / Js.anumber).to.eql(1);
     });
 
+    it('i want function', () => {
+        expect(()=>{}).to.be.a('function');
+        expect(Js.afunction).to.be.a('function');
+        expect(Js.afunction.name).to.eql('afunction');
+    });
+
     it('gates AND', () => {
         expect(Js.AND(false, false)).to.eql(false);
         expect(Js.AND(false, true)).to.eql(false);
