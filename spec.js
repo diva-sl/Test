@@ -580,23 +580,25 @@ describe('tests', () => {
     });
 
     it('generator 2', () => {
-        let gen = Js.range(0, 2);
-        expect(gen.next().done, 'failed location: [generator 2][100]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][101]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][102]').to.eql(true);
+        let gen = Js.range(0, 0);
+        expect(gen.next().done, 'specs file location: 101').to.eql(true);
 
-        gen = Js.range(0, 10);
-        expect(gen.next().done, 'failed location: [generator 2][200]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][201]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][202]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][203]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][204]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][205]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][206]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][207]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][208]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][209]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 2][210]').to.eql(true);
+        gen = Js.range(0, 1);
+        expect(gen.next().done, 'specs file location: 102').to.eql(false);
+        expect(gen.next().done, 'specs file location: 103').to.eql(true);
+
+        gen = Js.range(0, 2);
+        expect(gen.next().done, 'specs file location: 104').to.eql(false);
+        expect(gen.next().done, 'specs file location: 105').to.eql(false);
+        expect(gen.next().done, 'specs file location: 106').to.eql(true);
+
+        gen = Js.range(0, 5);
+        expect(gen.next().done, 'specs file location: 112').to.eql(false);
+        expect(gen.next().done, 'specs file location: 113').to.eql(false);
+        expect(gen.next().done, 'specs file location: 114').to.eql(false);
+        expect(gen.next().done, 'specs file location: 115').to.eql(false);
+        expect(gen.next().done, 'specs file location: 116').to.eql(false);
+        expect(gen.next().done, 'specs file location: 117').to.eql(true);
     });
 
     it('generator 3', () => {
