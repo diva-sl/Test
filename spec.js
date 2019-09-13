@@ -599,16 +599,14 @@ describe('tests', () => {
         expect(gen.next().done, 'specs file location: 115').to.eql(false);
         expect(gen.next().done, 'specs file location: 116').to.eql(false);
         expect(gen.next().done, 'specs file location: 117').to.eql(true);
-    });
 
-    it('generator 3', () => {
-        let gen = Js.range(0, 100);
+        gen = Js.range(0, 100);
         let counter = 0;
         while (!gen.next().done) counter++;
         expect(counter).to.eql(100);
     });
 
-    it('generator 4', () => {
+    it('generator 3', () => {
         let gen, counter;
         gen = Js.range(0, 13, 5);
 
