@@ -593,12 +593,12 @@ describe('tests', () => {
         expect(gen.next().done, 'specs file location: 106').to.eql(true);
 
         gen = Js.range(0, 5);
-        expect(gen.next().done, 'specs file location: 112').to.eql(false);
-        expect(gen.next().done, 'specs file location: 113').to.eql(false);
-        expect(gen.next().done, 'specs file location: 114').to.eql(false);
-        expect(gen.next().done, 'specs file location: 115').to.eql(false);
-        expect(gen.next().done, 'specs file location: 116').to.eql(false);
-        expect(gen.next().done, 'specs file location: 117').to.eql(true);
+        expect(gen.next().done, 'specs file location: 107').to.eql(false);
+        expect(gen.next().done, 'specs file location: 108').to.eql(false);
+        expect(gen.next().done, 'specs file location: 109').to.eql(false);
+        expect(gen.next().done, 'specs file location: 110').to.eql(false);
+        expect(gen.next().done, 'specs file location: 111').to.eql(false);
+        expect(gen.next().done, 'specs file location: 112').to.eql(true);
 
         gen = Js.range(0, 100);
         let counter = 0;
@@ -610,20 +610,20 @@ describe('tests', () => {
         let gen, counter;
         gen = Js.range(0, 13, 5);
 
-        expect(gen.next().done, 'failed location: [generator 4][100]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 4][101]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 4][102]').to.eql(false);
-        expect(gen.next().done, 'failed location: [generator 4][103]').to.eql(true);
+        expect(gen.next().done, 'specs file location: 100').to.eql(false);
+        expect(gen.next().done, 'specs file location: 101').to.eql(false);
+        expect(gen.next().done, 'specs file location: 102').to.eql(false);
+        expect(gen.next().done, 'specs file location: 103').to.eql(true);
 
         gen = Js.range(0, 100, 5);
         counter = 0;
         while (!gen.next().done) counter++;
-        expect(counter, 'failed location: [generator 4][104]').to.eql(20);
+        expect(counter, 'specs file location: 104').to.eql(20);
 
         gen = Js.range(0, 97, 5);
         counter = 0;
         while (!gen.next().done) counter++;
-        expect(counter, 'failed location: [generator 4][105]').to.eql(20);
+        expect(counter, 'specs file location: 105').to.eql(20);
     });
 
     it('myself', () => {
@@ -678,5 +678,57 @@ describe('tests', () => {
             '--------------------------------' +
             '-----------------------APPLE----' +
             '--------------------------------')).to.equal('O');
+    });
+
+    it('counter 1', ()=> {
+        const counter = new Js.Counter();
+
+        expect(counter.get()).to.eql(0);
+        counter.inc(); expect(counter.get()).to.eql(1);
+        counter.inc(); expect(counter.get()).to.eql(2);
+        counter.inc(); expect(counter.get()).to.eql(3);
+        counter.inc(); expect(counter.get()).to.eql(4);
+    });
+
+    it('counter 2', ()=> {
+        const counter = Js.counter();
+
+        expect(counter.get()).to.eql(0);
+        counter.inc(); expect(counter.get()).to.eql(1);
+        counter.inc(); expect(counter.get()).to.eql(2);
+        counter.inc(); expect(counter.get()).to.eql(3);
+        counter.inc(); expect(counter.get()).to.eql(4);
+    });
+
+    it('textacc | closure 1', ()=> {
+      const acc1 = Js.textacc();
+
+      expect(acc1()).to.eql('');
+
+      acc1(' hi ');
+      expect(acc1()).to.eql(' hi ');
+      expect(acc1()).to.eql('');
+
+      acc1(' hi ');
+      acc1(' hello ');
+      acc1(' how are you? ');
+      expect(acc1()).to.eql(' hi \n hello \n how are you? ');
+      expect(acc1()).to.eql('');
+
+      acc1('');
+      acc1('');
+      expect(acc1()).to.eql('\n');
+      expect(acc1()).to.eql('');
+    });
+
+    it('counter 3 | closure 2', ()=> {
+        const counter = Js.counter3();
+
+        counter.reset; expect(counter.get).to.eql(0);
+        counter(); expect(counter.get).to.eql(1);
+        counter(); expect(counter.get).to.eql(2);
+        counter(); expect(counter.get).to.eql(3);
+        counter(); expect(counter.get).to.eql(4);
+        counter.reset; expect(counter.get).to.eql(0);
     });
 });
