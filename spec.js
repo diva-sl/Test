@@ -138,29 +138,25 @@ describe('tests', () => {
 
     it('intersection works', () => {
         var actual = Js.intersection([1, 2, 3], [4, 5, 6]);
-        expect(actual.length).to.equal(0);
+        expect(actual).to.eql([]);
         actual = Js.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
-        expect(actual.length).to.equal(3);
-        expect(actual[0]).to.equal(4);
-        expect(actual[1]).to.equal(5);
-        expect(actual[2]).to.equal(6);
+        expect(actual).to.eql([4,5,6]);
         actual = Js.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
-        expect(actual.length).to.equal(3);
-        expect(actual[0]).to.equal(4);
-        expect(actual[1]).to.equal(5);
-        expect(actual[2]).to.equal(6);
+        expect(actual).to.eql([4,5,6]);
         actual = Js.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
-        expect(actual.length).to.equal(3);
-        expect(actual[0]).to.equal(4);
-        expect(actual[1]).to.equal(5);
-        expect(actual[2]).to.equal(6);
+        expect(actual).to.eql([4,5,6]);
         actual = Js.intersection([4, 6, 3], [1, 2, 4]);
-        expect(actual.length).to.equal(1);
-        expect(actual[0]).to.equal(4);
+        expect(actual).to.eql([4]);
         actual = Js.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
-        expect(actual.length).to.equal(2);
-        expect(actual[0]).to.equal(2);
-        expect(actual[1]).to.equal(3);
+        expect(actual).to.eql([2,3]);
+    });
+
+    it('intersection by', () => {
+        var actual = Js.intersectionBy([1.1, 2.1, 3.1], [4.2, 5.2, 6.2, 1.2, 3.2], Math.floor);
+        expect(actual).to.eql([1.1, 3.1]);
+
+        actual = Js.intersectionBy([-1, -2, -3], [1, 3, 4, 7], x=>x*x);
+        expect(actual).to.eql([-1, -3]);
     });
 
     it('zip works', () => {
@@ -581,24 +577,24 @@ describe('tests', () => {
 
     it('generator 2', () => {
         let gen = Js.range(0, 0);
-        expect(gen.next().done, 'specs file location: 101').to.eql(true);
+        expect(gen.next().done).to.eql(true);
 
         gen = Js.range(0, 1);
-        expect(gen.next().done, 'specs file location: 102').to.eql(false);
-        expect(gen.next().done, 'specs file location: 103').to.eql(true);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(true);
 
         gen = Js.range(0, 2);
-        expect(gen.next().done, 'specs file location: 104').to.eql(false);
-        expect(gen.next().done, 'specs file location: 105').to.eql(false);
-        expect(gen.next().done, 'specs file location: 106').to.eql(true);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(true);
 
         gen = Js.range(0, 5);
-        expect(gen.next().done, 'specs file location: 107').to.eql(false);
-        expect(gen.next().done, 'specs file location: 108').to.eql(false);
-        expect(gen.next().done, 'specs file location: 109').to.eql(false);
-        expect(gen.next().done, 'specs file location: 110').to.eql(false);
-        expect(gen.next().done, 'specs file location: 111').to.eql(false);
-        expect(gen.next().done, 'specs file location: 112').to.eql(true);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(true);
 
         gen = Js.range(0, 100);
         let counter = 0;
@@ -610,20 +606,35 @@ describe('tests', () => {
         let gen, counter;
         gen = Js.range(0, 13, 5);
 
-        expect(gen.next().done, 'specs file location: 100').to.eql(false);
-        expect(gen.next().done, 'specs file location: 101').to.eql(false);
-        expect(gen.next().done, 'specs file location: 102').to.eql(false);
-        expect(gen.next().done, 'specs file location: 103').to.eql(true);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(false);
+        expect(gen.next().done).to.eql(true);
 
         gen = Js.range(0, 100, 5);
         counter = 0;
         while (!gen.next().done) counter++;
-        expect(counter, 'specs file location: 104').to.eql(20);
+        expect(counter).to.eql(20);
 
         gen = Js.range(0, 97, 5);
         counter = 0;
         while (!gen.next().done) counter++;
-        expect(counter, 'specs file location: 105').to.eql(20);
+        expect(counter).to.eql(20);
+    });
+
+    it('generator 4', () => {
+        let gen = Js.range(0, 3);
+
+        expect(gen.next().value).to.eql(0);
+        expect(gen.next().value).to.eql(1);
+        expect(gen.next().value).to.eql(2);
+        expect(gen.next().value).to.eql(undefined);
+
+        gen = Js.range(0, 100);
+        for(let t=0; t<100; t++) {
+          expect(gen.next()).to.eql({value: t, done: false});
+        }
+        expect(gen.next()).to.eql({value: undefined, done: true});
     });
 
     it('myself', () => {
