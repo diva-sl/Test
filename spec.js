@@ -688,6 +688,32 @@ describe('tests', () => {
             '--------------------------------')).to.equal('O');
     });
 
+    it('hide and seek 2', () => {
+        expect(Js.seek(
+          '================================' +
+          '================================' +
+          '================================' +
+          '================================' +
+          '================================' +
+          '=============P==================' +
+          '================================' +
+          '================================' +
+          '================================' +
+          '================================' +
+          '================================')).to.equal('P');
+        expect(Js.seek(
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxPxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')).to.equal('P');
+    });
+
     it('counter 1', ()=> {
         const counter = new Js.Counter();
 
