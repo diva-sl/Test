@@ -43,20 +43,14 @@ describe('tests', () => {
     });
 
     it('sort works', () => {
-        const actual = Js.sortBy([1, 4, 5, 2, 3], asc);
-        expect(actual.length).to.equal(5);
-        expect(actual[0]).to.equal(1);
-        expect(actual[1]).to.equal(2);
-        expect(actual[2]).to.equal(3);
-        expect(actual[3]).to.equal(4);
-        expect(actual[4]).to.equal(5);
-        const output5 = Js.sortBy([1, 4, 5, 2, 3], desc);
-        expect(output5.length).to.equal(5);
-        expect(output5[0]).to.equal(5);
-        expect(output5[1]).to.equal(4);
-        expect(output5[2]).to.equal(3);
-        expect(output5[3]).to.equal(2);
-        expect(output5[4]).to.equal(1);
+        let actual = Js.sortBy([1, 4, 5, 2, 3], asc);
+        expect(actual).to.eql([1,2,3,4,5]);
+
+        actual = Js.sortBy([1, 4, 5, 2, 3], desc);
+        expect(actual).to.eql([5,4,3,2,1]);
+
+        actual = Js.sortBy([1, 4, 5, 2, 3], (a,b)=> a-b);
+        expect(actual).to.eql([1,2,3,4,5]);
     });
 
     it('some works', () => {
