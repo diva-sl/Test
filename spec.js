@@ -80,6 +80,9 @@ describe('tests', () => {
 
         actual = Js.keys([5, 3, 2, 7]);
         expect(actual).to.eql(['0', '1', '2', '3']);
+
+        actual = Js.keys([5, 3, 2, 7, 0, 12, 5]);
+        expect(actual).to.eql(['0', '1', '2', '3', '4', '5', '6']);
     });
 
     it('every works', () => {
