@@ -19,10 +19,7 @@ describe('tests', () => {
 
     it('map works', () => {
         let o = Js.map([1, 2, 5], a => (a + 1) * 2);
-        expect(o.length).to.equal(3);
-        expect(o[0]).to.equal(4);
-        expect(o[1]).to.equal(6);
-        expect(o[2]).to.equal(12);
+        expect(o).to.eql([4, 6, 12]);
         const input1 = [{
             name: 'ram',
             age: 23,
@@ -33,24 +30,21 @@ describe('tests', () => {
             sex: 'F'
         }];
         o = Js.map(input1, a => a.name);
-        expect(o.length).to.equal(2);
-        expect(o[0]).to.equal('ram');
-        expect(o[1]).to.equal('babu');
+        expect(o).to.eql(['ram', 'babu']);
+
         o = Js.map(input1, a => a.age);
-        expect(o.length).to.equal(2);
-        expect(o[0]).to.equal(23);
-        expect(o[1]).to.equal(34);
+        expect(o).to.eql([23, 34]);
     });
 
     it('sort works', () => {
         let actual = Js.sortBy([1, 4, 5, 2, 3], asc);
-        expect(actual).to.eql([1,2,3,4,5]);
+        expect(actual).to.eql([1, 2, 3, 4, 5]);
 
         actual = Js.sortBy([1, 4, 5, 2, 3], desc);
-        expect(actual).to.eql([5,4,3,2,1]);
+        expect(actual).to.eql([5, 4, 3, 2, 1]);
 
-        actual = Js.sortBy([1, 4, 5, 2, 3], (a,b)=> a-b);
-        expect(actual).to.eql([1,2,3,4,5]);
+        actual = Js.sortBy([1, 4, 5, 2, 3], (a, b) => a - b);
+        expect(actual).to.eql([1, 2, 3, 4, 5]);
     });
 
     it('some works', () => {
@@ -137,22 +131,22 @@ describe('tests', () => {
         var actual = Js.intersection([1, 2, 3], [4, 5, 6]);
         expect(actual).to.eql([]);
         actual = Js.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
-        expect(actual).to.eql([4,5,6]);
+        expect(actual).to.eql([4, 5, 6]);
         actual = Js.intersection([4, 5, 6], [1, 2, 3, 4, 5, 6]);
-        expect(actual).to.eql([4,5,6]);
+        expect(actual).to.eql([4, 5, 6]);
         actual = Js.intersection([4, 5, 6, 7], [1, 2, 3, 4, 5, 6]);
-        expect(actual).to.eql([4,5,6]);
+        expect(actual).to.eql([4, 5, 6]);
         actual = Js.intersection([4, 6, 3], [1, 2, 4]);
         expect(actual).to.eql([4]);
         actual = Js.intersection([1, 2, 3], [2, 3, 4, 5, 6]);
-        expect(actual).to.eql([2,3]);
+        expect(actual).to.eql([2, 3]);
     });
 
     it('intersection by', () => {
         var actual = Js.intersectionBy([1.1, 2.1, 3.1], [4.2, 5.2, 6.2, 1.2, 3.2], Math.floor);
         expect(actual).to.eql([1.1, 3.1]);
 
-        actual = Js.intersectionBy([-1, -2, -3], [1, 3, 4, 7], x=>x*x);
+        actual = Js.intersectionBy([-1, -2, -3], [1, 3, 4, 7], x => x * x);
         expect(actual).to.eql([-1, -3]);
     });
 
@@ -628,8 +622,8 @@ describe('tests', () => {
         expect(gen.next().value).to.eql(undefined);
 
         gen = Js.range(0, 100);
-        for(let t=0; t<100; t++) {
-          expect(gen.next()).to.eql({value: t, done: false});
+        for (let t = 0; t < 100; t++) {
+            expect(gen.next()).to.eql({value: t, done: false});
         }
         expect(gen.next()).to.eql({value: undefined, done: true});
     });
@@ -690,79 +684,93 @@ describe('tests', () => {
 
     it('hide and seek 2', () => {
         expect(Js.seek(
-          '================================' +
-          '================================' +
-          '================================' +
-          '================================' +
-          '================================' +
-          '=============P==================' +
-          '================================' +
-          '================================' +
-          '================================' +
-          '================================' +
-          '================================')).to.equal('P');
+            '================================' +
+            '================================' +
+            '================================' +
+            '================================' +
+            '================================' +
+            '=============P==================' +
+            '================================' +
+            '================================' +
+            '================================' +
+            '================================' +
+            '================================')).to.equal('P');
         expect(Js.seek(
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxPxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
-          'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')).to.equal('P');
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxPxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' +
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')).to.equal('P');
     });
 
-    it('counter 1', ()=> {
+    it('counter 1', () => {
         const counter = new Js.Counter();
 
         expect(counter.get()).to.eql(0);
-        counter.inc(); expect(counter.get()).to.eql(1);
-        counter.inc(); expect(counter.get()).to.eql(2);
-        counter.inc(); expect(counter.get()).to.eql(3);
-        counter.inc(); expect(counter.get()).to.eql(4);
+        counter.inc();
+        expect(counter.get()).to.eql(1);
+        counter.inc();
+        expect(counter.get()).to.eql(2);
+        counter.inc();
+        expect(counter.get()).to.eql(3);
+        counter.inc();
+        expect(counter.get()).to.eql(4);
     });
 
-    it('counter 2', ()=> {
+    it('counter 2', () => {
         const counter = Js.counter();
 
         expect(counter.get()).to.eql(0);
-        counter.inc(); expect(counter.get()).to.eql(1);
-        counter.inc(); expect(counter.get()).to.eql(2);
-        counter.inc(); expect(counter.get()).to.eql(3);
-        counter.inc(); expect(counter.get()).to.eql(4);
+        counter.inc();
+        expect(counter.get()).to.eql(1);
+        counter.inc();
+        expect(counter.get()).to.eql(2);
+        counter.inc();
+        expect(counter.get()).to.eql(3);
+        counter.inc();
+        expect(counter.get()).to.eql(4);
     });
 
-    it('textacc | closure 1', ()=> {
-      const acc1 = Js.textacc();
+    it('textacc | closure 1', () => {
+        const acc1 = Js.textacc();
 
-      expect(acc1()).to.eql('');
+        expect(acc1()).to.eql('');
 
-      acc1(' hi ');
-      expect(acc1()).to.eql(' hi ');
-      expect(acc1()).to.eql('');
+        acc1(' hi ');
+        expect(acc1()).to.eql(' hi ');
+        expect(acc1()).to.eql('');
 
-      acc1(' hi ');
-      acc1(' hello ');
-      acc1(' how are you? ');
-      expect(acc1()).to.eql(' hi \n hello \n how are you? ');
-      expect(acc1()).to.eql('');
+        acc1(' hi ');
+        acc1(' hello ');
+        acc1(' how are you? ');
+        expect(acc1()).to.eql(' hi \n hello \n how are you? ');
+        expect(acc1()).to.eql('');
 
-      acc1('');
-      acc1('');
-      expect(acc1()).to.eql('\n');
-      expect(acc1()).to.eql('');
+        acc1('');
+        acc1('');
+        expect(acc1()).to.eql('\n');
+        expect(acc1()).to.eql('');
     });
 
-    it('counter 3 | closure 2', ()=> {
+    it('counter 3 | closure 2', () => {
         const counter = Js.counter3();
 
-        counter.reset; expect(counter.get).to.eql(0);
-        counter(); expect(counter.get).to.eql(1);
-        counter(); expect(counter.get).to.eql(2);
-        counter(); expect(counter.get).to.eql(3);
-        counter(); expect(counter.get).to.eql(4);
-        counter.reset; expect(counter.get).to.eql(0);
+        counter.reset;
+        expect(counter.get).to.eql(0);
+        counter();
+        expect(counter.get).to.eql(1);
+        counter();
+        expect(counter.get).to.eql(2);
+        counter();
+        expect(counter.get).to.eql(3);
+        counter();
+        expect(counter.get).to.eql(4);
+        counter.reset;
+        expect(counter.get).to.eql(0);
     });
 });
