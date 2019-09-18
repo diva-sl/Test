@@ -414,6 +414,13 @@ describe('tests', () => {
         expect(person3.getAge()).to.eql(25);
         expect(person3.getSex()).to.eql('M');
         expect(person3).to.be.an.instanceof(Js.Person);
+
+	expect(person1.getName).to.eql(person2.getName);
+	expect(person2.getName).to.eql(person3.getName);
+	expect(person1.getAge).to.eql(person2.getAge);
+	expect(person2.getAge).to.eql(person3.getAge);
+	expect(person1.getSex).to.eql(person2.getSex);
+	expect(person2.getSex).to.eql(person3.getSex);
     });
 
     it('uniquee works', () => {
@@ -434,7 +441,7 @@ describe('tests', () => {
         expect(actual).to.eql(input[0]);
         actual = Js.last(input);
         expect(actual).to.eql(input[2]);
-        actual = Js.last([1, 3, 5, 6, 2, 9]);
+          actual = Js.last([1, 3, 5, 6, 2, 9]);
         expect(actual).to.eql(9);
     });
 
