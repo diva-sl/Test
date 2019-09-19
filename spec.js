@@ -318,6 +318,12 @@ describe('tests', () => {
         expect(actualFn(1, 2)).to.eql(0.5);
         expect(actualFn(3, 1)).to.eql(3);
         expect(actualFn(1, 0)).to.eql(Infinity);
+ 
+	expect(Js.godFunction(['a', 'b', 'c'], 'a+b+c')(1, 2, 3)).to.eql(6);
+	expect(Js.godFunction([], '1000')()).to.eql(1000);
+	expect(Js.godFunction([], '2000')()).to.eql(2000);
+	expect(Js.godFunction([], '"abc"')()).to.eql("abc");
+	expect(Js.godFunction([], '()=>100')()()).to.eql(100);
     });
 
     it('god functions 2', () => {
