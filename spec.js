@@ -1,13 +1,4 @@
-if (module === require.main) {
-    console.log('direct execution not allowed. try running the following command\n');
-    try {
-        require('chai');
-        console.log('\tnpm test');
-    } catch (e) {
-        console.log('\tnpm install');
-    }
-    process.exit(1);
-}
+/*jslint es6 */
 const expect = require('chai').expect;
 
 const Js = require('./fns');
@@ -48,7 +39,7 @@ describe('tests', () => {
     });
 
     it('some works', () => {
-        var actual = Js.some([1, 2, 3, 4], isOdd);
+        let actual = Js.some([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(true);
         actual = Js.some([1, 2, 4, 6], isOdd);
         expect(actual).to.equal(true);
@@ -61,13 +52,25 @@ describe('tests', () => {
     });
 
     it('keys works', () => {
-        var actual = Js.keys({'name': 'ram', 'age': 20});
+        let actual = Js.keys({
+            'name': 'ram',
+            'age': 20
+        });
         expect(actual).to.eql(['name', 'age']);
 
-        actual = Js.keys({name: 'ram', age: 20, sex: 'M'});
+        actual = Js.keys({
+            name: 'ram',
+            age: 20,
+            sex: 'M'
+        });
         expect(actual).to.eql(['name', 'age', 'sex']);
 
-        actual = Js.keys({a: 1, b: 2, c: 3, d: 100});
+        actual = Js.keys({
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 100
+        });
         expect(actual).to.eql(['a', 'b', 'c', 'd']);
 
         actual = Js.keys([5, 3, 2, 7]);
@@ -78,21 +81,21 @@ describe('tests', () => {
     });
 
     it('every works', () => {
-        var actual = Js.every([1, 3, 5, 7], isOdd);
+        let actual = Js.every([1, 3, 5, 7], isOdd);
         expect(actual).to.equal(true);
-        
-	actual = Js.every([1, 2, 3, 5], isOdd);
+
+        actual = Js.every([1, 2, 3, 5], isOdd);
         expect(actual).to.equal(false);
-        
+
         actual = Js.every([1, 3, 4, 5, 7], isOdd);
         expect(actual).to.equal(false);
-	
-	actual = Js.every([1, 3, 5, 7, 9, 11, 2], isOdd);
+
+        actual = Js.every([1, 3, 5, 7, 9, 11, 2], isOdd);
         expect(actual).to.equal(false);
     });
 
     it('atleast2 works', () => {
-        var actual = Js.atleast2([1, 2, 3, 4], isOdd);
+        let actual = Js.atleast2([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(true);
         actual = Js.atleast2([1, 2, 4, 6], isOdd);
         expect(actual).to.equal(false);
@@ -103,13 +106,13 @@ describe('tests', () => {
     });
 
     it('everybut1 works', () => {
-        var actual = Js.everybut1([1, 2, 3, 4], isOdd);
+        let actual = Js.everybut1([1, 2, 3, 4], isOdd);
         expect(actual).to.equal(false);
         actual = Js.everybut1([2, 1, 3, 5], isOdd);
         expect(actual).to.equal(true);
         actual = Js.everybut1([2, 4, 6], isOdd);
         expect(actual).to.equal(false);
-        vactual = Js.everybut1([1, 3], isOdd);
+        actual = Js.everybut1([1, 3], isOdd);
         expect(actual).to.equal(false);
     });
 
@@ -120,15 +123,28 @@ describe('tests', () => {
     });
 
     it('choose2 works', () => {
-        var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
-
+        let person = {
+            'name': {
+                'first': 'John',
+                'last': 'Cena'
+            },
+            'age': 23,
+            'sex': 'M'
+        };
         expect(Js.choose2(person, ['sex'])).to.eql({'sex': 'M'});
         expect(Js.choose2(person, ['age'])).to.eql({'age': 23});
         expect(Js.choose2(person, ['age', 'name.first'])).to.eql({'name': {'first': 'John'}, 'age': 23});
     });
 
     it('choose1 works', () => {
-        var person = {'name': {'first': 'John', 'last': 'Cena'}, 'age': 23, 'sex': 'M'};
+        let person = {
+            'name': {
+                'first': 'John',
+                'last': 'Cena'
+            },
+            'age': 23,
+            'sex': 'M'
+        };
 
         expect(Js.choose1(person, 'sex')).to.eql('M');
         expect(Js.choose1(person, 'age')).to.eql(23);
@@ -137,7 +153,7 @@ describe('tests', () => {
     });
 
     it('intersection works', () => {
-        var actual = Js.intersection([1, 2, 3], [4, 5, 6]);
+        let actual = Js.intersection([1, 2, 3], [4, 5, 6]);
         expect(actual).to.eql([]);
         actual = Js.intersection([1, 2, 3, 4, 5, 6], [4, 5, 6]);
         expect(actual).to.eql([4, 5, 6]);
@@ -152,7 +168,7 @@ describe('tests', () => {
     });
 
     it('intersection by', () => {
-        var actual = Js.intersectionBy([1.1, 2.1, 3.1], [4.2, 5.2, 6.2, 1.2, 3.2], Math.floor);
+        let actual = Js.intersectionBy([1.1, 2.1, 3.1], [4.2, 5.2, 6.2, 1.2, 3.2], Math.floor);
         expect(actual).to.eql([1.1, 3.1]);
 
         actual = Js.intersectionBy([-1, -2, -3], [1, 3, 4, 7], x => x * x);
@@ -160,12 +176,12 @@ describe('tests', () => {
     });
 
     it('zip works', () => {
-        var actual = Js.zip(
+        let actual = Js.zip(
             ['aa', 'bb'],
             [1000, 2000],
             [true, false]
         );
-        var expected = [
+        let expected = [
             ['aa', 1000, true],
             ['bb', 2000, false]
         ];
@@ -240,7 +256,7 @@ describe('tests', () => {
     });
 
     it('reverse works', () => {
-        var actual = Js.reverse([1, 3, 2, 'n', 'a', 5]);
+        let actual = Js.reverse([1, 3, 2, 'n', 'a', 5]);
         expect(actual).to.eql([5, "a", "n", 2, 3, 1]);
 
         actual = Js.reverse([1, 2, 3, 4, 5]);
@@ -250,37 +266,66 @@ describe('tests', () => {
     });
 
     it('filter works', () => {
-        var users = [
-            {'user': 'karan', 'age': 16, 'active': true},
-            {'user': 'sundar', 'age': 20, 'active': false}
-        ];
-
-        var actual = Js.filter(users, (o) => {
+        let users = [{
+            'user': 'karan',
+            'age': 16,
+            'active': true
+        }, {
+            'user': 'sundar',
+            'age': 20,
+            'active': false
+        }];
+        let actual = Js.filter(users, (o) => {
             return !o.active;
         });
-        expect(actual).to.eql([{'user': 'sundar', 'age': 20, 'active': false}]);
+        expect(actual).to.eql([{
+            'user': 'sundar',
+            'age': 20,
+            'active': false
+        }]);
 
-        actual = Js.filter(users, {'age': 16, 'active': true});
+        actual = Js.filter(users, {
+            'age': 16,
+            'active': true
+        });
 
-        expect(actual).to.eql([{'user': 'karan', 'age': 16, 'active': true}]);
+        expect(actual).to.eql([{
+            'user': 'karan',
+            'age': 16,
+            'active': true
+        }]);
     });
 
     it('merges 0', () => {
-        var actual = Js.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
-        expect(actual).to.eql({name: 'ram', age: 20, weight: 70, height: 165});
+        let actual = Js.merge({name: 'ram', age: 20}, {weight: 70}, {height: 165});
+        expect(actual).to.eql({
+            name: 'ram',
+            age: 20,
+            weight: 70,
+            height: 165
+        });
     });
 
     it('merge 1', () => {
-        let actual = Js.mergeDeep({name: 'ram', likes: {movie: 'Robot'}}, {
+        let actual = Js.mergeDeep({
+            name: 'ram',
+            likes: {movie: 'Robot'}
+        }, {
             name: 'ram',
             likes: {song: 'Cheap Thrills'}
         });
-        expect(actual).to.eql({name: 'ram', likes: {movie: 'Robot', song: 'Cheap Thrills'}});
+        expect(actual).to.eql({
+            name: 'ram',
+            likes: {
+                movie: 'Robot',
+                song: 'Cheap Thrills'
+            }
+        });
     });
 
     it('superfunction1', () => {
-        var actualFn = Js.superfunction1();
-        var actual = actualFn();
+        let actualFn = Js.superfunction1();
+        let actual = actualFn();
         expect(actual).to.eql(100);
     });
 
@@ -297,7 +342,7 @@ describe('tests', () => {
     });
 
     it('superfunction4', () => {
-        var actualFn = Js.superfunction4(0);
+        let actualFn = Js.superfunction4(0);
         expect(actualFn()).to.eql(1);
         expect(actualFn()).to.eql(2);
         expect(actualFn()).to.eql(3);
@@ -309,39 +354,55 @@ describe('tests', () => {
     });
 
     it('god functions 1', () => {
-        var actualFn = Js.godFunction(['a', 'b'], 'a+b');
+        let actualFn = Js.godFunction(['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
         expect(actualFn(3, 1)).to.eql(4);
         expect(actualFn('a', 'b')).to.eql('ab');
 
-        var actualFn = Js.godFunction(['a', 'b'], 'a*b');
+        actualFn = Js.godFunction(['a', 'b'], 'a*b');
         expect(actualFn(1, 2)).to.eql(2);
         expect(actualFn(3, 1)).to.eql(3);
         expect(actualFn(1, 0)).to.eql(0);
 
-        var actualFn = Js.godFunction(['a', 'b'], 'a/b');
+        actualFn = Js.godFunction(['a', 'b'], 'a/b');
         expect(actualFn(1, 2)).to.eql(0.5);
         expect(actualFn(3, 1)).to.eql(3);
         expect(actualFn(1, 0)).to.eql(Infinity);
- 
-	expect(Js.godFunction(['a', 'b', 'c'], 'a+b+c')(1, 2, 3)).to.eql(6);
-	expect(Js.godFunction([], '1000')()).to.eql(1000);
-	expect(Js.godFunction([], '2000')()).to.eql(2000);
-	expect(Js.godFunction([], '"abc"')()).to.eql("abc");
-	expect(Js.godFunction([], '()=>100')()()).to.eql(100);
+
+        expect(Js.godFunction(['a', 'b', 'c'], 'a+b+c')(1, 2, 3)).to.eql(6);
+        expect(Js.godFunction([], '1000')()).to.eql(1000);
+        expect(Js.godFunction([], '2000')()).to.eql(2000);
+        expect(Js.godFunction([], '"abc"')()).to.eql("abc");
+        expect(Js.godFunction([], '()=>100')()()).to.eql(100);
     });
 
     it('god functions 2', () => {
-        var actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
+        let actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
         expect(actualFn.name).to.eql('add');
-        var actualFn = Js.godFunction2('sub', ['a', 'b'], 'a-b');
-        expect(actualFn(1, 2)).to.eql(-1);
+
+        actualFn = Js.godFunction2('sub', ['a', 'b'], 'a-b');
+        expect(actualFn(2, 1)).to.eql(1);
+
+        actualFn = Js.godFunction2('sub', ['b', 'a'], 'a-b');
+        expect(actualFn(2, 1)).to.eql(-1);
+
         expect(actualFn.name).to.eql('sub');
+
+        let fnName = randomText();
+        let arg1Name = randomText();
+        let arg2Name = randomText();
+        let body = arg1Name + ' + ' + arg2Name;
+
+        actualFn = Js.godFunction2(fnName, [arg1Name, arg2Name], body);
+
+        expect(actualFn.name).to.eql(fnName);
+        expect(actualFn(1, 10)).to.eql(11);
+        expect(actualFn(12, 30)).to.eql(42);
     });
 
     it('should split', () => {
-        var actual = Js.split('ab-cd-ef-gf', '-');
+        let actual = Js.split('ab-cd-ef-gf', '-');
         expect(actual).to.eql(['ab', 'cd', 'ef', 'gf']);
 
         actual = Js.split('ab-ad-af-af', '-a');
@@ -366,7 +427,10 @@ describe('tests', () => {
         expect(Js.before(new Date('2017-01-01'), new Date('2018-01-01'))).to.eql(true);
         expect(Js.before(new Date('2018-01-01'), new Date('2017-01-01'))).to.eql(false);
 
-        const a = 10, b = 20, c = 'f', d = 'a';
+        const a = 10,
+            b = 20,
+            c = 'f',
+            d = 'a';
 
         expect(Js.before(() => a, () => b)).to.eql(true);
         expect(Js.before(() => c, () => d)).to.eql(false);
@@ -379,18 +443,33 @@ describe('tests', () => {
     });
 
     it('object1', () => {
-        expect(Js.object1('Ram Babu', 23)).to.eql({name: 'Ram Babu', age: 23});
-        expect(Js.object1('Ram Babu', 25)).to.eql({name: 'Ram Babu', age: 25});
-        expect(Js.object1('John Cena', 23)).to.eql({name: 'John Cena', age: 23});
+        expect(Js.object1('Ram Babu', 23)).to.eql({
+            name: 'Ram Babu',
+            age: 23
+        });
+        expect(Js.object1('Ram Babu', 25)).to.eql({
+            name: 'Ram Babu',
+            age: 25
+        });
+        expect(Js.object1('John Cena', 23)).to.eql({
+            name: 'John Cena',
+            age: 23
+        });
     });
 
     it('object2', () => {
-        var actual = Js.object2('Ram Babu', 23);
+        let actual = Js.object2('Ram Babu', 23);
         expect(actual.getName()).to.eql('Ram Babu');
         expect(actual.getAge()).to.eql(23);
 
         actual = Js.object2('Sita Ram', 35);
-        expect({name: actual.getName(), age: actual.getAge()}).to.eql({name: 'Sita Ram', age: 35});
+        expect({
+            name: actual.getName(),
+            age: actual.getAge()
+        }).to.eql({
+            name: 'Sita Ram',
+            age: 35
+        });
     });
 
     it('Person works. object3', () => {
@@ -433,12 +512,12 @@ describe('tests', () => {
         expect(person3.getSex()).to.eql('M');
         expect(person3).to.be.an.instanceof(Js.Person);
 
-	expect(person1.getName).to.eql(person2.getName);
-	expect(person2.getName).to.eql(person3.getName);
-	expect(person1.getAge).to.eql(person2.getAge);
-	expect(person2.getAge).to.eql(person3.getAge);
-	expect(person1.getSex).to.eql(person2.getSex);
-	expect(person2.getSex).to.eql(person3.getSex);
+        expect(person1.getName).to.eql(person2.getName);
+        expect(person2.getName).to.eql(person3.getName);
+        expect(person1.getAge).to.eql(person2.getAge);
+        expect(person2.getAge).to.eql(person3.getAge);
+        expect(person1.getSex).to.eql(person2.getSex);
+        expect(person2.getSex).to.eql(person3.getSex);
     });
 
     it('uniquee works', () => {
@@ -447,40 +526,69 @@ describe('tests', () => {
     });
 
     it('uniqueeBy works', () => {
-        const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
+        const input = [{
+            name: 'RAM',
+            age: 23,
+            id: 1
+        }, {
+            name: 'ram',
+            age: 25,
+            id: 1
+        }, {
+            name: 'babu',
+            age: 25,
+            id: 1
+        }];
         expect(Js.uniqueeBy(input, x => x.name.toLowerCase())).to.eql([input[0], input[2]]);
         expect(Js.uniqueeBy(input, x => x.age)).to.eql([input[0], input[1]]);
         expect(Js.uniqueeBy(input, x => x.id)).to.eql([input[0]]);
     });
 
     it('first and last both works', () => {
-        const input = [{name: 'RAM', age: 23, id: 1}, {name: 'ram', age: 25, id: 1}, {name: 'babu', age: 25, id: 1}];
+        const input = [{
+            name: 'RAM',
+            age: 23,
+            id: 1
+        }, {
+            name: 'ram',
+            age: 25,
+            id: 1
+        }, {
+            name: 'babu',
+            age: 25,
+            id: 1
+        }];
         let actual = Js.first(input);
         expect(actual).to.eql(input[0]);
         actual = Js.last(input);
         expect(actual).to.eql(input[2]);
-          actual = Js.last([1, 3, 5, 6, 2, 9]);
+        actual = Js.last([1, 3, 5, 6, 2, 9]);
         expect(actual).to.eql(9);
     });
 
     it('reuse test 1', () => {
         expect(Js.reuse1.toString(), 'Js.reuse1 should not use loops').to.not.match(/for|while/);
+
         let actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], isOdd);
         expect(actual).to.eql([1, 3]);
+
         actual = Js.reuse1([{n: 1}, {n: 2}, {n: 3}, {n: 5}, {n: 7}], isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
     });
 
     it('reuse test 2', () => {
         expect(Js.reuse2.toString(), 'Js.reuse2 should not use loops').to.not.match(/for|while/);
+
         let actual = Js.reuse2([{n: 1}, {n: 2}, {n: 3}, {n: 10}, {n: 100}], 'n', isOdd);
         expect(actual).to.eql([1, 3]);
+
         actual = Js.reuse2([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], 'a', isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
     });
 
     it('reuse test 3', () => {
         expect(Js.reuse3.toString(), 'Js.reuse3 should not use loops').to.not.match(/for|while/);
+
         let actual = Js.reuse3([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
         expect(actual).to.eql([1, 3, 5, 7]);
 
@@ -495,7 +603,6 @@ describe('tests', () => {
         expect(Js.reuse4.toString(), 'Js.reuse4 should not use loops').to.not.match(/for|while/);
         let actual = Js.reuse4([{a: 1}, {a: 2}, {a: 3}, {a: 5}, {a: 7}], ['a'], isOdd);
         expect(actual).to.eql([{a: 1}, {a: 3}, {a: 5}, {a: 7}]);
-
         actual = Js.reuse4([{a: {b: {c: 1}}}, {a: {b: {c: 2}}}, {a: {b: {c: 3}}}, {a: {b: {c: 100}}}], ['a', 'b', 'c'], isOdd);
         expect(actual).to.eql([{a: {b: {c: 1}}}, {a: {b: {c: 3}}}]);
     });
@@ -513,7 +620,7 @@ describe('tests', () => {
         let actual = Js.chain(input, [
             [Js.map, (x) => x.J.K.L],
             [Js.filter, isOdd],
-            [Js.reduce, (a, b) => a + b],
+            [Js.reduce, (a, b) => a + b]
         ]);
         expect(actual).to.eql(9);
     });
@@ -648,9 +755,15 @@ describe('tests', () => {
 
         gen = Js.range(0, 100);
         for (let t = 0; t < 100; t++) {
-            expect(gen.next()).to.eql({value: t, done: false});
+            expect(gen.next()).to.eql({
+                value: t,
+                done: false
+            });
         }
-        expect(gen.next()).to.eql({value: undefined, done: true});
+        expect(gen.next()).to.eql({
+            value: undefined,
+            done: true
+        });
     });
 
     it('myself', () => {
@@ -744,7 +857,6 @@ describe('tests', () => {
 
     it('counter 1', () => {
         const counter = new Js.Counter();
-
         expect(counter.get()).to.eql(0);
         counter.inc();
         expect(counter.get()).to.eql(1);
@@ -771,14 +883,14 @@ describe('tests', () => {
     });
 
     it('superfunction5 | closure 1', () => {
-        var actualFn = Js.superfunction5([]);
+        let actualFn = Js.superfunction5([]);
         expect(actualFn()).to.eql(undefined);
 
         actualFn = Js.superfunction5([1]);
         expect(actualFn()).to.eql(1);
         expect(actualFn()).to.eql(undefined);
 
-        actualFn = Js.superfunction5([1,22,13]);
+        actualFn = Js.superfunction5([1, 22, 13]);
         expect(actualFn()).to.eql(1);
         expect(actualFn()).to.eql(22);
         expect(actualFn()).to.eql(13);
@@ -823,3 +935,5 @@ describe('tests', () => {
         expect(counter.get).to.eql(0);
     });
 });
+
+const randomText = ((i = 0) => () => 'ABCD'[Math.floor(Math.random() * 3)] + i++)();
