@@ -756,10 +756,15 @@ describe('tests', () => {
         var actualFn = Js.superfunction5([]);
         expect(actualFn()).to.eql(undefined);
 
+        actualFn = Js.superfunction5([1]);
+        expect(actualFn()).to.eql(1);
+        expect(actualFn()).to.eql(undefined);
+
         actualFn = Js.superfunction5([1,22,13]);
         expect(actualFn()).to.eql(1);
         expect(actualFn()).to.eql(22);
         expect(actualFn()).to.eql(13);
+        expect(actualFn()).to.eql(undefined);
     });
 
     it('textacc | closure 2', () => {
