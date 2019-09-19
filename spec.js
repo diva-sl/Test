@@ -78,12 +78,17 @@ describe('tests', () => {
     });
 
     it('every works', () => {
-        var actual = Js.every([1, 2, 3, 4], isOdd);
-        expect(actual).to.equal(false);
-        actual = Js.every([1, 2, 4, 6], isOdd);
-        expect(actual).to.equal(false);
-        actual = Js.every([1, 3, 5], isOdd);
+        var actual = Js.every([1, 3, 5, 7], isOdd);
         expect(actual).to.equal(true);
+        
+	actual = Js.every([1, 2, 3, 5], isOdd);
+        expect(actual).to.equal(false);
+        
+        actual = Js.every([1, 3, 4, 5, 7], isOdd);
+        expect(actual).to.equal(false);
+	
+	actual = Js.every([1, 3, 5, 7, 9, 11, 2], isOdd);
+        expect(actual).to.equal(false);
     });
 
     it('atleast2 works', () => {
@@ -330,15 +335,9 @@ describe('tests', () => {
         var actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
         expect(actualFn.name).to.eql('add');
-
-	var actualFn = Js.godFunction2('sub', ['b', 'a'], 'b-a');
+        var actualFn = Js.godFunction2('sub', ['a', 'b'], 'a-b');
         expect(actualFn(1, 2)).to.eql(-1);
         expect(actualFn.name).to.eql('sub');
-	
-	var actualFn = Js.godFunction2('mul', ['h', 'k'], 'h*k');
-        expect(actualFn(1, 2)).to.eql(2);
-        expect(actualFn.name).to.eql('mul');
-
     });
 
     it('should split', () => {
