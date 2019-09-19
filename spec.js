@@ -715,6 +715,15 @@ describe('tests', () => {
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')).to.equal('P');
     });
 
+    it('hide and seek 3', () => {
+        expect(Js.seek('===A===')).to.equal('A');
+        expect(Js.seek('AAABAAA')).to.equal('B');
+        expect(Js.seek('YYYYYYC')).to.equal('C');
+        expect(Js.seek('PPDPPP')).to.equal('D');
+        expect(Js.seek('GGGGGEG')).to.equal('E');
+        expect(Js.seek('****F***')).to.equal('F');
+    });
+
     it('counter 1', () => {
         const counter = new Js.Counter();
 
