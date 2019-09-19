@@ -330,6 +330,15 @@ describe('tests', () => {
         var actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
         expect(actualFn.name).to.eql('add');
+
+	var actualFn = Js.godFunction2('sub', ['b', 'a'], 'b-a');
+        expect(actualFn(1, 2)).to.eql(-1);
+        expect(actualFn.name).to.eql('sub');
+	
+	var actualFn = Js.godFunction2('mul', ['h', 'k'], 'h*k');
+        expect(actualFn(1, 2)).to.eql(2);
+        expect(actualFn.name).to.eql('mul');
+
     });
 
     it('should split', () => {
