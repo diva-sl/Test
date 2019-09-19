@@ -54,6 +54,10 @@ describe('tests', () => {
         expect(actual).to.equal(true);
         actual = Js.some([2, 4, 6], isOdd);
         expect(actual).to.equal(false);
+        actual = Js.some([2, 4, 6, 8, 10, 12, 11], isOdd);
+        expect(actual).to.equal(true);
+        actual = Js.some([2, 4, 6, 8, 10, 11, 12, 8, 10, 12], isOdd);
+        expect(actual).to.equal(true);
     });
 
     it('keys works', () => {
