@@ -743,7 +743,17 @@ describe('tests', () => {
         expect(counter.get()).to.eql(4);
     });
 
-    it('textacc | closure 1', () => {
+    it('superfunction5 | closure 1', () => {
+        var actualFn = Js.superfunction5([]);
+        expect(actualFn()).to.eql(undefined);
+
+        actualFn = Js.superfunction5([1,22,13]);
+        expect(actualFn()).to.eql(1);
+        expect(actualFn()).to.eql(22);
+        expect(actualFn()).to.eql(13);
+    });
+
+    it('textacc | closure 2', () => {
         const acc1 = Js.textacc();
 
         expect(acc1()).to.eql('');
@@ -764,7 +774,7 @@ describe('tests', () => {
         expect(acc1()).to.eql('');
     });
 
-    it('counter 3 | closure 2', () => {
+    it('counter 3 | closure 3', () => {
         const counter = Js.counter3();
 
         counter.reset;
