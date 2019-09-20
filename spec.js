@@ -49,6 +49,11 @@ describe('tests', () => {
         expect(actual).to.equal(true);
         actual = Js.some([2, 4, 6, 8, 10, 11, 12, 8, 10, 12], isOdd);
         expect(actual).to.equal(true);
+        actual = Js.some([{n: 2}, {n: 4}, {n: 6}, {n: 8}, {n: 10}, {n: 11}, {n: 12}, {n: 8}, {n: 10}, {n: 12}], x => isOdd(x.n));
+        expect(actual).to.equal(true);
+        actual = Js.some([{a: 2}, {a: 4}, {a: 6}], x => isOdd(x.a));
+        expect(actual).to.equal(false);
+
     });
 
     it('keys works', () => {
@@ -91,6 +96,12 @@ describe('tests', () => {
         expect(actual).to.equal(false);
 
         actual = Js.every([1, 3, 5, 7, 9, 11, 2], isOdd);
+        expect(actual).to.equal(false);
+
+        actual = Js.every([{n: 1}, {n: 3}, {n: 5}, {n: 7}], x => isOdd(x.n));
+        expect(actual).to.equal(true);
+
+        actual = Js.every([{a:1}, {a:3}, {a:5}, {a:7}, {a:9}, {a:11}, {a:2}], x => isOdd(x.a));
         expect(actual).to.equal(false);
     });
 
