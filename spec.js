@@ -101,7 +101,7 @@ describe('tests', () => {
         actual = Js.every([{n: 1}, {n: 3}, {n: 5}, {n: 7}], x => isOdd(x.n));
         expect(actual).to.equal(true);
 
-        actual = Js.every([{a:1}, {a:3}, {a:5}, {a:7}, {a:9}, {a:11}, {a:2}], x => isOdd(x.a));
+        actual = Js.every([{a: 1}, {a: 3}, {a: 5}, {a: 7}, {a: 9}, {a: 11}, {a: 2}], x => isOdd(x.a));
         expect(actual).to.equal(false);
     });
 
@@ -145,6 +145,42 @@ describe('tests', () => {
         expect(Js.choose2(person, ['sex'])).to.eql({'sex': 'M'});
         expect(Js.choose2(person, ['age'])).to.eql({'age': 23});
         expect(Js.choose2(person, ['age', 'name.first'])).to.eql({'name': {'first': 'John'}, 'age': 23});
+
+        let input = {
+            name: {
+                first: 'John',
+                last: 'Cena',
+                nick: 'cena'
+            },
+            age: {years: 23, months: 5, days: 2},
+            sex: 'M',
+            matches: [
+                {day: 0, session: 'morning', with: {name: 'Jeff', age: {years: 20, months: 10, days: 2}}},
+                {day: 1, session: 'noon', with: {name: 'Jeff', age: {years: 21, months: 8, days: 3}}},
+                {day: 1, session: 'evening', with: {name: 'Jeff', age: {years: 24, months: 5, days: 4}}},
+            ]
+        };
+
+        expect(Js.choose2(input, [
+            'name.first',
+            'name.last',
+            'age.years',
+            'matches.0.session',
+            'matches.0.with.name',
+            'matches.0.with.age.years',
+            'matches.0.with.age.months',
+            'matches.1.session',
+            'matches.1.with.age.years',
+            'matches.1.with.age.months',
+            'matches.1.with.age.days',
+        ])).to.eql({
+            name: {first: 'John', last: 'Cena'},
+            age: {years: 23},
+            matches: [
+                {session: 'morning', with: {name: 'Jeff', age: {years: 20, months: 10}}},
+                {session: 'noon', with: {age: {years: 21, months: 8, days: 3}}}
+            ]
+        });
     });
 
     it('choose1 works', () => {
