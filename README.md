@@ -12,3 +12,6 @@ npm test
 
 ## submit tests
 git push
+
+# tictactoe
+npm run tictactoe

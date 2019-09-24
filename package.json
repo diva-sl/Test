@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "npx mocha spec.js"
+    "test": "npx mocha spec.js",
+    "tictactoe": "npx mocha tictactoe.spec.js"
   },
   "devDependencies": {
     "chai": "^4.2.0",
