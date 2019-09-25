@@ -8,6 +8,17 @@ describe('tests', () => {
     const asc = (a, b) => (a < b) ? -1 : (b < a) ? 1 : 0;
     const desc = (a, b) => (a < b) ? 1 : (b < a) ? -1 : 0;
 
+    it('each', () => {
+       let i = [1,2,4,5,6,7];
+       let o = [];
+       Js.each(i, (element, index, array)=> {
+	   expect(i).to.eql(array);
+	   expect(array[index]).to.eql(element);
+	   o.push(element);
+       });
+       expect(o).to.eql(i);
+    });
+
     it('map works', () => {
         let o = Js.map([1, 2, 5], a => (a + 1) * 2);
         expect(o).to.eql([4, 6, 12]);
@@ -981,6 +992,7 @@ describe('tests', () => {
         counter.reset;
         expect(counter.get).to.eql(0);
     });
+
 });
 
 const randomText = ((i = 0) => () => 'ABCD'[Math.floor(Math.random() * 3)] + i++)();
