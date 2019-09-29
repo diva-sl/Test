@@ -437,7 +437,11 @@ describe('tests', () => {
     it('god functions 2', () => {
         let actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
-        expect(actualFn.name).to.eql('add');
+        
+	expect(Js.filter.name).to.eql('filter');
+	expect(Js.map.name).to.eql('map');
+	expect(Js.godFunction2.name).to.eql('godFunction2');
+	expect(actualFn.name).to.eql('add');
 
         actualFn = Js.godFunction2('sub', ['a', 'b'], 'a-b');
         expect(actualFn(2, 1)).to.eql(1);
@@ -824,7 +828,13 @@ describe('tests', () => {
         });
     });
 
-    it('myself', () => {
+    it('modules 1', () => {
+	expect(require('./map')).to.eql(Js.map);
+	expect(require('./filter')).to.eql(Js.filter);
+	expect(require('./reduce')).to.eql(Js.reduce);
+    });
+
+    it('imports 2', () => {
         expect(Js).to.equal(Js);
         expect(Js.me).to.equal(Js);
         expect(Js.me.me).to.equal(Js);
