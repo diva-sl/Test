@@ -437,7 +437,7 @@ describe('tests', () => {
     it('god functions 2', () => {
         let actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
-        
+
 	expect(Js.filter.name).to.eql('filter');
 	expect(Js.map.name).to.eql('map');
 	expect(Js.godFunction2.name).to.eql('godFunction2');
@@ -984,6 +984,49 @@ describe('tests', () => {
         acc1('');
         expect(acc1()).to.eql('\n');
         expect(acc1()).to.eql('');
+    });
+
+    it('set get 1', ()=>{
+        const obj = Js.proxy1();
+
+        obj.val = 100;
+        expect(obj.val).to.eql(200);
+
+        obj.val = 5;
+        expect(obj.val).to.eql(10);
+    });
+
+    it('set get 2', ()=>{
+        const obj = Js.proxy2();
+
+        obj.val = 100;
+        expect(obj.get).to.eql(200);
+        obj.reset;
+
+        expect(obj.get).to.eql(undefined);
+    });
+
+    it('set get 3', ()=> {
+        let original = {};
+        let obj = Js.proxy3(original);
+
+        expect(obj).to.equal(original);
+
+        obj.val = 100;
+        expect(obj.get).to.eql(200);
+        obj.reset;
+
+        expect(obj.get).to.eql(undefined);
+
+        original = [];
+        obj = Js.proxy3(original);
+        expect(obj).to.equal(original);
+
+        obj.val = 100;
+        expect(obj.get).to.eql(200);
+        obj.reset;
+
+        expect(obj.get).to.eql(undefined);
     });
 
     it('counter 3 | closure 3', () => {
