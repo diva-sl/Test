@@ -829,6 +829,7 @@ describe('tests', () => {
     });
 
     it('modules 1', () => {
+	expect(require('./fns')).to.eql(Js);
 	expect(require('./map')).to.eql(Js.map);
 	expect(require('./filter')).to.eql(Js.filter);
 	expect(require('./reduce')).to.eql(Js.reduce);
