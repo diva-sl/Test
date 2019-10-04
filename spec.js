@@ -1047,6 +1047,21 @@ describe('tests', () => {
         expect(counter.get).to.eql(0);
     });
 
+    it('errors', ()=> {
+        let fn = ()=> {};
+	expect(Js.saftynet(fn)).to.eql(undefined);
+	
+	fn = ()=> {
+	   throw 'Something wrong';
+	};
+	expect(Js.saftynet(fn)).to.eql('Something wrong');
+
+	const errMessage = randomText();
+	fn = ()=> {
+	   throw errMessage;
+	};
+	expect(Js.saftynet(fn)).to.eql(errMessage);
+    });
 });
 
 const randomText = ((i = 0) => () => 'ABCD'[Math.floor(Math.random() * 3)] + i++)();
