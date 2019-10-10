@@ -1,22 +1,29 @@
 /*jslint es6 */
 const expect = require('chai').expect;
 
-const Js = require('./fns');
-
 describe('tests', () => {
+    let Js;
     const isOdd = n => n % 2 === 1;
     const asc = (a, b) => (a < b) ? -1 : (b < a) ? 1 : 0;
     const desc = (a, b) => (a < b) ? 1 : (b < a) ? -1 : 0;
 
+    it('should not use global variables', () => {
+        const globalVarsBefore = Object.getOwnPropertyNames(global);
+        Js = require('./fns');
+        const globalVarsAfter = Object.getOwnPropertyNames(global);
+        const noOfGlobalVarsUsedIn_fns_file = globalVarsAfter.length - globalVarsBefore.length;
+        expect(noOfGlobalVarsUsedIn_fns_file).to.eql(0);
+    });
+
     it('each', () => {
-       let i = [1,2,4,5,6,7];
-       let o = [];
-       Js.each(i, (element, index, array)=> {
-	   expect(i).to.eql(array);
-	   expect(array[index]).to.eql(element);
-	   o.push(element);
-       });
-       expect(o).to.eql(i);
+        let i = [1, 2, 4, 5, 6, 7];
+        let o = [];
+        Js.each(i, (element, index, array) => {
+            expect(i).to.eql(array);
+            expect(array[index]).to.eql(element);
+            o.push(element);
+        });
+        expect(o).to.eql(i);
     });
 
     it('map works', () => {
@@ -438,10 +445,10 @@ describe('tests', () => {
         let actualFn = Js.godFunction2('add', ['a', 'b'], 'a+b');
         expect(actualFn(1, 2)).to.eql(3);
 
-	expect(Js.filter.name).to.eql('filter');
-	expect(Js.map.name).to.eql('map');
-	expect(Js.godFunction2.name).to.eql('godFunction2');
-	expect(actualFn.name).to.eql('add');
+        expect(Js.filter.name).to.eql('filter');
+        expect(Js.map.name).to.eql('map');
+        expect(Js.godFunction2.name).to.eql('godFunction2');
+        expect(actualFn.name).to.eql('add');
 
         actualFn = Js.godFunction2('sub', ['a', 'b'], 'a-b');
         expect(actualFn(2, 1)).to.eql(1);
@@ -829,10 +836,10 @@ describe('tests', () => {
     });
 
     it('modules 1', () => {
-	expect(require('./fns')).to.eql(Js);
-	expect(require('./map')).to.eql(Js.map);
-	expect(require('./filter')).to.eql(Js.filter);
-	expect(require('./reduce')).to.eql(Js.reduce);
+        expect(require('./fns')).to.eql(Js);
+        expect(require('./map')).to.eql(Js.map);
+        expect(require('./filter')).to.eql(Js.filter);
+        expect(require('./reduce')).to.eql(Js.reduce);
     });
 
     it('imports 2', () => {
@@ -987,7 +994,7 @@ describe('tests', () => {
         expect(acc1()).to.eql('');
     });
 
-    it('set get 1', ()=>{
+    it('set get 1', () => {
         const obj = Js.proxy1();
 
         obj.val = 100;
@@ -997,7 +1004,7 @@ describe('tests', () => {
         expect(obj.val).to.eql(10);
     });
 
-    it('set get 2', ()=>{
+    it('set get 2', () => {
         const obj = Js.proxy2();
 
         obj.val = 100;
@@ -1007,7 +1014,7 @@ describe('tests', () => {
         expect(obj.get).to.eql(undefined);
     });
 
-    it('set get 3', ()=> {
+    it('set get 3', () => {
         let original = {};
         let obj = Js.proxy3(original);
 
@@ -1047,20 +1054,21 @@ describe('tests', () => {
         expect(counter.get).to.eql(0);
     });
 
-    it('errors', ()=> {
-        let fn = ()=> {};
-	expect(Js.saftynet(fn)).to.eql(undefined);
-	
-	fn = ()=> {
-	   throw 'Something wrong';
-	};
-	expect(Js.saftynet(fn)).to.eql('Something wrong');
+    it('errors', () => {
+        let fn = () => {
+        };
+        expect(Js.saftynet(fn)).to.eql(undefined);
 
-	const errMessage = randomText();
-	fn = ()=> {
-	   throw errMessage;
-	};
-	expect(Js.saftynet(fn)).to.eql(errMessage);
+        fn = () => {
+            throw 'Something wrong';
+        };
+        expect(Js.saftynet(fn)).to.eql('Something wrong');
+
+        const errMessage = randomText();
+        fn = () => {
+            throw errMessage;
+        };
+        expect(Js.saftynet(fn)).to.eql(errMessage);
     });
 });
 
