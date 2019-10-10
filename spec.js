@@ -1,5 +1,6 @@
 /*jslint es6 */
 const expect = require('chai').expect;
+const initialGlobalVars = Object.getOwnPropertyNames(global);
 
 describe('tests', () => {
     let Js;
@@ -7,12 +8,10 @@ describe('tests', () => {
     const asc = (a, b) => (a < b) ? -1 : (b < a) ? 1 : 0;
     const desc = (a, b) => (a < b) ? 1 : (b < a) ? -1 : 0;
 
-    it('should not use global variables', () => {
-        const globalVarsBefore = Object.getOwnPropertyNames(global);
+    it('should not use global variables outside the functions', () => {
         Js = require('./fns');
-        const globalVarsAfter = Object.getOwnPropertyNames(global);
-        const noOfGlobalVarsUsedIn_fns_file = globalVarsAfter.length - globalVarsBefore.length;
-        expect(noOfGlobalVarsUsedIn_fns_file).to.eql(0);
+        const globalVarsAfterLoading = Object.getOwnPropertyNames(global);
+        expect(globalVarsAfterLoading.length - initialGlobalVars.length).to.eql(0);
     });
 
     it('each', () => {
@@ -1070,6 +1069,12 @@ describe('tests', () => {
         };
         expect(Js.saftynet(fn)).to.eql(errMessage);
     });
+
+    it('should not use global variables inside the functions', () => {
+        const globalVarsAfterAllTests = Object.getOwnPropertyNames(global);
+        expect(globalVarsAfterAllTests.length - initialGlobalVars.length).to.eql(0);
+    });
+
 });
 
 const randomText = ((i = 0) => () => 'ABCD'[Math.floor(Math.random() * 3)] + i++)();
