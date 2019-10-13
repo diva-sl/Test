@@ -691,6 +691,14 @@ describe('tests', () => {
             [Js.reduce, (a, b) => a + b]
         ]);
         expect(actual).to.eql(9);
+
+        actual = Js.chain('1-2-3-4-5-6-7-8-9-10', [
+            [Js.split, '-'],
+            [Js.map, (x) => Number.parseInt(x)],
+            [Js.filter, (x) => !isOdd(x)],
+            [Js.reduce, (a, b) => a + b]
+        ]);
+        expect(actual).to.eql(30);
     });
 
     it('reduce ', () => {
