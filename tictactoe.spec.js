@@ -4,29 +4,29 @@ const T3 = require('./tictactoe');
 
 describe('T3', function() {
 
-  it('X Wins stupid Y', function() {
+  it('A Wins stupid B', function() {
     const game = new T3.Game();
     game.moves([
-      [0, 0, 'X'],
-      [1, 0, 'Y'],
-      [0, 1, 'X'],
-      [1, 1, 'Y'],
-      [0, 2, 'X']
+      [0, 0, 'A'],
+      [1, 0, 'B'],
+      [0, 1, 'A'],
+      [1, 1, 'B'],
+      [0, 2, 'A']
     ]);
-    expect(game.getWinner()).to.eql('X');
+    expect(game.getWinner()).to.eql('A');
   });
 
-  it('Y Wins stupid X', function() {
+  it('B Wins stupid A', function() {
     const game = new T3.Game();
     game.moves([
-      [0, 0, 'X'],
-      [1, 0, 'Y'],
-      [0, 2, 'X'],
-      [1, 1, 'Y'],
-      [2, 0, 'X'],
-      [1, 2, 'Y']
+      [0, 0, 'A'],
+      [1, 0, 'B'],
+      [0, 2, 'A'],
+      [1, 1, 'B'],
+      [2, 0, 'A'],
+      [1, 2, 'B']
     ]);
-    expect(game.getWinner()).to.eql('Y');
+    expect(game.getWinner()).to.eql('B');
   });
 
 });
@@ -55,25 +55,25 @@ Y axis
 
 ex:
 
-X  .  .
+A  .  .
 .  .  .
-Y  .  .
+B  .  .
 
 in the above board, only 2 moves are done.
-X played (0,0) coordinate
-Y played (0,2) coordinate
+A played (0,0) coordinate
+B played (0,2) coordinate
 
 ex:
 
-X  X  X
+A  A  A
 .  .  .
-Y  Y  .
+B  B  .
 
-in the above board, only 5 moves are done and X is victorious.
-X played (0,0) coordinate
-Y played (0,2) coordinate
-X played (1,0) coordinate
-Y played (1,2) coordinate
-X played (2,0) coordinate
+in the above board, only 5 moves are done and A is victorious.
+A played (0,0) coordinate
+B played (0,2) coordinate
+A played (1,0) coordinate
+B played (1,2) coordinate
+A played (2,0) coordinate
 
 `
