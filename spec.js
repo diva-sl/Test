@@ -1009,6 +1009,15 @@ describe('tests', () => {
 
         obj.val = 5;
         expect(obj.val).to.eql(10);
+
+        const obj2 = Js.proxy1();
+        expect(obj === obj2).to.eql(false);
+
+        obj2.val = 100;
+        expect(obj2.val).to.eql(200);
+
+        obj2.val = 5;
+        expect(obj2.val).to.eql(10);
     });
 
     it('set get 2', () => {
@@ -1019,12 +1028,21 @@ describe('tests', () => {
         obj.reset;
 
         expect(obj.get).to.eql(undefined);
+
+        const obj2 = Js.proxy2();
+
+        expect(obj === obj2).to.eql(false);
+
+        obj2.val = 100;
+        expect(obj2.get).to.eql(200);
+        obj2.reset;
+
+        expect(obj2.get).to.eql(undefined);
     });
 
     it('set get 3', () => {
         let original = {};
         let obj = Js.proxy3(original);
-
         expect(obj).to.equal(original);
 
         obj.val = 100;
