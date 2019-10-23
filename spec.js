@@ -2,7 +2,7 @@
 const expect = require('chai').expect;
 const initialGlobalVars = Object.getOwnPropertyNames(global);
 
-describe('tests', () => {
+describe('small functions', () => {
     let Js;
     const isOdd = n => n % 2 === 1;
     const asc = (a, b) => (a < b) ? -1 : (b < a) ? 1 : 0;

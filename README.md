@@ -1,17 +1,25 @@
 # jtrain
 
-## dependencies
+### dependencies
 npm install
 
-## new tests
+### get new tests
+```
 git fetch upstream
 git merge upstream/master
+```
 
-## run tests
+### run tests
+```
+#Run all tests
 npm test
 
-## submit tests
-git push
+#Run only fns tests
+npm run fns
 
-# tictactoe
+#Run only tictactoe tests
 npm run tictactoe
+```
+
+### submit code
+git push
