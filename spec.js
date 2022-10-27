@@ -1079,6 +1079,26 @@ describe('small functions', () => {
         expect(counter.get).to.eql(0);
     });
 
+    it('SinglyLinkedList', () => {
+        const listHead = new Js.SinglyLinkedList(2);
+        listHead.add(3);
+        listHead.add(5);
+        listHead.add(0);
+
+        expect([
+            listHead.value,
+            listHead.next().value,
+            listHead.next().next().value,
+            listHead.next().next().next().value
+        ]).to.eql([2,3,5,0]);
+
+        expect(listHead.next().next().next().next()).to.eql(undefined);
+
+        expect(listHead).to.be.an.instanceof(Js.SinglyLinkedList);
+        expect(listHead.next()).to.be.an.instanceof(Js.SinglyLinkedList);
+        expect(listHead.next().next()).to.be.an.instanceof(Js.SinglyLinkedList);
+    });
+
     it('errors', () => {
         let fn = () => {
         };
