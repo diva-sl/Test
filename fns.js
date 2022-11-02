@@ -795,7 +795,7 @@ class SinglyLinkedList {
     }
 
     add(val) {
-        let newNode = new Node(val);
+        let newNode = new SinglyLinkedList(val);
         if (!this.next()) {
             this.next = () => newNode;
             return this.next();
