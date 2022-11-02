@@ -1,14 +1,11 @@
 const each = (array, fn) => {
-
     return array.forEach(fn);
 }
 
 
 const map = (array, fn) => {
     var result = [];
-    for (var i = 0; i < array.length; i++) {
-        result.push(fn(array[i]))
-    }
+    array.forEach(element => result.push(fn(element)));
     return result;
     // return array.map(fn);
 
@@ -16,57 +13,28 @@ const map = (array, fn) => {
 
 const sortBy = (array, fn) => {
 
-    // for (var i = 0; i < array.length - 1; i++) {
-    //     var val = i;
-    //     for (var j = i + 1; j < array.length; j++) {
-    //         if (fn(array[val], array[j]) < 0) {
-    //             val = val;
-    //         } else {
-    //             val = j;
-    //         }
+    var result = [...array];
 
-    //     }
-    //     if (val != i) {
-    //         var target = array[i];
-    //         array[i] = array[val];
-    //         array[val] = target;
-    //     }
-
-    // }
-
-    // return array;
-
-    for (var i = 0; i < array.length; i++) {
-
-        var val = array[i];
-
-        for (var j = i - 1; j >= 0 && fn(array[j], val) > 0; j--) {
-
-            array[j + 1] = array[j];
-
+    for (var i = 0; i < result.length; i++) {
+        var val = result[i];
+        for (var j = i - 1; j >= 0 && fn(result[j], val) > 0; j--) {
+            result[j + 1] = result[j];
         }
-
-        array[j + 1] = val;
-
+        result[j + 1] = val;
     }
-
-    return array;
-
+    return result;
     // return array.sort(fn);
-
 }
 
 const some = (array, fn) => {
-    for (var i = 0; i < array.length; i++) {
-        if (fn(array[i])) {
-            return true;
-            break;
+    var result;
+    array.filter((ele) => {
+        if (fn(ele)) {
+            result = true;
         }
-
-    }
-    return false;
+    });
+    return result != undefined;
     // return array.some(fn);
-
 }
 
 const keys = (obj) => {
@@ -76,221 +44,121 @@ const keys = (obj) => {
 }
 
 const every = (array, fn) => {
-
-    for (var i = 0; i < array.length; i++) {
-        if (!fn(array[i])) {
-            return false;
-            break;
+    let result;
+    array.filter(ele => {
+        if (!fn(ele)) {
+            result = false;
         }
 
-    }
-    return true;
-
+    });
+    return result == undefined;
     // return array.every(fn); 
 }
 
 const atleast2 = (array, fn) => {
     let result = 0;
-    for (var i = 0; i < array.length; i++) {
-        if (fn(array[i])) {
+    array.find(ele => {
+        if (fn(ele)) {
             result += 1;
         }
-
-    }
+    })
     return result >= 2;
-    //     array.some(ele => {
-    //         if(fn(ele)){
-    //           result +=1;
-    //         }
-
-    //     });
-    // return result>=2;
 
 }
 
 const everybut1 = (array, fn) => {
     let but1 = 0;
-    for (var i = 0; i < array.length; i++) {
-        if (!fn(array[i])) {
+    array.find(ele => {
+        if (!fn(ele)) {
             but1 += 1;
         }
-
-    }
+    })
     return but1 == 1;
-
-    // array.forEach(ele => {
-    //         if(!fn(ele)){
-    //           but1 +=1;
-    //         }
-
-    //     });
-    // return but1 == 1;
-
-
-}
-const padding = (x, y) => {
-    //   let pad = '';
-    //  for (var i=0;i<y-x.length;i++){
-    //         pad +=' ';
-    //  }
-    // return pad + x;
-    return x.padStart(y);
-
 }
 
-const intersection = (array1, array2) => {
+const padding = (x, y) => x.padStart(y);
 
-    // let result = [];
-    // array1.forEach(ele1 => {
-    //     array2.forEach(ele2 => {
-    //         if (ele1 == ele2){
-    //                 result.push(ele1);
-    //           }
-    //             })
-    // });
-
-    // return result;
-
-    const matching = array1.filter(ele => array2.includes(ele));
-    return matching;
-}
+const intersection = (array1, array2) => array1.filter(ele1 => array2.includes(ele1));
 
 const intersectionBy = (array1, array2, fn) => {
 
-    let changeArray = array2.map(ele => fn(ele));
-    let matchingBy = array1.filter(ele => changeArray.includes(fn(ele)));
-
-    // array1.filter(ele => {
-    //     array2.find(ele1 => {
-    //         if (fn(ele1) == fn(ele)) {
-    //             matchingBy.push(ele);
-    //         }
-    //     })
-    // });
-    return matchingBy;
-
-
+    let changeArray = array2.map(ele2 => fn(ele2));
+    return array1.filter(ele1 => changeArray.includes(fn(ele1)));
 }
 
 
-const zip = (...arrays) => {
+const zip = (...matrix) => {
     var output = [];
-    let row;
-    let firstArray = arrays[0];
-    // for(var i=0;i<arrays.length;i++){
-    //    var row = arrays[i];
-    //    var length = arrays[0].length;
-    //    for(var j=0;j<length;j++){
-    //     output[j] = output[j] || [];
-    //     output[j].push(row[j])
-    //    }
-
-    // }
-    // return output
-    [...arrays].forEach(array => {
-        row = array;
-        firstArray.forEach((element, index) => {
+    let firstArray = matrix[0];
+    matrix.forEach(row => {
+        firstArray.forEach((e, index) => {
             output[index] = output[index] || [];
             output[index].push(row[index]);
 
         })
     })
     return output
-
 }
 
 const reverse = (array) => {
     var result = [];
-    for (var i = array.length - 1; i >= 0; i--) {
-        result.push(array[i]);
-    }
+    array.forEach((element, index) => {
+        result[array.length - index - 1] = element;
+    });
     return result;
     // return array.reverse();
 }
 
-const filter = (arrObj, fn) => {
-    let result = [];
-    for (var i = 0; i < arrObj.length; i++) {
-        if (typeof fn == 'function' && fn(arrObj[i]) == true) {
-            result.push(arrObj[i]);
-        } else if (typeof fn == 'object' && fn.active == arrObj[i].active) {
-            result.push(arrObj[i]);
-        }
-    }
-    // return arrObj.filter(ele => {
-    //   if(typeof fn == 'function' && fn(ele) == true){
-    //        return [ele];
-    //   }else if(typeof fn == 'object' && fn.active == ele.active){
-    //        return [ele];
-    //   } 
-    // });
-    return result;
-}
-
-const merge = (obj1, obj2, obj3) => {
-
-    return {...obj1,
-        ...obj2,
-        ...obj3
-    }
-
-    // return Object.assign(obj1,obj2,obj3);
-    // return {objects};
-
-
-}
-
-const mergeDeep = (target, source) => {
-
-    for (const key in source) {
-        if (typeof source[key] == 'object') {
-            mergeDeep(target[key], source[key]);
-        } else {
-            if (target[key] != source[key]) {
-                Object.assign(target, {
-                    [key]: source[key]
-                });
+const filter = (arrObj, fnOrObj) => {
+    if (typeof fnOrObj === 'function') {
+        return arrObj.filter(fnOrObj);
+    } else {
+        let result = [];
+        arrObj.find(ele => {
+            if (fnOrObj.active == ele.active) {
+                result.push(ele);
             }
-        }
+        });
+        return result;
     }
-    return target
 }
 
-const superfunction1 = () => {
+const merge = (...objects) => objects.reduce((a, b) => {
+    return {...a,
+        ...b
+    }
+});
 
-    return () => 100;
+const mergeDeep = (...objects) => {
 
+    return objects.reduce((a, b) => {
+        Object.keys(b).forEach(key => {
+            const aVal = a[key];
+            const bVal = b[key];
+            if (typeof aVal == 'object' && typeof bVal == 'object') {
+                a[key] = mergeDeep(aVal, bVal);
+            } else {
+                a[key] = bVal;
+            }
+        });
+        return a;
+    }, {});
 }
 
-const superfunction2 = (value) => {
+const superfunction1 = () => () => 100;
 
-    return () => value;
-}
+const superfunction2 = (value) => () => value;
 
-const superfunction3 = (fn) => {
-    return fn;
+const superfunction3 = (fn) => fn;
 
-}
+const superfunction4 = (value) => () => value += 1;
 
-const superfunction4 = (value) => {
-
-    return () => value += 1;
-
-}
-
-const godFunction = (arr, exp) => {
-
-    return (a, b, c) => eval(exp);
-}
+const godFunction = (arr, exp) => new Function(arr, 'return ' + exp);
 
 
 const godFunction2 = (string, arr, exp) => {
 
-    // const god = 'const ' + string + '= (' + arr[0] + ',' + arr[1] + ') => { return ' + exp + ' ;}; return ' + string + ';'
-    //  return new Function(god)();    
-    return new Function('const ' + string + '= (' + arr[0] + ',' + arr[1] + ') => { return ' + exp + ' ;}; return ' + string + ';')();
-
-
+    return new Function(`function ${string}(${arr.join(",")}){ return  ${exp} ;}; return ${string}`)();
 }
 
 
@@ -314,23 +182,12 @@ const before = (x, y) => {
 
 const object1 = (x, y) => {
 
-    // return Object.create(
-    //     {
-    //         'name': x,
-    //         'age': y
-
-    //     })
-
     var object = {};
     object.name = x;
     object.age = y;
     return object
 }
 const object2 = (x, y) => {
-    // var obj = {}
-    // obj.getName =() => x;
-    // obj.getAge = () => y;
-    // return obj;
 
     return Object.create({
         getName: () => x,
@@ -395,18 +252,6 @@ class Man extends Person {
 
 const uniquee = (array) => {
 
-    // return [...new Set(array)];
-
-    // return array.filter((ele,idx) => array.indexOf(ele) === idx);
-
-    //    return array.reduce((acc,cur) => {
-    //       if(acc.indexOf(cur) === -1){
-    //         acc.push(cur);
-    //       }
-    //       return acc;
-
-    //    },[]); 
-
     var output = [];
 
     array.forEach(ele => {
@@ -423,10 +268,6 @@ const uniquee = (array) => {
 
 const uniqueeBy = (arrObj, fn) => {
 
-    // const result = arrObj.map(ele => fn(ele))
-    //     .map((ele, idx, arr) => arr.indexOf(ele) === idx && idx)
-    //     .filter(obj => arrObj[obj]).map(obj => arrObj[obj]);
-    // return result;
     var arr = [];
 
     return arrObj.filter((ele, idx, array) => {
@@ -497,12 +338,6 @@ const reuse4 = (arrObj, arr, cond) => {
 
 const chain = (arr1, arrfn) => {
 
-    // var result= arrfn.map((fn,idx,arrfn) => {
-    //        console.log(arrfn[idx][0](arr1,arrfn[idx][1]));
-    //        return arrfn[idx][0](arr1,arrfn[idx][1]);
-
-    // })   
-
     var value = arr1;
 
     for (var i = 0; i < arrfn.length; i++) {
@@ -510,16 +345,14 @@ const chain = (arr1, arrfn) => {
         value = arrfn[i][0](value, arrfn[i][1]);
 
     }
-
     return value;
 }
 
 const reduce = (arr, fn) => {
-    var result = arr[0];
-    for (var i = 0; i < arr.length - 1; i++) {
-        result = fn(result, arr[i + 1]);
-    }
-    return result;
+
+    return arr.reduce((a, b) => {
+        return a = fn(a, b);
+    })
 
 }
 
@@ -592,33 +425,16 @@ const superfunction5 = (array) => {
 
 const textacc = () => {
 
-    var str;
+    var strings = [];
 
     return (string) => {
-
-        if (string != undefined) {
-
-            if (str != undefined) {
-                str += '\n' + string;
-                return;
-            }
-
-            str = string;
+        if (string === undefined) {
+            let output = strings.join('\n');
+            strings.splice(0, strings.length);
+            return output;
+        } else {
+            strings.push(string);
         }
-
-        if (string == undefined) {
-
-            if (str != undefined) {
-
-                const str1 = str;
-                str = undefined;
-                return str1;
-
-            }
-        }
-
-        return '';
-
     }
 }
 
@@ -707,59 +523,48 @@ const saftynet = (fn) => {
 }
 
 const choose2 = (input, array) => {
-        let object = {};
-        var lastKeyIndex;
-        var key;
-        for (var i = 0; i < array.length; i++) {
-            var keys = array[i].split('.');
-            assign(object, keys, input);
-        }
+    let object = {};
+    var lastKeyIndex;
+    var key;
+    for (var i = 0; i < array.length; i++) {
+        var keys = array[i].split('.');
+        assign(object, keys, input);
+    }
 
-        function assign(obj, keys, o) {
+    function assign(obj, keys, o) {
 
-            lastKeyIndex = keys.length - 1;
+        lastKeyIndex = keys.length - 1;
 
-            for (var j = 0; j < keys.length; ++j) {
-                key = keys[j];
-                if (key in o) {
-                    o = o[key];
-                } else {
-                    return;
-                }
-
-                if (lastKeyIndex > j) {
-                    if (!(key in obj)) {
-                        if (isNaN(keys[j + 1])) {
-                            obj[key] = {}
-
-                        } else {
-                            obj[key] = []
-
-                        }
-                    }
-                    obj = obj[key];
-
-                }
+        for (var j = 0; j < keys.length; ++j) {
+            key = keys[j];
+            if (key in o) {
+                o = o[key];
+            } else {
+                return;
             }
 
-            obj[keys[lastKeyIndex]] = o;
+            if (lastKeyIndex > j) {
+                if (!(key in obj)) {
+                    if (isNaN(keys[j + 1])) {
+                        obj[key] = {}
 
+                    } else {
+                        obj[key] = []
+
+                    }
+                }
+                obj = obj[key];
+
+            }
         }
 
+        obj[keys[lastKeyIndex]] = o;
 
-        return object;
     }
-    // function nestedObjValue(o, keys) {
-    //     for (var j = 0; j < keys.length; ++j) {
-    //         var k = keys[j];
-    //         if (k in o) {
-    //             o = o[k];
-    //         } else {
-    //             return;
-    //         }
-    //     }
-    //     return o;
-    // }
+
+
+    return object;
+}
 
 const choose1 = (input, str) => {
     var key;
@@ -777,16 +582,6 @@ const choose1 = (input, str) => {
 
 
 }
-
-class Node {
-    constructor(value, next = undefined) {
-        this.value = value,
-            this.next = () => next;
-    }
-
-
-}
-
 
 class SinglyLinkedList {
     constructor(val) {
