@@ -778,6 +778,40 @@ const choose1 = (input, str) => {
 
 }
 
+class Node {
+    constructor(value, next = undefined) {
+        this.value = value,
+            this.next = () => next;
+    }
+
+
+}
+
+
+class SinglyLinkedList {
+    constructor(val) {
+        this.value = val,
+            this.next = () => undefined;
+    }
+
+    add(val) {
+        let newNode = new Node(val);
+        if (!this.next()) {
+            this.next = () => newNode;
+            return this.next();
+        }
+        let tail = this.next();
+        while (tail.next() !== undefined) {
+            tail = tail.next();
+        }
+        tail.next = () => newNode;
+        return this.next();
+    }
+
+}
+
+
+
 
 
 module.exports = {
@@ -842,7 +876,8 @@ module.exports = {
     counter3,
     saftynet,
     choose2,
-    choose1
+    choose1,
+    SinglyLinkedList
 
 }
 module.exports.me = module.exports
